@@ -7,7 +7,14 @@ import pandas as pd
 import matplotlib.pyplot as plt
 # 데이터 가져오는 라이브러리
 
+#민재님
 data=pd.read_csv("data/hs_30076_m08_0903_1356.csv", index_col=0, encoding="euc-kr")
+
+#예림님
+
+
+#효정님
+
 
 app = Flask(__name__)
 
