@@ -43,7 +43,7 @@ def wash():
 def activity():
     return render_template('activity.html')
 
-@app.route('/')
+@app.route('/hobby')
 def hobby():
     return render_template('hobby.html')
 
