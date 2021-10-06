@@ -16,11 +16,17 @@ data=pd.read_csv("data/hs_30076_m08_0903_1356.csv", index_col=0, encoding="euc-k
 #효정님
 
 
+
 app = Flask(__name__)
 
 @app.route('/')
 def home():
     return render_template('index.html')
+
+@app.route('/hello', methods=['GET'])
+def default():
+    hello="hello"
+    return jsonify({'result': 'success', 'hello': hello})
 
 @app.route('/search')
 def search():
@@ -55,5 +61,5 @@ def hobby():
     return render_template('hobby.html')
 
 
-
-app.run('0.0.0.0', port=5000, debug=True)
+if __name__ == '__main__':
+    app.run('0.0.0.0', port=5000, debug=True)
