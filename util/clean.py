@@ -1,18 +1,11 @@
 import cleanAverage
+import read_file as rf
 import numpy as np
 import pandas as pd
 #import matplotlib.pyplot as plt
 
-def read_file(id):
-    if(id > 30063):
-        file="../data/hs_"+str(id)+"_m08_0903_1356.csv"
-    else:
-        file="../data/hs_"+str(id)+"_m08_0903_1355.csv"
-    data=pd.read_csv(file, encoding="cp949")
-    return data
-
 def fresh(id):
-    data=read_file(id)
+    data=rf.read_file(id)
 
     list_fresh= []
     freshs= []
@@ -48,7 +41,7 @@ def fresh(id):
 
 
 def clean(id):
-    data=read_file(id)
+    data=rf.read_file(id)
 
     list_clean= []
     cleans= []
@@ -84,7 +77,7 @@ def clean(id):
     return average
 
 def wash(id):
-    data=read_file(id)
+    data=rf.read_file(id)
 
     list_washing= []
     washings= []
