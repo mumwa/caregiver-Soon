@@ -58,6 +58,7 @@
 
             font-weight: bold;
             font-size: 20px;
+            text-align: center;
 
             background-color: #4f2f00;
             color:white;
@@ -90,10 +91,10 @@
                 <img src="static/soon_hi.png" width="200px"></img>
                 <img src="static/title.png" width="180px"></img>
                 <div>
-                    <input placeholder="이름을 입력하세요"/>
+                    <input placeholder="아이디를 입력하세요"/>
                 </div>
                 <div>
-                    <button>조회</button>
+                    <button onclick="click()">조회</button>
                 </div>
             </div>
         </div>
@@ -101,7 +102,7 @@
 
     <script>
         function click(){
-            alert('클릭');
+            console.log('클릭');
         }
         function getHello() {
             $.ajax({
