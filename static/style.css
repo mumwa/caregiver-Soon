@@ -6,6 +6,11 @@ body {
 img {
     object-fit: cover;
 }
+.center_display{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
 .header{
     width:100%;
     max-width:360px;
