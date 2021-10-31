@@ -41,9 +41,9 @@ def wash():
 def activity():
     return render_template('activity.html')
 
-@app.route('/hobby')
+@app.route('/categories')
 def hobby():
-    return render_template('hobby.html')
+    return render_template('categories.html')
 
 
 if __name__ == '__main__':

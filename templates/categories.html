@@ -7,8 +7,8 @@
 
     <!-- <link rel="stylesheet" type="text/css" href="static/search_style.css"> -->
 
-    <link rel="stylesheet" href="static/style.css" type="text/css">
     <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="stylesheet" href="static/style.css" type="text/css">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap"
         rel="stylesheet">
 
@@ -17,8 +17,27 @@
         integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
         crossorigin="anonymous"></script>
 
-    <title>Hobby</title>
+    <title>Categories</title>
+    <link rel="stylesheet" href="static/categories.css">
     <style>
+        h2{
+            font-family: NanumGothic;
+            display: inline-block;
+            font-size: 18px;
+            font-weight: bold;
+            text-align: left;
+            color: rgb(44, 12, 0);
+            margin-right: 0%;
+        }
+        a{
+            margin-left: 150px;
+            text-align: right;
+        }
+        span{
+            display: inline;
+            margin-right: 0%;
+        }
+        
     </style>
 </head>
 
@@ -33,9 +52,30 @@
         </div>
     </div>
     <div class="container_wrapper">
-        <div class="container"></div>
+        <div class="container">
+            <div class="category">
+                <span><h2>취침시간</h2></span>
+                <a href="sleep.html" class="button"><span>A</span></a>
+                <br>
+            </div>
+            <div class="category">
+                <h2><span>식사시간</span></h2>
+                <a href="meal.html" class="button"><span>A</span></a>
+            </div>
+            <div class="category">
+                <h2><span>투약시간</span></h2>
+                <a href="medicine.html" class="button"><span>A</span></a>
+            </div>
+            <div class="category">
+                <h2><span>청결도</span></h2>
+                <a href="wash.html" class="button2"><span>A</span></a>
+            </div>
+            <div class="category">
+                <h2><span>외부활동성</span></h2>
+                <a href="activity.html" class="button3"><span>A</span></a>
+            </div>
+        </div>
     </div>
-
     <script>
         function getHello() {
             $.ajax({
