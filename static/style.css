@@ -9,7 +9,7 @@ img {
 .center_display{
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
 }
 .header{
     width:100%;
@@ -40,8 +40,11 @@ img {
     max-width:360px;
     height:100%;
     box-sizing: border-box;
+<<<<<<< HEAD
 
     background-color:pink;
+=======
+>>>>>>> b6e0d51c5705742d7ffdb2b92130ff9b0e657c22
 }
 .container_wrapper{
     width:100%;
