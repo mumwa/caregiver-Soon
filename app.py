@@ -1,21 +1,30 @@
 from flask import Flask, render_template, jsonify, request
 # from bson.objectid import ObjectId
 # 웹으로 작동하기 위한 라이브러리
+from util import search as find
 
 app = Flask(__name__)
 
 @app.route('/')
-def home():
-    return render_template('index.html')
+def search():
+    return render_template('search.html')
 
 @app.route('/hello', methods=['GET'])
 def default():
     hello="hello"
     return jsonify({'result': 'success', 'hello': hello})
 
-@app.route('/search')
-def search():
-    return render_template('search.html')
+@app.route('/home')
+def home():
+    return render_template('index.html')
+
+@app.route('/id', methods=['GET'])
+def find_id():
+    id=int(request.args["id"])
+    if(find.search(id)):
+        return ({'result': 'success', 'ids': '성공'})
+    else:
+        return ({'result': 'success', 'ids': '실패'})
 
 @app.route('/friendship')
 def friendship():
