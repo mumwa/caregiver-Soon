@@ -15,9 +15,10 @@ def read_file(id):
 def med(id):
     data=read_file(id)
 
-    list_med= []
-    time_med= []
-    meds= []
+    list_calendar = []
+    list_med = []
+    time_med = []
+    meds = []
 
     meds_boolean= data['State'].str.contains("기상 약 복용" | "복약" | "식후 약 복용").tolist()
     count=0
@@ -58,8 +59,21 @@ def med(id):
         sec=int(time[2])
         med_time = hour+min+sec
         time_med.append(med_time)
+    
+    daily = []
 
+    for i in len(list_med):
+        daily.append([])
+        for j in list_med[i].count():
+            daily[i].append(time_med[i+j])
 
+    #calculate daily AVERAGE
+    dailyAverage  = []
+    avg=0
+    for i in daily:
+        for j in daily[i]:
+            avg+=daily[i][j]
+        dailyAverage.append(avg)
 
 #dailyaverage = avg of whole day
 
