@@ -18,9 +18,41 @@
         crossorigin="anonymous"></script>
 
     <title>Friendship</title>
+    <link rel="stylesheet" href="static/Friendship.css">
 </head>
 
 <body>
+    <style>
+        img{
+            margin-right: 0%;
+            margin-bottom: 0%;
+            display:inline;
+            object-fit:scale-down;
+        }
+        h2{
+            font-family: NanumGothic;
+            font-size: 18px;
+            font-weight: bold;
+            text-align: left;
+            margin-top:15px;
+            margin-bottom: 0;
+            margin-right:0%;
+        }
+        p {
+            font-family: NanumGothic;
+            font-size: 50px;
+            font-weight: normal;
+            letter-spacing: -5px;
+            text-align: right;
+            color: var(--grapefruit);
+            margin: 0px;
+            margin-right: 5px;
+        }
+        span{
+            display: inline;
+            margin: 0%;
+        }
+    </style>
     <div class="header_wrapper">
         <div class="header">
             <img src="static/back.png" width="40">
@@ -31,7 +63,31 @@
         </div>
     </div>
     <div class="container_wrapper">
-        <div class="container"></div>
+        <div class="container">
+            <div class="title center_display">
+                <span>순이와의 소통지수</span>
+            </div>
+
+            <div class="total clearfix">
+                <img src="../static/soon_1.png" alt="순이얼굴" display="center_display" width="300px"> 
+            </div>
+
+            <div class="totalCategories">
+                <h2 style="color: #4f2f00;"><span>응답빈도</span></h2>
+                <p style="color: #ff4d4d;"><strong>10 </strong><span style="color: #4f2f00;"> / 15</span></p>
+            </div>
+
+            <div class="totalCategories">
+                <h2 style="color: #4f2f00;">응답길이</h2>
+                <p style="color: #ff4d4d;"><strong>12 </strong><span style="color: #4f2f00;"> / 15</span></p>
+            </div>
+
+            <div class="totalCategories">
+                <h2 style="color: #4f2f00;">대화참여도</h2>
+                <p style="color: #ff4d4d;"><strong>5 </strong><span style="color: #4f2f00;"> / 8</span></p>
+            </div>
+                
+        </div>
     </div>
     <script>
         function getHello() {
