@@ -19,25 +19,40 @@
 
     <title>Friendship</title>
     <link rel="stylesheet" href="static/Friendship.css">
+    <script>
+        function getParameterByName(name) {
+            name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]"); var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"), results = regex.exec(location.search); return results == null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+        }
+        const id = getParameterByName('id');
+        if (id == "") {
+            location.href = "/";
+        }
+        function goMain(){
+            const link = "/home?id=" + id;
+            location.href = link;
+        }
+    </script>
 </head>
 
 <body>
     <style>
-        img{
+        img {
             margin-right: 0%;
             margin-bottom: 0%;
-            display:inline;
-            object-fit:scale-down;
+            display: inline;
+            object-fit: scale-down;
         }
-        h2{
+
+        h2 {
             font-family: NanumGothic;
             font-size: 18px;
             font-weight: bold;
             text-align: left;
-            margin-top:15px;
+            margin-top: 15px;
             margin-bottom: 0;
-            margin-right:0%;
+            margin-right: 0%;
         }
+
         p {
             font-family: NanumGothic;
             font-size: 50px;
@@ -48,28 +63,29 @@
             margin: 0px;
             margin-right: 5px;
         }
-        span{
+
+        span {
             display: inline;
             margin: 0%;
         }
     </style>
     <div class="header_wrapper">
         <div class="header">
-            <img src="static/back.png" width="40">
-            <a class="center_display" href="/">
-                <img src="static/logo.png" height="40" >
+            <img src="static/back.png" width="40" onclick="goMain()" class="button">
+            <a class="center_display button" onclick="goMain()">
+                <img src="static/logo.png" height="40">
             </a>
             <img width="40"></img>
         </div>
     </div>
     <div class="container_wrapper">
         <div class="container">
-            <div class="title center_display">
+            <div class="title center_display" onclick="getHello()">
                 <span>순이와의 소통지수</span>
             </div>
 
             <div class="total clearfix">
-                <img src="../static/soon_1.png" alt="순이얼굴" display="center_display" width="300px"> 
+                <img src="../static/soon_1.png" alt="순이얼굴" display="center_display" width="300px">
             </div>
 
             <div class="totalCategories">
@@ -99,7 +115,7 @@
                         console.log(response);
                         const hello = response['hello'];
                         alert(hello);
-                        $('#box').append(`<h6>${hello}<h6>`);
+                        // $('#box').append(`<h6>${hello}<h6>`);
                     } else {
                         alert('프로필을 불러오지 못했습니다');
                     }

@@ -18,6 +18,23 @@
         crossorigin="anonymous"></script>
 
     <title>Wash</title>
+    <script>
+        function getParameterByName(name) {
+            name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]"); var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"), results = regex.exec(location.search); return results == null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+        }
+        const id = getParameterByName('id');
+        if (id == "") {
+            location.href = "/";
+        }
+        function goMain(){
+            const link = "/home?id=" + id;
+            location.href = link;
+        }
+        function goCategories(){
+            const link = "/categories?id=" + id;
+            location.href = link;
+        }
+    </script>
     <style>
         .title {
             color: #4f2f00;
@@ -28,33 +45,36 @@
         .gray {
             width: 100%-40px;
             border-radius: 10px;
-            background-color:rgba(196, 196, 196, 0.17);
+            background-color: rgba(196, 196, 196, 0.17);
             display: block;
             text-align: left;
             color: #4f2f00;
             font-size: 20px;
-            padding:20px;
-            
-        }
-        .yellow{
-            width: 100%;
-            border-radius: 10px;
-            background-color:rgba(255, 188, 16, 0.2);
-            display: block;
-            text-align: left;
-            color: #4f2f00;
-            font-size: 20px;
-            padding:20px;
-            
+            padding: 20px;
+
         }
 
-        .big_margin{
+        .yellow {
+            width: 100%;
+            border-radius: 10px;
+            background-color: rgba(255, 188, 16, 0.2);
+            display: block;
+            text-align: left;
+            color: #4f2f00;
+            font-size: 20px;
+            padding: 20px;
+
+        }
+
+        .big_margin {
             margin: 20px 0 0 0;
         }
-        .margin{
+
+        .margin {
             margin: 10px 0 0 0;
         }
-        .bold{
+
+        .bold {
             font-weight: bold;
         }
     </style>
@@ -63,8 +83,8 @@
 <body>
     <div class="header_wrapper">
         <div class="header">
-            <img src="static/back.png" width="40">
-            <a class="center_display" href="/">
+            <img src="static/back.png" width="40" onclick="goCategories()" class="button">
+            <a class="center_display button" onclick="goMain()">
                 <img src="static/logo.png" height="40">
             </a>
             <img width="40"></img>
@@ -99,7 +119,7 @@
 
                 </div>
                 <div class="big_margin" style="display: flex; align-items: start; justify-content: center;">
-                    <div style="margin: 0 10px;"><img src="static/soon_round.png" width="50px"/></div>
+                    <div style="margin: 0 10px;"><img src="static/soon_round.png" width="50px" /></div>
                     <div class="yellow">
                         생각처럼 맘이 말을 듣지 않아 돌아와 돌아와 돌아와 절반이 없는데 어떻게 하나로 살아
                     </div>

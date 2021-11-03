@@ -95,7 +95,7 @@
                 <img src="static/soon_hi.png" width="200px"></img>
                 <img src="static/title.png" width="180px"></img>
                 <div>
-                    <input placeholder="아이디를 입력하세요" id="id" name="id" />
+                    <input placeholder="아이디를 입력하세요" id="id" name="id" onkeyup="if(window.event.keyCode==13){search()}"/>
                 </div>
                 <div>
                     <button onclick="search()">조회</button>
@@ -113,10 +113,12 @@
             if (id != '') {
                 $.ajax({
                     type: "GET",
+                    url: "/find",
                     data: { id: id },
                     success: function (response) {
-                        if (response['ids'] == '성공') {
-                            alert('성공');
+                        if (response['ids'] == true) {
+                            const link = "/home?id=" + id;
+                            location.href = link;
                         } else {
                             alert('존재하지 않는 아이디입니다.');
                         }

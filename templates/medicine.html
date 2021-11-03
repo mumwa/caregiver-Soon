@@ -20,14 +20,31 @@
     <title>Medicine</title>
     <style>
     </style>
+    <script>
+        function getParameterByName(name) {
+            name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]"); var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"), results = regex.exec(location.search); return results == null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+        }
+        const id = getParameterByName('id');
+        if (id == "") {
+            location.href = "/";
+        }
+        function goMain(){
+            const link = "/home?id=" + id;
+            location.href = link;
+        }
+        function goCategories(){
+            const link = "/categories?id=" + id;
+            location.href = link;
+        }
+    </script>
 </head>
 
 <body>
     <div class="header_wrapper">
         <div class="header">
-            <img src="static/back.png" width="40">
-            <a class="center_display" href="/">
-                <img src="static/logo.png" height="40" >
+            <img src="static/back.png" width="40" onclick="goCategories()" class="button">
+            <a class="center_display button" onclick="goMain()">
+                <img src="static/logo.png" height="40">
             </a>
             <img width="40"></img>
         </div>

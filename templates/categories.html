@@ -19,8 +19,42 @@
 
     <title>Categories</title>
     <link rel="stylesheet" href="static/categories.css">
+    <script>
+        function getParameterByName(name) {
+            name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]"); var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"), results = regex.exec(location.search); return results == null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+        }
+        const id = getParameterByName('id');
+        if (id == "") {
+            location.href = "/";
+        }
+        function goMain(){
+            const link = "/home?id=" + id;
+            location.href = link;
+        }
+
+        function goWash(){
+            const link = "/wash?id=" + id;
+            location.href = link;
+        }
+        function goMedicine(){
+            const link = "/medicine?id=" + id;
+            location.href = link;
+        }
+        function goSleep(){
+            const link = "/sleep?id=" + id;
+            location.href = link;
+        }
+        function goMeal(){
+            const link = "/meal?id=" + id;
+            location.href = link;
+        }
+        function goActivity(){
+            const link = "/activity?id=" + id;
+            location.href = link;
+        }
+    </script>
     <style>
-        h2{
+        h2 {
             font-family: NanumGothic;
             display: inline-block;
             font-size: 18px;
@@ -29,50 +63,53 @@
             color: rgb(44, 12, 0);
             margin-right: 0%;
         }
-        a{
+
+        a {
             margin-left: 150px;
             text-align: right;
         }
-        span{
+
+        span {
             display: inline;
             margin-right: 0%;
         }
-        
     </style>
 </head>
 
 <body>
     <div class="header_wrapper">
         <div class="header">
-            <img src="static/back.png" width="40">
-            <a class="center_display" href="/">
-                <img src="static/logo.png" height="40" >
+            <img src="static/back.png" width="40" onclick="goMain()" class="button">
+            <a class="center_display button" onclick="goMain()">
+                <img src="static/logo.png" height="40">
             </a>
             <img width="40"></img>
         </div>
     </div>
     <div class="container_wrapper">
         <div class="container">
-            <div class="category">
-                <span><h2>취침시간</h2></span>
-                <a href="sleep.html" class="button"><span>A</span></a>
+            <div class="category button" onclick="goSleep()">
+                <span>
+                    <h2>취침시간</h2>
+                </span>
+                <a><span>A</span></a>
                 <br>
             </div>
-            <div class="category">
+            <div class="category button" onclick="goMeal()">
                 <h2><span>식사시간</span></h2>
-                <a href="meal.html" class="button"><span>A</span></a>
+                <a><span>A</span></a>
             </div>
-            <div class="category">
+            <div class="category button" onclick="goMedicine()">
                 <h2><span>투약시간</span></h2>
-                <a href="medicine.html" class="button"><span>A</span></a>
+                <a><span>A</span></a>
             </div>
-            <div class="category">
+            <div class="category button" onclick="goWash()">
                 <h2><span>청결도</span></h2>
-                <a href="wash.html" class="button2"><span>A</span></a>
+                <a><span>A</span></a>
             </div>
-            <div class="category">
+            <div class="category button" onclick="goActivity()">
                 <h2><span>외부활동성</span></h2>
-                <a href="activity.html" class="button3"><span>A</span></a>
+                <a><span>A</span></a>
             </div>
         </div>
     </div>

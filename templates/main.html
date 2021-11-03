@@ -16,29 +16,61 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
         integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
         crossorigin="anonymous"></script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 
     <title>Main</title>
     <style>
     </style>
+    <script>
+        function getParameterByName(name) {
+            name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]"); var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"), results = regex.exec(location.search); return results == null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+        }
+        const id = getParameterByName('id');
+        if (id == "") {
+            location.href = "/";
+        }
+        window.onload=()=>$('#name').append(`${id}님`);
+        function goFriendship(){
+            const link = "/friendship?id=" + id;
+            location.href = link;
+        }
+        function goStatus(){
+            const link = "/categories?id=" + id;
+            location.href = link;
+        }
+        function goMain(){
+            const link = "/home?id=" + id;
+            location.href = link;
+        }
+    </script>
 </head>
 
 <body>
     <div class="header_wrapper">
         <div class="header" style="align-items: center; justify-content: center;">
-            <a class="center_display" href="/">
-                <img src="static/logo.png" height="40"/>
+            <a class="center_display button" onclick="goMain()">
+                <img src="static/logo.png" height="40" />
             </a>
         </div>
     </div>
     <div class="container_wrapper" style="background-color: #ffffff;">
-        <div class="container center_display" style="background-color: #ffffff;">
-            <div style="width: 100%; height:500px; border-radius:10px; margin: 10px; background-color: #ffbc10; display:block; text-align: center; padding: 30px 0;">
-                <div style="color: #4f2f00; font-size: 30px; margin: 10px 0 0 0;">인순이님!</div>
-                <div style="color: #ffffff; font-weight: bold; font-size: 40px; margin: 10px 0 0 0;">잘하고<br/>있어요!</div>
-                <img src="static/soon_round.png" width="200" height="200"/>
+        <div class="container" style="background-color: #ffffff; text-align: center;">
+            <div
+                style="width: 95%; margin:0 2.5%; height:500px; border-radius:10px; background-color: #ffbc10; display:block; text-align: center; padding: 30px 0;" onclick="goStatus()">
+                <div style="color: #4f2f00; font-size: 30px; margin: 10px 0 0 0;" id="name"></div>
+                <div style="color: #ffffff; font-weight: bold; font-size: 40px; margin: 10px 0 0 0;">잘하고<br />있어요!</div>
+                <img src="static/soon_round.png" width="200" height="200" />
                 <div class="center_display" style="margin: 10px 0 0 0;">
                     <div style="color: #4f2f00; font-weight: bold; font-size: 60px;">56</div>
                     <div style="color: #ffffff; font-weight: bold; font-size: 50px;">점</div>
+                </div>
+            </div>
+            <div style="width: 95%; margin:20px 2.5%; height:80px; border-radius:10px; display: flex; align-items: center; color: #4f2f00; font-weight: bold; font-size: 20px;">
+                <div class="center_display button" style="border-radius:10px; background-color: #ffbc10; width: 48%; height: 100%; margin-right:2%; color: #4f2f00; font-weight: bold; font-size: 20px;" onclick="goFriendship()">
+                    <<순이 친밀도
+                </div>
+                <div class="center_display button" style="border-radius:10px; background-color: #ffbc10; width: 48%; height: 100%; margin-left:2%;" onclick="goStatus()">
+                    상태 확인>>
                 </div>
             </div>
         </div>
