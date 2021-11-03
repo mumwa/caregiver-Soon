@@ -10,6 +10,15 @@ app = Flask(__name__)
 def search():
     return render_template('search.html')
 
+@app.route('/find', methods=['GET'])
+def find_id():
+    id=int(request.args["id"])
+    if(find.search(id)):
+        ids=True
+    else:
+        ids=False
+    return jsonify({'result': 'success', 'ids': ids})
+
 @app.route('/hello', methods=['GET'])
 def default():
     hello="hello"
@@ -17,17 +26,7 @@ def default():
 
 @app.route('/home')
 def home():
-    return render_template('index.html')
-
-@app.route('/find', methods=['GET'])
-def find_id():
-    id=int(request.args["id"])
-    ids="what"
-    if(find.search(id)):
-        ids=True
-    else:
-        ids=False
-    return jsonify({'result': 'success', 'ids': ids})
+    return render_template('main.html')
 
 @app.route('/friendship')
 def friendship():

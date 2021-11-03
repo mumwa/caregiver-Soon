@@ -52,3 +52,7 @@ img {
 
     background:#eeeeee;
 }
+
+.button{
+    cursor: pointer;
+}

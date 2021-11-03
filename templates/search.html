@@ -116,10 +116,9 @@
                     url: "/find",
                     data: { id: id },
                     success: function (response) {
-                        const what =response['ids'];
-                        console.log(what);
                         if (response['ids'] == true) {
-                            alert('성공');
+                            const link = "/home?id=" + id;
+                            location.href = link;
                         } else {
                             alert('존재하지 않는 아이디입니다.');
                         }
