@@ -2,6 +2,7 @@ from flask import Flask, render_template, jsonify, request
 # from bson.objectid import ObjectId
 # 웹으로 작동하기 위한 라이브러리
 from util import search as find
+from util import total
 
 
 app = Flask(__name__)
@@ -22,6 +23,13 @@ def find_id():
 @app.route('/hello', methods=['GET'])
 def default():
     hello="hello"
+    return jsonify({'result': 'success', 'hello': hello})
+
+@app.route('/friends', methods=['GET'])
+def get_friend():
+    id=int(request.args["id"])
+    class1 = total.Sleep(id)
+    hello=class1.score_sleep
     return jsonify({'result': 'success', 'hello': hello})
 
 @app.route('/home')
