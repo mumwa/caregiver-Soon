@@ -3,6 +3,7 @@ from flask import Flask, render_template, jsonify, request
 # 웹으로 작동하기 위한 라이브러리
 from util import search as find
 
+
 app = Flask(__name__)
 
 @app.route('/')
@@ -18,13 +19,15 @@ def default():
 def home():
     return render_template('index.html')
 
-@app.route('/id', methods=['GET'])
+@app.route('/find', methods=['GET'])
 def find_id():
     id=int(request.args["id"])
+    ids="what"
     if(find.search(id)):
-        return ({'result': 'success', 'ids': '성공'})
+        ids=True
     else:
-        return ({'result': 'success', 'ids': '실패'})
+        ids=False
+    return jsonify({'result': 'success', 'ids': ids})
 
 @app.route('/friendship')
 def friendship():

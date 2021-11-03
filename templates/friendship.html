@@ -64,7 +64,7 @@
     </div>
     <div class="container_wrapper">
         <div class="container">
-            <div class="title center_display">
+            <div class="title center_display" onclick="getHello()">
                 <span>순이와의 소통지수</span>
             </div>
 
@@ -99,7 +99,7 @@
                         console.log(response);
                         const hello = response['hello'];
                         alert(hello);
-                        $('#box').append(`<h6>${hello}<h6>`);
+                        // $('#box').append(`<h6>${hello}<h6>`);
                     } else {
                         alert('프로필을 불러오지 못했습니다');
                     }
