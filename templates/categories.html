@@ -18,7 +18,7 @@
         crossorigin="anonymous"></script>
 
     <title>Categories</title>
-    <link rel="stylesheet" href="static/categories.css">
+    
     <script>
         function getParameterByName(name) {
             name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]"); var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"), results = regex.exec(location.search); return results == null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
@@ -53,27 +53,23 @@
             location.href = link;
         }
     </script>
+    <link rel="stylesheet" href="static/categories.css">
     <style>
         h2 {
-            font-family: NanumGothic;
+            font-family: Noto-Sans;
             display: inline-block;
-            font-size: 25%;
-            font-weight: bold;
+            font-size: 105%;
             text-align: left;
+            margin-top: 0%;
             color: rgb(44, 12, 0);
-            margin-right: 0%;
         }
 
         a {
             margin-left: 50%;
+            margin-right: 0%;
             text-align: right;
         }
 
-        span {
-            height:30%;
-            display: inline;
-            margin-right: 0%;
-        }
     </style>
 </head>
 
@@ -89,28 +85,25 @@
     </div>
     <div class="container_wrapper">
         <div class="container">
-            <div class="category button" onclick="goSleep()">
-                <span>
-                    <h2>취침시간</h2>
-                </span>
-                <a><span>A</span></a>
-                <br>
+            <div class="category" onclick="goSleep()">
+                <h2>취침시간</h2>
+                <div class="button"><a>A</a></div>
             </div>
-            <div class="category button" onclick="goMeal()">
-                <h2><span>식사시간</span></h2>
-                <a><span>A</span></a>
+            <div class="category" onclick="goMeal()">
+                <h2>식사시간</h2>
+                <div class="button"><a>A</a></div>
             </div>
-            <div class="category button" onclick="goMedicine()">
-                <h2><span>투약시간</span></h2>
-                <a><span>A</span></a>
+            <div class="category" onclick="goMedicine()">
+                <h2>투약시간</h2>
+                <div class="button"><a>A</a></div>
             </div>
-            <div class="category button" onclick="goWash()">
-                <h2><span>청결도</span></h2>
-                <a><span>A</span></a>
+            <div class="category" onclick="goWash()">
+                <h2>청결도</h2>
+                <div class="button"><a>A</a></div>
             </div>
-            <div class="category button" onclick="goActivity()">
-                <h2><span>외부활동성</span></h2>
-                <a><span>A</span></a>
+            <div class="category" onclick="goActivity()">
+                <h2>외부활동성</h2>
+                <div class="button"><a>A</a></div>
             </div>
         </div>
     </div>

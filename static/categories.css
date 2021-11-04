@@ -2,8 +2,8 @@
   width: 80%;
   max-width:310px;
   height: 80px;
-  margin: 4% 4% 3% 4%;
-  padding: 5% 5% 0% 5%;
+  margin: 3% 4% 3% 4%;
+  padding: 4% 3% 0% 5%;
   border-radius: 10px;
   background-color: #40d0e3;
   justify-content: center;
@@ -32,7 +32,9 @@
   font-weight: bold;
   text-align: right;
   color: #ffffffcc;
-  margin-right: 1%;
+  margin-top: -20%;
+  margin-right: 5%;
+  padding: -100% -100% -100% -100%;
 }
 
 .button2{
@@ -43,7 +45,9 @@
   text-align: right;
   color: #ffffffcc;
   margin-left: 10%;
-  margin-right: 1%;
+  margin-top: -20%;
+  margin-right: 5%;
+  padding: -100% -100% -100% -100%;
 }
 
 .button3{
@@ -54,5 +58,7 @@
   text-align: right;
   color: #ffffffcc;
   margin-left: 5%;
-  margin-right: 1%;
+  margin-top: -20%;
+  margin-right: 5%;
+  padding: -100% -100% -100% -100%;
 }
