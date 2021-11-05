@@ -77,4 +77,4 @@ def med(id):
 
 #dailyaverage = avg of whole day
 
-    return dailyAverage
+    return dailyAverage[len(dailyAverage)-1]

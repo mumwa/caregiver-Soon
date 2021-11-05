@@ -95,7 +95,7 @@
     <div class="center_display"
     style="width: 100%; background-color: #40D0E3; display: block; text-align: center; padding: 20px 0;">
     <div style="color: #4f2f00; font-weight: bold; font-size: 30px;">투약시간</div>
-    <div style="color: #ffffff; font-weight: bold; font-size: 100px;">점수</div>
+    <div style="color: #ffffff; font-weight: bold; font-size: 100px;">{{template_score}}</div>
 </div>
 <div class="container_wrapper" style="background-color: white;">
     <div class="container">
@@ -118,7 +118,7 @@
                     나의 일일 복용 간격
                 </div>
                 <div>
-                    null 시간
+                    {{template_time}} 시간
                 </div>
             </div>
             <div class="big_margin" style="display: flex; align-items: start; justify-content: center;">
@@ -133,7 +133,7 @@
             </div>
             <div class="gray margin">
                 <div class="bold">
-                    전체 평균 null %
+                    전체 평균 {{template_totalAverage}} %
                 </div>
                 <div>
                     잘 하고 있어요! 아자!
@@ -158,6 +158,49 @@
             $.ajax({
                 type: "GET",
                 url: "/hello",
+                data: {},
+                success: function (response) {
+                    if (response['result'] === 'success') {
+                        console.log(response);
+                        const hello = response['hello'];
+                        alert(hello);
+                        $('#box').append(`<h6>${hello}<h6>`);
+                    } else {
+                        alert('프로필을 불러오지 못했습니다');
+                    }
+                },
+                error: function (request, status, error) {
+                    console.log("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
+                }
+            })
+            
+        }
+
+        function medical_dose(){
+            $.ajax({
+                type: "POST",
+                url: "/medicine",
+                data: {},
+                success: function (response) {
+                    if (response['result'] === 'success') {
+                        console.log(response);
+                        const hello = response['hello'];
+                        alert(hello);
+                        $('#box').append(`<h6>${hello}<h6>`);
+                    } else {
+                        alert('프로필을 불러오지 못했습니다');
+                    }
+                },
+                error: function (request, status, error) {
+                    console.log("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
+                }
+            })
+        }
+
+        function medical_average(){
+            $.ajax({
+                type: "POST",
+                url: "/medicine",
                 data: {},
                 success: function (response) {
                     if (response['result'] === 'success') {
