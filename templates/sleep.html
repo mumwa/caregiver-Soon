@@ -18,8 +18,6 @@
         crossorigin="anonymous"></script>
 
     <title>Sleep</title>
-    <style>
-    </style>
     <script>
         function getParameterByName(name) {
             name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]"); var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"), results = regex.exec(location.search); return results == null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
@@ -37,6 +35,49 @@
             location.href = link;
         }
     </script>
+    <style>
+        .title {
+            color: #4f2f00;
+            font-weight: bold;
+            font-size: 20px;
+        }
+
+        .gray {
+            width: 100%-40px;
+            border-radius: 10px;
+            background-color: rgba(196, 196, 196, 0.17);
+            display: block;
+            text-align: left;
+            color: #4f2f00;
+            font-size: 20px;
+            padding: 20px;
+
+        }
+
+        .yellow {
+            width: 100%;
+            border-radius: 10px;
+            background-color: rgba(255, 188, 16, 0.2);
+            display: block;
+            text-align: left;
+            color: #4f2f00;
+            font-size: 20px;
+            padding: 20px;
+
+        }
+
+        .big_margin {
+            margin: 20px 0 0 0;
+        }
+
+        .margin {
+            margin: 10px 0 0 0;
+        }
+
+        .bold {
+            font-weight: bold;
+        }
+    </style>
 </head>
 
 <body>
@@ -49,29 +90,65 @@
             <img width="40"></img>
         </div>
     </div>
-    <div class="container_wrapper">
-        <div class="container"></div>
+    <div class="center_display"
+        style="width: 100%; background-color: #40D0E3; display: block; text-align: center; padding: 20px 0;">
+        <div style="color: #4f2f00; font-weight: bold; font-size: 30px;">취침시간</div>
+        <div style="color: #ffffff; font-weight: bold; font-size: 100px;">A</div>
+    </div>
+    <div class="container_wrapper" style="background-color: white;">
+        <div class="container">
+            <div style="padding:0 20px">
+                <div class="title big_margin">
+                    나의 주간 평균 청소 횟수
+                </div>
+                <div class="gray margin">
+                    <div class="bold">
+                        총 0회 00분
+                    </div>
+                    <div>
+                        잘 하고 있어요
+                    </div>
+                </div>
+                <div class="title big_margin">
+                    청소 현황
+                </div>
+                <div class="gray margin">
+
+                </div>
+                <div class="gray margin">
+
+                </div>
+                <div class="big_margin" style="display: flex; align-items: start; justify-content: center;">
+                    <div style="margin: 0 10px;"><img src="static/soon_round.png" width="50px" /></div>
+                    <div class="yellow">
+                        생각처럼 맘이 말을 듣지 않아 돌아와 돌아와 돌아와 절반이 없는데 어떻게 하나로 살아
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
     <script>
-        function getHello() {
-            $.ajax({
-                type: "GET",
-                url: "/hello",
-                data: {},
-                success: function (response) {
-                    if (response['result'] === 'success') {
-                        console.log(response);
-                        const hello = response['hello'];
-                        alert(hello);
-                        $('#box').append(`<h6>${hello}<h6>`);
-                    } else {
-                        alert('프로필을 불러오지 못했습니다');
+        function sleepFunc() {
+            let id = document.getElementById("id").value;
+            if(id != ""){
+                $.ajax({
+                    type: "GET",
+                    url: "/sleep",
+                    data: { id: id },
+                    success: function (response) {
+                        if (response['availableID']) {
+                            const link = "/sleep?id=" + id;
+                            location.href = link;
+                        } else {
+                            alert('프로필을 불러오지 못했습니다');
+                        }
+                    },
+                    error: function (request, status, error) {
+                        console.log("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
                     }
-                },
-                error: function (request, status, error) {
-                    console.log("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
-                }
-            })
+                })
+            }
+
         }
     </script>
 </body>
