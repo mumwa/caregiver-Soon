@@ -16,7 +16,7 @@ from util import outsideScore
 
 from util import social
 from util import socialAverage
-#from util import socialScore
+from util import socialScore
 
 from util import meal
 
