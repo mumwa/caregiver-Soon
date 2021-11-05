@@ -9,22 +9,6 @@
   justify-content: center;
 }
 
-.C {
-  width: 91px;
-  height: 155px;
-  flex-grow: 0;
-  margin: 0 39px 3px 330px;
-  font-family: NanumGothic;
-  font-size: 135px;
-  font-weight: bold;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: normal;
-  letter-spacing: normal;
-  text-align: center;
-  color: #ffffff;
-}
-
 .button{
   border: none;
   font-family: NanumGothic;

@@ -37,6 +37,49 @@
             location.href = link;
         }
     </script>
+    <style>
+        .title {
+            color: #4f2f00;
+            font-weight: bold;
+            font-size: 20px;
+        }
+
+        .gray {
+            width: 100%-40px;
+            border-radius: 10px;
+            background-color: rgba(196, 196, 196, 0.17);
+            display: block;
+            text-align: left;
+            color: #4f2f00;
+            font-size: 20px;
+            padding: 20px;
+
+        }
+
+        .yellow {
+            width: 100%;
+            border-radius: 10px;
+            background-color: rgba(255, 188, 16, 0.2);
+            display: block;
+            text-align: left;
+            color: #4f2f00;
+            font-size: 20px;
+            padding: 20px;
+
+        }
+
+        .big_margin {
+            margin: 20px 0 0 0;
+        }
+
+        .margin {
+            margin: 10px 0 0 0;
+        }
+
+        .bold {
+            font-weight: bold;
+        }
+    </style>
 </head>
 
 <body>
@@ -49,9 +92,54 @@
             <img width="40"></img>
         </div>
     </div>
-    <div class="container_wrapper">
-        <div class="container"></div>
+    <div class="center_display"
+    style="width: 100%; background-color: #40D0E3; display: block; text-align: center; padding: 20px 0;">
+    <div style="color: #4f2f00; font-weight: bold; font-size: 30px;">투약시간</div>
+    <div style="color: #ffffff; font-weight: bold; font-size: 100px;">점수</div>
+</div>
+<div class="container_wrapper" style="background-color: white;">
+    <div class="container">
+        <div style="padding:0 20px">
+
+            <div class="title big_margin">
+                나의 일일 복용
+            </div>
+
+            <div class="gray margin">
+                <div class="bold">
+                    권장 복용 간격
+                    <strong>4-6시간</strong>
+                </div>
+                <div>
+                    나의 일일 복용 간격
+                    <strong>null 시간</strong>
+                </div>
+            </div>
+            <div class="big_margin" style="display: flex; align-items: start; justify-content: center;">
+                <div style="margin: 0 10px;"><img src="static/soon_round.png" width="50px" /></div>
+                <div class="yellow">
+                    사용자 님, 약을 먹는 건 좋지만, 복용간격니 일정할 수록 좋답니다!
+                </div>
+            </div>
+
+            <div class="title big_margin">
+                나의 복용 현황
+            </div>
+            <div class="gray margin">
+
+            </div>
+            <div class="gray margin">
+
+            </div>
+            <div class="big_margin" style="display: flex; align-items: start; justify-content: center;">
+                <div style="margin: 0 10px;"><img src="static/soon_round.png" width="50px" /></div>
+                <div class="yellow">
+                    생각처럼 맘이 말을 듣지 않아 돌아와 돌아와 돌아와 절반이 없는데 어떻게 하나로 살아
+                </div>
+            </div>
+        </div>
     </div>
+</div>
 
     <script>
         function getHello() {
