@@ -10,7 +10,7 @@ import datetime as dt
 from dateutil.parser import parse
 import math
 
-user_data = pd.read_csv("util/user_profile.csv", encoding="euc-kr")
+user_data = pd.read_csv("util/user_profile.csv", encoding="cp949")
 IDs = user_data["id"].values.tolist()
 
 list_days = []

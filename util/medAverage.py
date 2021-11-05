@@ -2,7 +2,7 @@ from util import med
 import numpy as np
 import pandas as pd
 
-user_data = pd.read_csv("util/user_profile.csv", encoding="euc-kr")
+user_data = pd.read_csv("util/user_profile.csv", encoding="cp949")
 IDs = user_data["id"].values.tolist()
 
 

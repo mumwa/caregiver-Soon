@@ -42,3 +42,24 @@ def get_fresh_grade(id):
         return "A"
     else:
         return "Wrong"
+
+def get_grade(id):
+    count_alert=0
+    if(get_clean_grade(id)=="Alert"):
+        count_alert=count_alert+1
+    if(get_fresh_grade(id)=="Alert"):
+        count_alert=count_alert+1
+    if(get_wash_grade(id)=="Alert"):
+        count_alert=count_alert+1
+
+    if(count_alert<=1):
+        return "A"
+    elif(count_alert==2):
+        return "B"
+    elif(count_alert==3):
+        return "C"
+    else:
+        return "Wrong"
+        
+
+

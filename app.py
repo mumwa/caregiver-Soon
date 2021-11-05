@@ -80,7 +80,11 @@ def wash():
 @app.route('/get_wash', methods=['GET'])
 def get_wash():
     id=int(request.args["id"])
-    return jsonify({'result': 'success', 'clean': clean.clean(id), 'wash':clean.wash(id), 'fresh':clean.fresh(id), })
+    get_clean_average=cleanAverage.all_clean()
+    get_wash_average=int(cleanAverage.all_wash())
+    get_fresh_average=cleanAverage.all_fresh()
+    grade=cleanScore.get_grade(id)
+    return jsonify({'result': 'success', 'clean': clean.clean(id), 'wash':clean.wash(id), 'fresh':clean.fresh(id), 'cleanAverage':get_clean_average, 'washAverage':get_wash_average, 'freshAverage':get_fresh_average, 'grade':grade})
 
 @app.route('/activity')
 def activity():

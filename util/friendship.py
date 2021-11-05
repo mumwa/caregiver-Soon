@@ -230,7 +230,7 @@ if p_resp_prop[indx] > avg_p_resp: # 특정 키워드 평가
 if p_resp_prop[indx] >= 0.5:
     score += 0.5
     
-print("Your score is " + str(score))
+#print("Your score is " + str(score))
 
 
 # In[ ]:
