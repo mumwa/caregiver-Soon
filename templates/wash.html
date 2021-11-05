@@ -34,6 +34,7 @@
             const link = "/categories?id=" + id;
             location.href = link;
         }
+
     </script>
     <style>
         .title {
@@ -98,7 +99,7 @@
     <div class="container_wrapper" style="background-color: white;">
         <div class="container">
             <div style="padding:0 20px">
-                <div class="title big_margin">
+                <div class="title big_margin" onclick="getWash()">
                     나의 주간 평균 청소 횟수
                 </div>
                 <div class="gray margin">
@@ -141,6 +142,23 @@
                         $('#box').append(`<h6>${hello}<h6>`);
                     } else {
                         alert('프로필을 불러오지 못했습니다');
+                    }
+                },
+                error: function (request, status, error) {
+                    console.log("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
+                }
+            })
+        }
+        function getWash() {
+            $.ajax({
+                type: "GET",
+                url: "/get_wash",
+                data: {id:id},
+                success: function (response) {
+                    if (response['result'] === 'success') {
+                        console.log(response);
+                    } else {
+                        alert('정보를 불러오지 못했습니다');
                     }
                 },
                 error: function (request, status, error) {

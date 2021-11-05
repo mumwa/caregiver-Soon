@@ -1,5 +1,5 @@
-import cleanAverage
-import clean
+from util import cleanAverage
+from util import clean
 
 def get_clean_grade(id):
     b=clean.clean(int(id))

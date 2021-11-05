@@ -1,8 +1,8 @@
-import social
+from util import social
 import numpy as np
 import pandas as pd
 
-user_data = pd.read_csv("user_profile.csv", encoding="euc-kr")
+user_data = pd.read_csv("util/user_profile.csv", encoding="euc-kr")
 IDs = user_data["id"].values.tolist()
 
 def all_social():

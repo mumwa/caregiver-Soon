@@ -1,5 +1,5 @@
-import social
-import socialAverage
+from util import social
+from util import socialAverage
 
 
 def social_score():

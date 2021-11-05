@@ -10,7 +10,7 @@ import datetime as dt
 from dateutil.parser import parse
 import math
 
-user_data = pd.read_csv("C:/Users/minjae/Desktop/lifelog/user_profile.csv")
+user_data = pd.read_csv("util/user_profile.csv")
 IDs = user_data["id"].values.tolist()
 
 list_days = []
@@ -38,9 +38,9 @@ p_resp_prop = [] # 긍정적 등 특별 응답
 for ID in IDs:
     ID_to_index.append(ID)
     if(ID > 30063):
-        df = pd.read_csv("C:/Users/minjae/Desktop/lifelog/hs_g73_m08/hs_"+str(ID)+"_m08_0903_1356.csv",encoding="cp949")
+        df = pd.read_csv("../data/hs_"+str(ID)+"_m08_0903_1356.csv",encoding="cp949")
     else:
-        df = pd.read_csv("C:/Users/minjae/Desktop/lifelog/hs_g73_m08/hs_"+str(ID)+"_m08_0903_1355.csv",encoding="cp949")
+        df = pd.read_csv("../data/hs_"+str(ID)+"_m08_0903_1355.csv",encoding="cp949")
     
     df["index"] = range(0,len(df))
     

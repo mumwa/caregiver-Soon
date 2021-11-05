@@ -63,9 +63,9 @@ p_resp_prop = []
 for ID in IDs:
     ID_to_index.append(ID)
     if(ID > 30063):
-        df = pd.read_csv("data/hs_g73_m08/hs_"+str(ID)+"_m08_0903_1356.csv",encoding="cp949")
+        df = pd.read_csv("../data/hs_"+str(ID)+"_m08_0903_1356.csv",encoding="cp949")
     else:
-        df = pd.read_csv("data/hs_g73_m08/hs_"+str(ID)+"_m08_0903_1355.csv",encoding="cp949")
+        df = pd.read_csv("../data/hs_"+str(ID)+"_m08_0903_1355.csv",encoding="cp949")
     
     df["index"] = range(0,len(df))
     
