@@ -34,83 +34,6 @@
             const link = "/categories?id=" + id;
             location.href = link;
         }
-
-        function getSleep() {
-            $.ajax({
-                type: "GET",
-                url: "/sleep",
-                data: { id: id },
-                success: function (response) {
-                    if (response['availableID'] == true) {
-                        // const link = "/sleep?id=" + id;
-                        // location.href = link;
-                        const score_sleep = response['score_sleep'];
-                        const avg_sleep = response['avg_sleep'];
-                        const fb_amount_of_sleep = response['fb_amount_of_sleep'];
-                        const fb_nap = response['fb_nap'];
-                        const fb_wakeup = response['fb_wakeup'];
-                        const fb_gotobed = response['fb_gotobed'];
-
-                        // 등급
-                        const alp_grade = "";
-                        if(score_sleep <= 1){
-                            alp_grade = "C";
-                            grade_div.style.backgroundColor = "#FF4D4D";
-                        }else if(score_sleep <= 3){
-                            alp_grade = "B";
-                            grade_div.style.backgroundColor = "#FFBC10";
-                        }else if(score_sleep <= 5){
-                            alp_grade = "A";
-                            grade_div.style.backgroundColor = "#40D0E3";
-                        }else{
-                            alp_grade = "C";
-                            grade_div.style.backgroundColor = "#ffffff";
-                        }
-                        $('#grade').append(`${alp_grade}`);
-
-                        // 수면량 조절
-                        if(fb_amount_of_sleep < 0){
-                            
-                        }else if(fb_amount_of_sleep > 0){
-
-                        }
-
-                        // 낮잠량 조절
-                        if(fb_nap > 0){
-
-                        }
-                        
-                        // 수면장애
-                        if(fb_wakeup > 0){
-                            // 지난 XX일 동안 'fb_wakeup'번의 수면장애를 겪었어요~
-                        }
-                        
-                        // 취침시각
-                        if(fb_gotobed > 0){
-                            if(fb_gotobed < 60){
-                                // 조금만 일찍
-                            }else if(fb_gotobed < 120){
-                                // 1시간 일찍
-                            }else if(fb_gotobed < 180){
-                                // 2시간 일찍
-                            }else if(fb_gotobed < 240){
-                                // 3시간 일찍
-                            }else{
-                                //너무 늦게 잠
-                            }
-                        }
-
-                    } else {
-                        alert('프로필을 불러오지 못했습니다');
-                    }
-                },
-                error: function (request, status, error) {
-                    console.log("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
-                }
-            })
-        }
-        
-        window.onload = getSleep();
     </script>
     <style>
         .title {
@@ -205,28 +128,83 @@
         </div>
     </div>
     <script>
-        function sleepFunc() {
-            let id = document.getElementById("id").value;
-            if(id != ""){
-                $.ajax({
-                    type: "GET",
-                    url: "/sleep",
-                    data: { id: id },
-                    success: function (response) {
-                        if (response['availableID']) {
-                            const link = "/sleep?id=" + id;
-                            location.href = link;
-                        } else {
-                            alert('프로필을 불러오지 못했습니다');
-                        }
-                    },
-                    error: function (request, status, error) {
-                        console.log("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
-                    }
-                })
-            }
+        function getSleep() {
+            $.ajax({
+                type: "GET",
+                url: "/get_sleep",
+                data: { id: id },
+                success: function (response) {
+                    console.log(response['availableID']);
+                    if (response['availableID'] == true) {
+                        // const link = "/sleep?id=" + id;
+                        // location.href = link;
+                        const score_sleep = response['score_sleep'];
+                        const avg_sleep = response['avg_sleep'];
+                        const fb_amount_of_sleep = response['fb_amount_of_sleep'];
+                        const fb_nap = response['fb_nap'];
+                        const fb_wakeup = response['fb_wakeup'];
+                        const fb_gotobed = response['fb_gotobed'];
 
+                        // 등급
+                        const alp_grade = "";
+                        if(score_sleep <= 1){
+                            alp_grade = "C";
+                            grade_div.style.backgroundColor = "#FF4D4D";
+                        }else if(score_sleep <= 3){
+                            alp_grade = "B";
+                            grade_div.style.backgroundColor = "#FFBC10";
+                        }else if(score_sleep <= 5){
+                            alp_grade = "A";
+                            grade_div.style.backgroundColor = "#40D0E3";
+                        }else{
+                            alp_grade = "C";
+                            grade_div.style.backgroundColor = "#ffffff";
+                        }
+                        $('#grade').append(`${alp_grade}`);
+
+                        // 수면량 조절
+                        if(fb_amount_of_sleep < 0){
+                            
+                        }else if(fb_amount_of_sleep > 0){
+
+                        }
+
+                        // 낮잠량 조절
+                        if(fb_nap > 0){
+
+                        }
+                        
+                        // 수면장애
+                        if(fb_wakeup > 0){
+                            // 지난 XX일 동안 'fb_wakeup'번의 수면장애를 겪었어요~
+                        }
+                        
+                        // 취침시각
+                        if(fb_gotobed > 0){
+                            if(fb_gotobed < 60){
+                                // 조금만 일찍
+                            }else if(fb_gotobed < 120){
+                                // 1시간 일찍
+                            }else if(fb_gotobed < 180){
+                                // 2시간 일찍
+                            }else if(fb_gotobed < 240){
+                                // 3시간 일찍
+                            }else{
+                                //너무 늦게 잠
+                            }
+                        }
+
+                    } else {
+                        alert('프로필을 불러오지 못했습니다');
+                    }
+                },
+                error: function (request, status, error) {
+                    console.log("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
+                }
+            })
         }
+        
+        window.onload = getSleep();
     </script>
 </body>
 

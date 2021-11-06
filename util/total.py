@@ -9,6 +9,7 @@ import pandas as pd
 import datetime as dt
 from dateutil.parser import parse
 import math
+from util import read_file as rf
 
 user_data = pd.read_csv("util/user_profile.csv")
 IDs = user_data["id"].values.tolist()
@@ -63,9 +64,9 @@ p_resp_prop = []
 for ID in IDs:
     ID_to_index.append(ID)
     if(ID > 30063):
-        df = pd.read_csv("../data/hs_"+str(ID)+"_m08_0903_1356.csv",encoding="cp949")
+        df = pd.read_csv("data/hs_"+str(ID)+"_m08_0903_1356.csv",encoding="cp949")
     else:
-        df = pd.read_csv("../data/hs_"+str(ID)+"_m08_0903_1355.csv",encoding="cp949")
+        df = pd.read_csv("data/hs_"+str(ID)+"_m08_0903_1355.csv",encoding="cp949")
     
     df["index"] = range(0,len(df))
     
@@ -204,7 +205,7 @@ for ID in IDs:
         list_avg_nap.append(np.mean(nap_time))
     
     # 식사
-        b_df = df[(df['Act'].str.contains("아침식사"))] 
+    b_df = df[(df['Act'].str.contains("아침식사"))] 
     l_df = df[(df['Act'].str.contains("점심식사"))] 
     d_df = df[(df['Act'].str.contains("저녁식사"))] 
     s_df = df[(df['Act'].str.contains("간식"))]
