@@ -57,6 +57,12 @@ def get_friend():
 def home():
     return render_template('main.html')
 
+@app.route('/alert')
+def get_alert():
+    id=int(request.args["id"])
+    is_emergency=emergency.emergency(id)
+    return jsonify({'result': 'success', 'emergency': is_emergency})
+
 @app.route('/friendship')
 def friendship_page():
     return render_template('friendship.html')
@@ -108,11 +114,17 @@ def wash():
 @app.route('/get_wash', methods=['GET'])
 def get_wash():
     id=int(request.args["id"])
-    get_clean_average=cleanAverage.all_clean()
-    get_wash_average=int(cleanAverage.all_wash())
-    get_fresh_average=cleanAverage.all_fresh()
+
+    get_clean_average=round(cleanAverage.all_clean(),2)
+    get_wash_average=round(cleanAverage.all_wash(),2)
+    get_fresh_average=round(cleanAverage.all_fresh(),2)
+
     grade=cleanScore.get_grade(id)
-    return jsonify({'result': 'success', 'clean': clean.clean(id), 'wash':clean.wash(id), 'fresh':clean.fresh(id), 'cleanAverage':get_clean_average, 'washAverage':get_wash_average, 'freshAverage':get_fresh_average, 'grade':grade})
+
+    get_clean_score=cleanScore.get_clean_grade(id)
+    get_wash_score=cleanScore.get_wash_grade(id)
+    get_fresh_score=cleanScore.get_fresh_grade(id)
+    return jsonify({'result': 'success', 'clean': round(clean.clean(id),2), 'wash':round(clean.wash(id),2), 'fresh':round(clean.fresh(id),2), 'cleanAverage':get_clean_average, 'washAverage':get_wash_average, 'freshAverage':get_fresh_average, 'grade':grade, 'cleanGrade':get_clean_score, 'washGrade':get_wash_score,'freshGrade':get_fresh_score})
 
 @app.route('/activity')
 def activity():
