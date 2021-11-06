@@ -57,6 +57,12 @@ def get_friend():
 def home():
     return render_template('main.html')
 
+@app.route('/alert')
+def get_alert():
+    id=int(request.args["id"])
+    is_emergency=emergency.emergency(id)
+    return jsonify({'result': 'success', 'emergency': is_emergency})
+
 @app.route('/friendship')
 def friendship_page():
     return render_template('friendship.html')
