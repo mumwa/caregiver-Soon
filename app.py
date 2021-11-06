@@ -73,7 +73,7 @@ def get_sleep():
     availableID = False
     if(find.search(id)):
         availableID = True
-    return jsonify({'result': 'success', 'availableID': availableID, 'score_sleep': sleep_result.score_sleep, 'avg_sleep': sleep_result.avg_sleep,'fb_amount_of_sleep':sleep_result.fb_amount_of_sleep, 'fb_nap':sleep_result.fb_nap, 'fb_day':sleep_result.fb_day,'fb_wakeup':sleep_result.fb_wakeup, 'fb_gotobed':sleep_result.fb_gotobed})
+    return jsonify({'result': 'success', 'availableID': availableID, 'score_sleep': sleep_result.score_sleep, 'avg_sleep': sleep_result.avg_sleep, 'avg_gotobed': sleep_result.avg_gotobed,'fb_amount_of_sleep':sleep_result.fb_amount_of_sleep, 'fb_nap':sleep_result.fb_nap, 'fb_day':sleep_result.fb_day,'fb_wakeup':sleep_result.fb_wakeup, 'fb_gotobed':sleep_result.fb_gotobed})
 
 @app.route('/meal')
 def meal():

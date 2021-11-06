@@ -63,11 +63,7 @@ p_resp_prop = []
 
 for ID in IDs:
     ID_to_index.append(ID)
-    if(ID > 30063):
-        df = pd.read_csv("data/hs_"+str(ID)+"_m08_0903_1356.csv",encoding="cp949")
-    else:
-        df = pd.read_csv("data/hs_"+str(ID)+"_m08_0903_1355.csv",encoding="cp949")
-    
+    df = rf.read_file(ID)
     df["index"] = range(0,len(df))
     
     # 일수 계산
@@ -386,6 +382,7 @@ class Sleep:
     indx = 0
     score_sleep = 5
     avg_sleep = 0
+    avg_gotobed = 0
     fb_amount_of_sleep = 0 
     fb_nap = 0 
     fb_day = 0 
@@ -396,7 +393,8 @@ class Sleep:
         self.userID = user_ID
         self.indx = ID_to_index.index(user_ID)
         self.avg_sleep = list_avg_sleep[self.indx]
-
+        self.avg_gotobed = list_time_sleep[self.indx]
+        
         if(list_avg_sleep[self.indx] < 6*3600): 
             self.score_sleep -= 1
             self.fb_amount_of_sleep = math.ceil((6*3600 - list_avg_sleep[self.indx])/10)*10 

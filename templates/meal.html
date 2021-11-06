@@ -99,29 +99,27 @@
         <div class="container">
             <div style="padding:0 20px">
                 <div class="title big_margin">
-                    나의 주간 평균 청소 횟수
-                </div>
-                <div class="gray margin">
-                    <div class="bold">
-                        총 0회 00분
-                    </div>
-                    <div>
-                        잘 하고 있어요
-                    </div>
-                </div>
-                <div class="title big_margin">
-                    청소 현황
-                </div>
-                <div class="gray margin">
-
-                </div>
-                <div class="gray margin">
-
+                    식사 횟수
                 </div>
                 <div class="big_margin" style="display: flex; align-items: start; justify-content: center;">
                     <div style="margin: 0 10px;"><img src="static/soon_round.png" width="50px" /></div>
-                    <div class="yellow">
-                        생각처럼 맘이 말을 듣지 않아 돌아와 돌아와 돌아와 절반이 없는데 어떻게 하나로 살아
+                    <div class="yellow" id="fb_num_meal">
+                    </div>
+                </div>
+                <div class="title big_margin">
+                    식사 규칙성
+                </div>
+                <div class="big_margin" style="display: flex; align-items: start; justify-content: center;">
+                    <div style="margin: 0 10px;"><img src="static/soon_round.png" width="50px" /></div>
+                    <div class="yellow" id="fb_rg_meal">
+                    </div>
+                </div>
+                <div class="title big_margin">
+                    간식, 야식, 간편식
+                </div>
+                <div class="big_margin" style="display: flex; align-items: start; justify-content: center;">
+                    <div style="margin: 0 10px;"><img src="static/soon_round.png" width="50px" /></div>
+                    <div class="yellow" id="fb_snack_and_fastfood">
                     </div>
                 </div>
             </div>
@@ -135,29 +133,29 @@
                 url: "/get_meal",
                 data: { id : id },
                 success: function (response) {
-                    console.log(response['score_meal']);
+                    console.log(response);
                     if (response['availableID'] == true) {
                         // const link = "/meal?id=" + id;
                         // location.href = link;
-                        const score_meal = response['score_meal'];
-                        const fb_num_bf = response['fb_num_bf'];
-                        const fb_num_lun = response['fb_num_lun'];
-                        const fb_num_din = response['fb_num_din'];
-                        const fb_time_bf_early = response['fb_time_bf_early'];
-                        const fb_time_bf_late = response['fb_time_bf_late'];
-                        const fb_time_lun_early = response['fb_time_lun_early'];
-                        const fb_time_lun_late = response['fb_time_lun_late'];
-                        const fb_time_din_early = response['fb_time_din_early'];
-                        const fb_time_din_late = response['fb_time_din_late'];
-                        const fb_rg_bf = response['fb_rg_bf'];
-                        const fb_rg_lun = response['fb_rg_lun'];
-                        const fb_rg_din = response['fb_rg_din'];
-                        const fb_snack = response['fb_snack'];
-                        const fb_n_snack = response['fb_n_snack'];
-                        const fb_fastfood = response['fb_fastfood'];
+                        var score_meal = response['score_meal'];
+                        var fb_num_bf = response['fb_num_bf'];
+                        var fb_num_lun = response['fb_num_lun'];
+                        var fb_num_din = response['fb_num_din'];
+                        var fb_time_bf_early = response['fb_time_bf_early'];
+                        var fb_time_bf_late = response['fb_time_bf_late'];
+                        var fb_time_lun_early = response['fb_time_lun_early'];
+                        var fb_time_lun_late = response['fb_time_lun_late'];
+                        var fb_time_din_early = response['fb_time_din_early'];
+                        var fb_time_din_late = response['fb_time_din_late'];
+                        var fb_rg_bf = response['fb_rg_bf'];
+                        var fb_rg_lun = response['fb_rg_lun'];
+                        var fb_rg_din = response['fb_rg_din'];
+                        var fb_snack = response['fb_snack'];
+                        var fb_n_snack = response['fb_n_snack'];
+                        var fb_fastfood = response['fb_fastfood'];
                         
                         // 등급
-                        const alp_grade = "";
+                        var alp_grade = "";
                         if(score_meal <= 2){
                             alp_grade = "C";
                             grade_div.style.backgroundColor = "#FF4D4D";
@@ -175,15 +173,31 @@
 
                         // 식사 횟수
                         if(fb_num_bf || fb_num_lun || fb_num_din){
-                            
+                            var tmp_str = "";
+                            if(fb_num_bf){
+                                tmp_str += "아침,";
+                            }else if(fb_num_lun){
+                                tmp_str += "점심,";
+                            }else if(fb_num_din){
+                                tmp_str += "저녁,";
+                            }
+                            tmp_str = tmp_str.slice(0,-1);
+                            $('#fb_num_meal').append(`${tmp_str} 식사를 잘 거르시는 것 같아요. 식사는 생체 리듬과 건강에 큰 영향을 미친답니다!`);
+                            if(fb_num_bf){
+                                $('#fb_num_meal').append(`아침 식사는 뇌의 능률을 향상시킨다고 해요. 또 아침 식사를 거르면 오히려 체중이 는다고도 해요!`);
+                            }else if(fb_num_lun){
+                                $('#fb_num_meal').append(`점심 식사를 거르면 보통 저녁 식사에 과식을 하게 된다고 해요! 과일이나 시리얼 같은 음식이라도 점심에 드시는 건 어떨까요?`);
+                            }else if(fb_num_din){
+                                $('#fb_num_meal').append(`저녁 식사는 보통 모든 식사 중에서 차지하는 열량이 가장 높답니다!`);
+                            }
                         }else{
-                            
+                            $('#fb_num_meal').append(`삼시세끼 모두 건강하게 잘 챙겨드시고 계시는군요, 대단해요! 이 식습관을 유지해보아요!`);
                         }
 
                         // 식사 시간
-                        const fb_time_bf = "";
-                        const fb_time_lun = "";
-                        const fb_time_din = "";
+                        var fb_time_bf = "";
+                        var fb_time_lun = "";
+                        var fb_time_din = "";
                         if(fb_time_bf_early){
                             fb_time_bf = "이름";
                         }else if(fb_time_bf_late){
@@ -210,21 +224,41 @@
 
                         // 식사 규칙성
                         if(fb_rg_bf || fb_rg_lun || fb_rg_din){
-
+                            var tmp_str = "";
+                            if(fb_rg_bf){
+                                tmp_str += "아침,";
+                            }else if(fb_rg_lun){
+                                tmp_str += "점심,";
+                            }else if(fb_rg_din){
+                                tmp_str += "저녁,";
+                            }
+                            tmp_str = tmp_str.slice(0,-1);
+                            $('#fb_rg_meal').append(`${tmp_str} 식사를 불규칙적으로 드시고 계셔요. 불규칙적인 식습관은 소화불량 등을 일으킬 수 있다고 해요. 되도록 매일매일 같은 시간에 식사를 해보아요!`);
                         }else{
-
+                            $('#fb_rg_meal').append(`삼시세끼 모두 규칙적으로 챙겨드시고 계시는군요, 대단해요! 이 식습관을 유지해보아요!`);
                         }
                         
                         // 간식, 야식, 간편식
-                        if(fb_snack > 0){
-
-                        }
-
-                        if(fb_n_snack > 0){
-
-                        }
-
-                        if(fb_fastfood > 0){
+                        if(fb_snack > 0 || fb_n_snack > 0 || fb_fastfood > 0){
+                            var tmp_str = "";
+                            if(fb_snack > 0){
+                                tmp_str += "간식";
+                            }else if(fb_n_snack > 0){
+                                tmp_str += "야식";
+                            }else if(fb_fastfood > 0){
+                                tmp_str += "간편식";
+                            }
+                            tmp_str = tmp_str.slice(0,-1);
+                            $('#fb_snack_and_fastfood').append(`최근 너무 많은 ${tmp_str}을 섭취하셨어요!`);
+                            if(fb_snack > 0){
+                                $('#fb_snack_and_fastfood').append(`아무리 건강한 간식이라도 과도하게 섭취하면 비만으로 이어질 수 있어요! 비만은 만병의 근원이라고 하니 간식을 조금 줄이는 걸 추천해요!`);
+                            }else if(fb_n_snack > 0){
+                                $('#fb_snack_and_fastfood').append(`야식은 건강을 해치는 안 좋은 습관 중 하나랍니다. 비만으로 이어질 수도 있고, 장기의 건강에도 좋지않아요! 야식은 최대한 피하는 것이 좋아요!`);
+                            }else if(fb_fastfood > 0){
+                                $('#fb_snack_and_fastfood').append(`간편식은 종류에 따라 다르지만 추천드리지 않아요. 직접 요리한 음식에 비해 건강하지 않기 때문이에요. 조금 귀찮더라도 간단한 음식이라도 직접 요리해보는 건 어떨까요?`);
+                            }                           
+                        }else{
+                            $('#fb_snack_and_fastfood').append(`건강한 간식 습관을 실천 중이시군요! 과일과 견과류가 간식으로 정말 좋답니다!`);
 
                         }
 

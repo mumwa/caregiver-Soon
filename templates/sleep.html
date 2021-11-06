@@ -93,35 +93,57 @@
     <div class="center_display"
         style="width: 100%; background-color: #40D0E3; display: block; text-align: center; padding: 20px 0;" id="grade_div">
         <div style="color: #4f2f00; font-weight: bold; font-size: 30px;">취침시간</div>
-        <div style="color: #ffffff; font-weight: bold; font-size: 100px;" id="grade">A</div>
+        <div style="color: #ffffff; font-weight: bold; font-size: 100px;" id="grade"></div>
     </div>
     <div class="container_wrapper" style="background-color: white;">
         <div class="container">
             <div style="padding:0 20px">
                 <div class="title big_margin">
-                    나의 주간 평균 청소 횟수
+                    수면 양 조절
                 </div>
-                <div class="gray margin">
-                    <div class="bold">
-                        총 0회 00분
+                <div class="gray margin" id="div_avg_sleep">
+                    나의 평균 수면 시간
+                    <div class="bold" id="avg_sleep">
                     </div>
                     <div>
-                        잘 하고 있어요
+                        일일 권장 수면 시간 7-9시간
                     </div>
-                </div>
-                <div class="title big_margin">
-                    청소 현황
-                </div>
-                <div class="gray margin">
-
-                </div>
-                <div class="gray margin">
-
                 </div>
                 <div class="big_margin" style="display: flex; align-items: start; justify-content: center;">
                     <div style="margin: 0 10px;"><img src="static/soon_round.png" width="50px" /></div>
-                    <div class="yellow">
-                        생각처럼 맘이 말을 듣지 않아 돌아와 돌아와 돌아와 절반이 없는데 어떻게 하나로 살아
+                    <div class="yellow" id="fb_avg_sleep">
+                    </div>
+                </div>
+                <div class="title big_margin">
+                    취침 시각
+                </div>
+                <div class="gray margin" id="div_avg_gotobed">
+                    나의 평균 취침 시각
+                    <div class="bold" id="avg_gotobed">
+                    </div>
+                    <div>
+                        권장 취침시각 22 - 23시
+                    </div>
+                </div>
+                <div class="big_margin" style="display: flex; align-items: start; justify-content: center;">
+                    <div style="margin: 0 10px;"><img src="static/soon_round.png" width="50px" /></div>
+                    <div class="yellow" id="fb_avg_gotobed">
+                    </div>
+                </div>
+                <div class="title big_margin">
+                    낮잠
+                </div>
+                <div class="big_margin" style="display: flex; align-items: start; justify-content: center;">
+                    <div style="margin: 0 10px;"><img src="static/soon_round.png" width="50px" /></div>
+                    <div class="yellow" id="fb_nap">
+                    </div>
+                </div>
+                <div class="title big_margin">
+                    수면 장애
+                </div>
+                <div class="big_margin" style="display: flex; align-items: start; justify-content: center;">
+                    <div style="margin: 0 10px;"><img src="static/soon_round.png" width="50px" /></div>
+                    <div class="yellow" id="fb_wakeup">
                     </div>
                 </div>
             </div>
@@ -134,19 +156,20 @@
                 url: "/get_sleep",
                 data: { id: id },
                 success: function (response) {
-                    console.log(response['availableID']);
+                    console.log(response);
                     if (response['availableID'] == true) {
                         // const link = "/sleep?id=" + id;
                         // location.href = link;
-                        const score_sleep = response['score_sleep'];
-                        const avg_sleep = response['avg_sleep'];
-                        const fb_amount_of_sleep = response['fb_amount_of_sleep'];
-                        const fb_nap = response['fb_nap'];
-                        const fb_wakeup = response['fb_wakeup'];
-                        const fb_gotobed = response['fb_gotobed'];
+                        var score_sleep = response['score_sleep'];
+                        var avg_sleep = response['avg_sleep'];
+                        var avg_gotobed = response['avg_gotobed'];
+                        var fb_amount_of_sleep = response['fb_amount_of_sleep'];
+                        var fb_nap = response['fb_nap'];
+                        var fb_wakeup = response['fb_wakeup'];
+                        var fb_gotobed = response['fb_gotobed'];
 
                         // 등급
-                        const alp_grade = "";
+                        var alp_grade = "";
                         if(score_sleep <= 1){
                             alp_grade = "C";
                             grade_div.style.backgroundColor = "#FF4D4D";
@@ -162,38 +185,76 @@
                         }
                         $('#grade').append(`${alp_grade}`);
 
+                        // 평균 수면 시간
+                        var avg_h = parseInt(avg_sleep/3600);
+                        var avg_m = parseInt((avg_sleep%3600)/600)*10;
+                        var avg_str = String(avg_h) + "시간 " + String(avg_m) + "분";
+                        $('#avg_sleep').append(`${avg_str}`);
                         // 수면량 조절
-                        if(fb_amount_of_sleep < 0){
-                            
-                        }else if(fb_amount_of_sleep > 0){
-
+                        if(fb_amount_of_sleep > 0){
+                            if(avg_h < 5){
+                                div_avg_sleep.style.backgroundColor = "#FFADAD";
+                                $('#fb_avg_sleep').append(`평균 수면 시간이 권고량보다 많이 낮아요. 수면 부족은 일상 생활에 악영향을 끼칠 수 있어요!`);
+                            }else if(avg_h < 7){
+                                div_avg_sleep.style.backgroundColor = "#FFBC10";
+                                $('#fb_avg_sleep').append(`평균 수면 시간이 권고량보다 조금 낮아요. 적절한 수면은 몸을 건강하게 만들어준다고 해요. 조금씩 수면 시간을 늘여나가보도록 해요!`);
+                            }else{
+                                div_avg_sleep.style.backgroundColor = "#40D0E3"; 
+                                $('#fb_avg_sleep').append(`수면 시간이 적절해요, 훌륭해요! 수면량이 너무 적거나 많아도 신체에 안 좋은 영향을 끼친다고하니 수면습관을 이대로 유지해보도록 해요!`);
+                            }
+                        }else if(fb_amount_of_sleep <= 0){
+                            if(avg_h > 11){
+                                div_avg_sleep.style.backgroundColor = "#FFADAD";
+                                $('#fb_avg_sleep').append(`평균 수면 시간이 너무 많아요. 과도한 수면은 오히려 우울증, 치매 등의 질환으로 이어질 수 있다고 해요!`);
+                            }else if(avg_h > 9){
+                                div_avg_sleep.style.backgroundColor = "#FFBC10";
+                                $('#fb_avg_sleep').append(`평균 수면 시간이 권고량보다 조금 많아요. 적절한 수면은 몸을 건강하게 만들어준다고 해요. 수면 시간을 조금씩 줄여나가보도록 해요!`);
+                            }else{
+                                div_avg_sleep.style.backgroundColor = "#40D0E3"; 
+                                $('#fb_avg_sleep').append(`수면 시간이 적절해요, 훌륭해요! 수면량이 너무 적거나 많아도 신체에 안 좋은 영향을 끼친다고하니 수면습관을 이대로 유지해보도록 해요!`);
+                            }                           
                         }
 
-                        // 낮잠량 조절
-                        if(fb_nap > 0){
+                        // 취침시각
+                        avg_h = parseInt(avg_gotobed/60);
+                        avg_m = parseInt((avg_gotobed - avg_h*60)/10)*10;
+                        avg_str = String(avg_h) + "시 " + String(avg_m) + "분";
+                        $('#avg_gotobed').append(`${avg_str}`); 
 
+                        if(fb_gotobed > 0){
+                            if(fb_gotobed < 60){
+                                $('#fb_avg_gotobed').append(`1시간 정도 일찍 잠자리에 들어보시는건 어떨까요?`); 
+                                div_avg_gotobed.style.backgroundColor = "#40D0E3"; 
+                            }else if(fb_gotobed < 120){
+                                $('#fb_avg_gotobed').append(`2시간 정도 일찍 잠자리에 들어보시는건 어떨까요?`); 
+                                div_avg_gotobed.style.backgroundColor = "#FFBC10"; 
+                            }else if(fb_gotobed < 180){
+                                $('#fb_avg_gotobed').append(`3시간 정도 일찍 잠자리에 들어보시는건 어떨까요? 늦게 주무시는 습관은 인체의 호르몬이나 생활패턴에 좋지 않은 영향을 끼친다고해요!`); 
+                                div_avg_gotobed.style.backgroundColor = "#FFBC10"; 
+                            }else{
+                                $('#fb_avg_gotobed').append(`너무 늦게 주무시는 것 같아요! 특별한 일이 없으시면 22시부터 24시 사이에 잠자리에 드시는 걸 추천해요!`); 
+                                div_avg_gotobed.style.backgroundColor = "#FFADAD"; 
+                            }
+                        }else{
+                            $('#fb_avg_gotobed').append(`일찍 주무시는군요! 밤 23시부터는 몸에서 멜라토닌이라는 유익한 호르몬이 분비된다고해요. 이대로 수면 습관을 유지하면 좋을 것 같아요!`); 
+                            div_avg_gotobed.style.backgroundColor = "#40D0E3"; 
+                        }
+
+                        // 낮잠
+                        if(fb_nap > 0){
+                            fb_nap = parseInt(fb_nap/3600);
+                            $('#fb_nap').append(`과도한 낮잠은 밤의 수면을 방해해요. 낮잠을 ${fb_nap}시간 정도 줄여보도록해요.`); 
+                        }else{
+                            $('#fb_nap').append(`짧은 낮잠은 건강에 좋다고 해요! 대단해요!`); 
                         }
                         
                         // 수면장애
                         if(fb_wakeup > 0){
-                            // 지난 XX일 동안 'fb_wakeup'번의 수면장애를 겪었어요~
+                            $('#fb_wakeup').append(`최근 ${fb_wakeup}번의 수면장애를 겪으셨어요. 자기 전에는 되도록 음식 섭취를 피하고 간단한 스트레칭을 통해 깊은 잠을 잘 수 있어요!`); 
+                        }else{
+                            $('#fb_wakeup').append(`깔끔한 수면을 하고계시군요! 수면은 깨지않고 연속적으로 자는게 좋다고해요!`); 
                         }
                         
-                        // 취침시각
-                        if(fb_gotobed > 0){
-                            if(fb_gotobed < 60){
-                                // 조금만 일찍
-                            }else if(fb_gotobed < 120){
-                                // 1시간 일찍
-                            }else if(fb_gotobed < 180){
-                                // 2시간 일찍
-                            }else if(fb_gotobed < 240){
-                                // 3시간 일찍
-                            }else{
-                                //너무 늦게 잠
-                            }
-                        }
-
                     } else {
                         alert('프로필을 불러오지 못했습니다');
                     }
