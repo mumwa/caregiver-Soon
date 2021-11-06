@@ -18,10 +18,6 @@ from util import social
 from util import socialAverage
 from util import socialScore
 
-from util import meal
-
-from util import friendship
-
 from util import emergency
 
 from util import total
