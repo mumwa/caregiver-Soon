@@ -195,48 +195,48 @@ for i in range(0,len(list_avg_nap)):
 # 23시 이후 취침 => -1점
 # 출처:https://health.chosun.com/site/data/html_dir/2019/06/14/2019061401739.html (멜라토닌 관련)
 
-user_ID = 496
-indx = ID_to_index.index(user_ID)
-score = 5
+# user_ID = 496
+# indx = ID_to_index.index(user_ID)
+# score = 5
 
-fb_amount_of_sleep = 0 # 0 이하이면 수면량을 줄이도록, 0 이상이면 수면량을 늘리도록 피드백
-fb_nap = 0 # 0 이상이면 낮잠량을 줄이도록 피드백
-fb_day = 0 # 일정 기준량 이상 기상이 더 많으면 피드백,
-fb_wakeup = 0 # fb_day 동안 fb_wakeup만큼의 수면장애
-fb_gotobed = 0 # 23시 기준 취침 시간 피드백
+# fb_amount_of_sleep = 0 # 0 이하이면 수면량을 줄이도록, 0 이상이면 수면량을 늘리도록 피드백
+# fb_nap = 0 # 0 이상이면 낮잠량을 줄이도록 피드백
+# fb_day = 0 # 일정 기준량 이상 기상이 더 많으면 피드백,
+# fb_wakeup = 0 # fb_day 동안 fb_wakeup만큼의 수면장애
+# fb_gotobed = 0 # 23시 기준 취침 시간 피드백
 
 
-if(list_avg_sleep[indx] < 6*3600): # 수면시간
-    score -= 1
-    fb_amount_of_sleep = math.ceil((6*3600 - list_avg_sleep[indx])/10)*10 # 10분 단위로 올림
-elif(list_avg_sleep[indx] > 8*3600):
-    score -= 1
-    fb_amount_of_sleep = math.ceil((8*3600 - list_avg_sleep[indx])/10)*10 
+# if(list_avg_sleep[indx] < 6*3600): # 수면시간
+#     score -= 1
+#     fb_amount_of_sleep = math.ceil((6*3600 - list_avg_sleep[indx])/10)*10 # 10분 단위로 올림
+# elif(list_avg_sleep[indx] > 8*3600):
+#     score -= 1
+#     fb_amount_of_sleep = math.ceil((8*3600 - list_avg_sleep[indx])/10)*10 
     
-if(list_avg_nap[indx] > 3600): # 낮잠시간
-    score -= 1
-    fb_nap = math.ceil((list_avg_nap[indx] - 3600)/10)*10
+# if(list_avg_nap[indx] > 3600): # 낮잠시간
+#     score -= 1
+#     fb_nap = math.ceil((list_avg_nap[indx] - 3600)/10)*10
 
-if((list_num_sleep[indx] - list_num_wakeup[indx]) > list_days[indx]*0.1): # 기상횟수
-    score -= 1
-    fb_day = list_days[indx]
-    fb_wakeup = list_num_sleep[indx] - list_num_wakeup[indx] 
+# if((list_num_sleep[indx] - list_num_wakeup[indx]) > list_days[indx]*0.1): # 기상횟수
+#     score -= 1
+#     fb_day = list_days[indx]
+#     fb_wakeup = list_num_sleep[indx] - list_num_wakeup[indx] 
     
-if(list_time_sleep[indx] > 60*23): # 취침시각
-    score -= 1
-    fb_gotobed = math.ceil((list_time_sleep[indx] - 60*23)/10)*10
+# if(list_time_sleep[indx] > 60*23): # 취침시각
+#     score -= 1
+#     fb_gotobed = math.ceil((list_time_sleep[indx] - 60*23)/10)*10
     
-print("Your score is " + str(score))
-if(fb_amount_of_sleep > 0):
-    print("You need to sleep more about " + str(fb_amount_of_sleep))
-else:
-    print("You need to sleep less about " + str(fb_amount_of_sleep))
-if(fb_nap > 0):
-    print("You need to abstain to nap about " + str(fb_nap))
-if(fb_day != 0):
-    print("You have" + str(fb_wakeup) + "sleep disorder" + str(fb_day) + "days")
-if(fb_gotobed > 0):
-    print("You need to go to bed early." + str(fb_gotobed) + " minutes earlier")
+# print("Your score is " + str(score))
+# if(fb_amount_of_sleep > 0):
+#     print("You need to sleep more about " + str(fb_amount_of_sleep))
+# else:
+#     print("You need to sleep less about " + str(fb_amount_of_sleep))
+# if(fb_nap > 0):
+#     print("You need to abstain to nap about " + str(fb_nap))
+# if(fb_day != 0):
+#     print("You have" + str(fb_wakeup) + "sleep disorder" + str(fb_day) + "days")
+# if(fb_gotobed > 0):
+#     print("You need to go to bed early." + str(fb_gotobed) + " minutes earlier")
 
 
 # In[ ]:

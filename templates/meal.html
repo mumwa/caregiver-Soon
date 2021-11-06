@@ -18,8 +18,6 @@
         crossorigin="anonymous"></script>
 
     <title>Meal</title>
-    <style>
-    </style>
     <script>
         function getParameterByName(name) {
             name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]"); var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"), results = regex.exec(location.search); return results == null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
@@ -36,7 +34,160 @@
             const link = "/categories?id=" + id;
             location.href = link;
         }
+        function getMeal() {
+            $.ajax({
+                type: "GET",
+                url: "/meal",
+                data: { id : id },
+                success: function (response) {
+                    if (response['availableID'] == true) {
+                        // const link = "/meal?id=" + id;
+                        // location.href = link;
+                        const score_meal = response['score_meal'];
+                        const fb_num_bf = response['fb_num_bf'];
+                        const fb_num_lun = response['fb_num_lun'];
+                        const fb_num_din = response['fb_num_din'];
+                        const fb_time_bf_early = response['fb_time_bf_early'];
+                        const fb_time_bf_late = response['fb_time_bf_late'];
+                        const fb_time_lun_early = response['fb_time_lun_early'];
+                        const fb_time_lun_late = response['fb_time_lun_late'];
+                        const fb_time_din_early = response['fb_time_din_early'];
+                        const fb_time_din_late = response['fb_time_din_late'];
+                        const fb_rg_bf = response['fb_rg_bf'];
+                        const fb_rg_lun = response['fb_rg_lun'];
+                        const fb_rg_din = response['fb_rg_din'];
+                        const fb_snack = response['fb_snack'];
+                        const fb_n_snack = response['fb_n_snack'];
+                        const fb_fastfood = response['fb_fastfood'];
+                        
+                        // 등급
+                        const alp_grade = "";
+                        if(score_meal <= 2){
+                            alp_grade = "C";
+                            grade_div.style.backgroundColor = "#FF4D4D";
+                        }else if(score_meal <= 5){
+                            alp_grade = "B";
+                            grade_div.style.backgroundColor = "#FFBC10";
+                        }else if(score_meal <= 8){
+                            alp_grade = "A";
+                            grade_div.style.backgroundColor = "#40D0E3";
+                        }else{
+                            alp_grade = "C";
+                            grade_div.style.backgroundColor = "#ffffff";
+                        }
+                        $('#grade').append(`${alp_grade}`);
+
+                        // 식사 횟수
+                        if(fb_num_bf || fb_num_lun || fb_num_din){
+                            
+                        }else{
+                            
+                        }
+
+                        // 식사 시간
+                        const fb_time_bf = "";
+                        const fb_time_lun = "";
+                        const fb_time_din = "";
+                        if(fb_time_bf_early){
+                            fb_time_bf = "이름";
+                        }else if(fb_time_bf_late){
+                            fb_time_bf = "늦음";
+                        }else{
+                            fb_time_bf = "적절"
+                        }
+
+                        if(fb_time_lun_early){
+                            fb_time_lun = "이름";
+                        }else if(fb_time_lun_late){
+                            fb_time_lun = "늦음";
+                        }else{
+                            fb_time_lun = "적절";
+                        }
+
+                        if(fb_time_din_early){
+                            fb_time_din = "이름";
+                        }else if(fb_time_din_late){
+                            fb_time_din = "늦음";
+                        }else{
+                            fb_time_din = "적절";
+                        }                       
+
+                        // 식사 규칙성
+                        if(fb_rg_bf || fb_rg_lun || fb_rg_din){
+
+                        }else{
+
+                        }
+                        
+                        // 간식, 야식, 간편식
+                        if(fb_snack > 0){
+
+                        }
+
+                        if(fb_n_snack > 0){
+
+                        }
+
+                        if(fb_fastfood > 0){
+
+                        }
+
+                    } else {
+                        alert('프로필을 불러오지 못했습니다');
+                    }
+                },
+                error: function (request, status, error) {
+                    console.log("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
+                }
+            })
+        }
+
+        window.onload = getMeal();
+
     </script>
+    <style>
+        .title {
+            color: #4f2f00;
+            font-weight: bold;
+            font-size: 20px;
+        }
+
+        .gray {
+            width: 100%-40px;
+            border-radius: 10px;
+            background-color: rgba(196, 196, 196, 0.17);
+            display: block;
+            text-align: left;
+            color: #4f2f00;
+            font-size: 20px;
+            padding: 20px;
+
+        }
+
+        .yellow {
+            width: 100%;
+            border-radius: 10px;
+            background-color: rgba(255, 188, 16, 0.2);
+            display: block;
+            text-align: left;
+            color: #4f2f00;
+            font-size: 20px;
+            padding: 20px;
+
+        }
+
+        .big_margin {
+            margin: 20px 0 0 0;
+        }
+
+        .margin {
+            margin: 10px 0 0 0;
+        }
+
+        .bold {
+            font-weight: bold;
+        }
+    </style>
 </head>
 
 <body>
@@ -49,30 +200,66 @@
             <img width="40"></img>
         </div>
     </div>
-    <div class="container_wrapper">
-        <div class="container"></div>
+    <div class="center_display"
+        style="width: 100%; background-color: #40D0E3; display: block; text-align: center; padding: 20px 0;" id="grade_div">
+        <div style="color: #4f2f00; font-weight: bold; font-size: 30px;">식사시간</div>
+        <div style="color: #ffffff; font-weight: bold; font-size: 100px;" id="grade"></div>
+    </div>
+    <div class="container_wrapper" style="background-color: white;">
+        <div class="container">
+            <div style="padding:0 20px">
+                <div class="title big_margin">
+                    나의 주간 평균 청소 횟수
+                </div>
+                <div class="gray margin">
+                    <div class="bold">
+                        총 0회 00분
+                    </div>
+                    <div>
+                        잘 하고 있어요
+                    </div>
+                </div>
+                <div class="title big_margin">
+                    청소 현황
+                </div>
+                <div class="gray margin">
+
+                </div>
+                <div class="gray margin">
+
+                </div>
+                <div class="big_margin" style="display: flex; align-items: start; justify-content: center;">
+                    <div style="margin: 0 10px;"><img src="static/soon_round.png" width="50px" /></div>
+                    <div class="yellow">
+                        생각처럼 맘이 말을 듣지 않아 돌아와 돌아와 돌아와 절반이 없는데 어떻게 하나로 살아
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <script>
-        function getHello() {
-            $.ajax({
-                type: "GET",
-                url: "/hello",
-                data: {},
-                success: function (response) {
-                    if (response['result'] === 'success') {
-                        console.log(response);
-                        const hello = response['hello'];
-                        alert(hello);
-                        $('#box').append(`<h6>${hello}<h6>`);
-                    } else {
-                        alert('프로필을 불러오지 못했습니다');
+        function getMeal() {
+            let id = document.getElementById("id").value;
+            if(id != ""){
+                $.ajax({
+                    type: "GET",
+                    url: "/meal",
+                    data: { id : id },
+                    success: function (response) {
+                        if (response['availableID']) {
+                            const link = "/meal?id=" + id;
+                            location.href = link;
+                        } else {
+                            alert('프로필을 불러오지 못했습니다');
+                        }
+                    },
+                    error: function (request, status, error) {
+                        console.log("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
                     }
-                },
-                error: function (request, status, error) {
-                    console.log("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
-                }
-            })
+                })
+            }
+
         }
     </script>
 </body>

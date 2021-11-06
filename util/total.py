@@ -384,6 +384,7 @@ class Sleep:
     user_ID = 0
     indx = 0
     score_sleep = 5
+    avg_sleep = 0
     fb_amount_of_sleep = 0 
     fb_nap = 0 
     fb_day = 0 
@@ -393,6 +394,7 @@ class Sleep:
     def __init__(self, user_ID):
         self.userID = user_ID
         self.indx = ID_to_index.index(user_ID)
+        self.avg_sleep = list_avg_sleep[self.indx]
 
         if(list_avg_sleep[self.indx] < 6*3600): 
             self.score_sleep -= 1
@@ -512,10 +514,26 @@ class Friendship:
     fb_program = 0
     fb_keyword = False
 
+    freq_resp1 = 0
+    freq_resp2 = 0
+    freq_resp3 = 0
+    len_resp = 0
+    program = 0
+    prop_program = 0
+
     def __init__(self, user_ID):
         self.user_ID = user_ID
         self.indx = ID_to_index.index(user_ID)
         indx = self.indx
+
+        freq_resp1 = fre_resp1[indx]
+        freq_resp2 = fre_resp2[indx]
+        freq_resp3 = fre_resp3[indx]
+        
+        len_resp = (len_resp1[indx] + len_resp2[indx] + len_resp3[indx])/3
+
+        program = num_conv[indx]
+        prop_program = prop_conv[indx]
 
         if fre_resp1[indx] != 0:
             tmp_z1 = (fre_resp1[indx]-avg_fre_resp1)/std_fre_resp1
