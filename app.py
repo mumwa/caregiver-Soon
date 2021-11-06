@@ -1,12 +1,6 @@
 from flask import Flask, render_template, jsonify, request
 # from bson.objectid import ObjectId
 # 웹으로 작동하기 위한 라이브러리
-from util import search as find
-from util.med import med
-from util.medAverage import all_med
-from util.medScore import get_med_grade, print_message
-from util.socialScore import social_score
-
 
 app = Flask(__name__)
 
@@ -46,11 +40,7 @@ def meal():
 
 @app.route('/medicine')
 def medicine(id):
-    score = get_med_grade(id)
-    time = med(id)
-    totalAverage = all_med(id)
-    message = print_message(id)
-    return render_template('medicine.html', template_score = score, template_time = time, template_totalAverage = totalAverage, template_msg = message)
+    return render_template('medicine.html')
 
 @app.route('/wash')
 def wash():
@@ -58,9 +48,7 @@ def wash():
 
 @app.route('/activity')
 def activity():
-    score = social_score()
-
-    return render_template('activity.html', template_score = score)
+    return render_template('activity.html')
 
 @app.route('/categories')
 def hobby():
