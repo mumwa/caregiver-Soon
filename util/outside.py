@@ -1,6 +1,6 @@
 import numpy as np
 import pandas as pd
-import outsideScore
+from util import outsideScore
 
 def read_file(id):
     if(id > 30063):

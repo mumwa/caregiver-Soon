@@ -1,4 +1,4 @@
-import outside
+from util import outside
 
 def outsideScore():
     if (outside(id)[len(wasOutside)-1] >= 900):

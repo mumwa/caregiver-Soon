@@ -26,14 +26,50 @@
         if (id == "") {
             location.href = "/";
         }
-        function goMain(){
+        function goMain() {
             const link = "/home?id=" + id;
             location.href = link;
         }
-        function goCategories(){
+        function goCategories() {
             const link = "/categories?id=" + id;
             location.href = link;
         }
+        function getWash() {
+            $.ajax({
+                type: "GET",
+                url: "/get_wash",
+                data: { id: id },
+                success: function (response) {
+                    if (response['result'] === 'success') {
+                        const grade = response['grade'];
+                        const grade_div = document.getElementById("grade_div");
+                        $('#grade').append(`${grade}`);
+                        if(grade=='A'){
+                            grade_div.style.backgroundColor = "#40D0E3";
+                            $('#say').append(`아주 부시런하시군요!`);
+                        }else if(grade=='B'){
+                            grade_div.style.backgroundColor = "#FFBC10";
+                            $('#say').append(`잘하고 있어요~`);
+                        }else if(grade=='C'){
+                            grade_div.style.backgroundColor = "#FF4D4D";
+                            $('#say').append(`청소 횟수를 늘리면 좀 더 쾌적해질거예요!`);
+                        }else{
+                            grade_div.style.backgroundColor = "#ffffff";
+                        }
+                        count=response['clean']+response['wash']+response['fresh'];
+                        $('#count').append(`${count}회`);
+                    } else {
+                        alert('정보를 불러오지 못했습니다');
+                    }
+                },
+                error: function (request, status, error) {
+                    console.log("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
+                }
+            })
+        }
+
+        window.onload = getWash();
+
     </script>
     <style>
         .title {
@@ -91,32 +127,42 @@
         </div>
     </div>
     <div class="center_display"
-        style="width: 100%; background-color: #40D0E3; display: block; text-align: center; padding: 20px 0;">
+        style="width: 100%; display: block; text-align: center; padding: 20px 0;" id="grade_div">
         <div style="color: #4f2f00; font-weight: bold; font-size: 30px;">청결도</div>
-        <div style="color: #ffffff; font-weight: bold; font-size: 100px;">A</div>
+        <div style="color: #ffffff; font-weight: bold; font-size: 100px;" id="grade"></div>
     </div>
     <div class="container_wrapper" style="background-color: white;">
         <div class="container">
             <div style="padding:0 20px">
-                <div class="title big_margin">
+                <div class="title big_margin" onclick="getWash()">
                     나의 주간 평균 청소 횟수
                 </div>
                 <div class="gray margin">
-                    <div class="bold">
-                        총 0회 00분
+                    <div class="bold" id="count">
                     </div>
-                    <div>
-                        잘 하고 있어요
+                    <div id="say">
                     </div>
                 </div>
                 <div class="title big_margin">
                     청소 현황
                 </div>
                 <div class="gray margin">
-
+                    <div class="bold" id="count">
+                    </div>
+                    <div id="say">
+                    </div>
                 </div>
                 <div class="gray margin">
-
+                    <div class="bold" id="count">
+                    </div>
+                    <div id="say">
+                    </div>
+                </div>
+                <div class="gray margin">
+                    <div class="bold" id="count">
+                    </div>
+                    <div id="say">
+                    </div>
                 </div>
                 <div class="big_margin" style="display: flex; align-items: start; justify-content: center;">
                     <div style="margin: 0 10px;"><img src="static/soon_round.png" width="50px" /></div>

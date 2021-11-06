@@ -2,7 +2,30 @@ from flask import Flask, render_template, jsonify, request
 # from bson.objectid import ObjectId
 # 웹으로 작동하기 위한 라이브러리
 from util import search as find
+
+from util import clean
+from util import cleanAverage
+from util import cleanScore
+
+from util import med
+from util import medAverage
+from util import medScore
+
+from util import outside
+from util import outsideScore
+
+from util import social
+from util import socialAverage
+from util import socialScore
+
+from util import meal
+
+from util import friendship
+
+from util import emergency
+
 from util import total
+
 
 app = Flask(__name__)
 
@@ -24,28 +47,42 @@ def default():
     hello="hello"
     return jsonify({'result': 'success', 'hello': hello})
 
+@app.route('/friends', methods=['GET'])
+def get_friend():
+    #id=int(request.args["id"])
+    hello="허허"
+    return jsonify({'result': 'success', 'hello': hello})
+
 @app.route('/home')
 def home():
     return render_template('main.html')
 
 @app.route('/friendship')
-def friendship():
+def friendship_page():
     return render_template('friendship.html')
 
 @app.route('/sleep')
 def sleep():
+    return render_template('sleep.html')
+
+@app.route('/get_sleep', methods=['GET'])
+def get_sleep():
     id = int(request.args["id"])
     sleep_result = total.Sleep(id)
     availableID = False
     if(find.search(id)):
         availableID = True
-    return jsonify({'result': 'success', 'availableID': availableID, 'score_sleep': sleep_result.score_sleep,
+    return jsonify({'result': 'success', 'availableID': availableID, 'score_sleep': sleep_result.score_sleep, 'avg_sleep': sleep_result.avg_sleep,
     'fb_amount_of_sleep':sleep_result.fb_amount_of_sleep, 'fb_nap':sleep_result.fb_nap, 'fb_day':sleep_result.fb_day,
     'fb_wakeup':sleep_result.fb_wakeup, 'fb_gotobed':sleep_result.fb_gotobed
     })
 
 @app.route('/meal')
 def meal():
+    return render_template('meal.html')
+
+@app.route('/get_meal', methods=['GET'])
+def get_meal():
     id = int(request.args["id"])
     meal_result = total.Meal(id)
     availableID = False
@@ -68,6 +105,15 @@ def medicine():
 def wash():
     return render_template('wash.html')
 
+@app.route('/get_wash', methods=['GET'])
+def get_wash():
+    id=int(request.args["id"])
+    get_clean_average=cleanAverage.all_clean()
+    get_wash_average=int(cleanAverage.all_wash())
+    get_fresh_average=cleanAverage.all_fresh()
+    grade=cleanScore.get_grade(id)
+    return jsonify({'result': 'success', 'clean': clean.clean(id), 'wash':clean.wash(id), 'fresh':clean.fresh(id), 'cleanAverage':get_clean_average, 'washAverage':get_wash_average, 'freshAverage':get_fresh_average, 'grade':grade})
+
 @app.route('/activity')
 def activity():
     return render_template('activity.html')
@@ -76,6 +122,6 @@ def activity():
 def hobby():
     return render_template('categories.html')
 
-
+#for commit
 if __name__ == '__main__':
     app.run('0.0.0.0', port=5000, debug=True)
