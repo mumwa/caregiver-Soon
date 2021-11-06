@@ -1,5 +1,5 @@
-import cleanAverage
-import read_file as rf
+from util import cleanAverage
+from util import read_file as rf
 import numpy as np
 import pandas as pd
 #import matplotlib.pyplot as plt

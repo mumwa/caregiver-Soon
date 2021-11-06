@@ -10,7 +10,7 @@ import datetime as dt
 from dateutil.parser import parse
 import math
 
-user_data = pd.read_csv("C:/Users/minjae/Desktop/lifelog/user_profile.csv")
+user_data = pd.read_csv("util/user_profile.csv")
 IDs = user_data["id"].values.tolist()
 
 list_days = []
@@ -38,9 +38,9 @@ p_resp_prop = [] # 긍정적 등 특별 응답
 for ID in IDs:
     ID_to_index.append(ID)
     if(ID > 30063):
-        df = pd.read_csv("C:/Users/minjae/Desktop/lifelog/hs_g73_m08/hs_"+str(ID)+"_m08_0903_1356.csv",encoding="cp949")
+        df = pd.read_csv("../data/hs_"+str(ID)+"_m08_0903_1356.csv",encoding="cp949")
     else:
-        df = pd.read_csv("C:/Users/minjae/Desktop/lifelog/hs_g73_m08/hs_"+str(ID)+"_m08_0903_1355.csv",encoding="cp949")
+        df = pd.read_csv("../data/hs_"+str(ID)+"_m08_0903_1355.csv",encoding="cp949")
     
     df["index"] = range(0,len(df))
     
@@ -159,78 +159,78 @@ avg_p_resp = np.mean(p_resp_prop) # 특정 키워드 평균
 
 
 # 밑부분은 ID가 주어졌을 때
-user_ID = 505
-indx = ID_to_index.index(user_ID)
-score = 0
+# user_ID = 505
+# indx = ID_to_index.index(user_ID)
+# score = 0
 
 
-if fre_resp1[indx] != 0: # 응답 빈도 평가 (상위 50퍼센트, 상위 30퍼센트는 추가점수)
-    tmp_z1 = (fre_resp1[indx]-avg_fre_resp1)/std_fre_resp1
-    if tmp_z1 > 0:
-        score += 0.5
-        if tmp_z1 > 0.53:
-            score += 0.5
+# if fre_resp1[indx] != 0: # 응답 빈도 평가 (상위 50퍼센트, 상위 30퍼센트는 추가점수)
+#     tmp_z1 = (fre_resp1[indx]-avg_fre_resp1)/std_fre_resp1
+#     if tmp_z1 > 0:
+#         score += 0.5
+#         if tmp_z1 > 0.53:
+#             score += 0.5
             
-    if fre_resp2[indx] != 0:
-        tmp_z2 = (fre_resp2[indx]-avg_fre_resp2)/std_fre_resp2
-        if tmp_z2 > 0:
-            score += 0.75
-            if tmp_z2 > 0.53:
-                score += 0.75    
+#     if fre_resp2[indx] != 0:
+#         tmp_z2 = (fre_resp2[indx]-avg_fre_resp2)/std_fre_resp2
+#         if tmp_z2 > 0:
+#             score += 0.75
+#             if tmp_z2 > 0.53:
+#                 score += 0.75    
                 
-        if fre_resp3[indx] != 0:
-            tmp_z3 = (fre_resp3[indx]-avg_fre_resp3)/std_fre_resp3
-            if tmp_z3 > 0:
-                score += 1
-                if tmp_z3 > 0.53:
-                    score += 1 
+#         if fre_resp3[indx] != 0:
+#             tmp_z3 = (fre_resp3[indx]-avg_fre_resp3)/std_fre_resp3
+#             if tmp_z3 > 0:
+#                 score += 1
+#                 if tmp_z3 > 0.53:
+#                     score += 1 
 
                     
-if len_resp1[indx] != 0: # 응답 길이 평가 (상위 50퍼센트, 상위 30퍼센트는 추가점수)
-    tmp_z1 = (len_resp1[indx]-avg_len_resp1)/std_len_resp1
-    if tmp_z1 > 0:
-        score += 0.5
-        if tmp_z1 > 0.53:
-            score += 0.5
+# if len_resp1[indx] != 0: # 응답 길이 평가 (상위 50퍼센트, 상위 30퍼센트는 추가점수)
+#     tmp_z1 = (len_resp1[indx]-avg_len_resp1)/std_len_resp1
+#     if tmp_z1 > 0:
+#         score += 0.5
+#         if tmp_z1 > 0.53:
+#             score += 0.5
             
-    if len_resp2[indx] != 0:
-        tmp_z2 = (len_resp2[indx]-avg_len_resp2)/std_len_resp2
-        if tmp_z2 > 0:
-            score += 0.75
-            if tmp_z2 > 0.53:
-                score += 0.75    
+#     if len_resp2[indx] != 0:
+#         tmp_z2 = (len_resp2[indx]-avg_len_resp2)/std_len_resp2
+#         if tmp_z2 > 0:
+#             score += 0.75
+#             if tmp_z2 > 0.53:
+#                 score += 0.75    
                 
-        if len_resp3[indx] != 0:
-            tmp_z3 = (len_resp3[indx]-avg_len_resp3)/std_len_resp3
-            if tmp_z3 > 0:
-                score += 1
-                if tmp_z3 > 0.53:
-                    score += 1              
+#         if len_resp3[indx] != 0:
+#             tmp_z3 = (len_resp3[indx]-avg_len_resp3)/std_len_resp3
+#             if tmp_z3 > 0:
+#                 score += 1
+#                 if tmp_z3 > 0.53:
+#                     score += 1              
                     
                     
-z1 = (num_conv[indx]-avg_conv)/std_conv # 순이 대화 횟수로 평가
-if z1 > 0:
-    score += 0.5
-    if z1 > 0.53:
-        score += 0.25
-        if z1 > 1.28:
-            score += 0.25
+# z1 = (num_conv[indx]-avg_conv)/std_conv # 순이 대화 횟수로 평가
+# if z1 > 0:
+#     score += 0.5
+#     if z1 > 0.53:
+#         score += 0.25
+#         if z1 > 1.28:
+#             score += 0.25
 
-z2 = (prop_conv[indx]-avg_prop_conv)/std_prop_conv # 순이 대화 비율로 평가
-if z2 > 0:
-    score += 0.5
-    if z2 > 0.53:
-        score += 0.25
-        if z2 > 1.28:
-            score += 0.25
+# z2 = (prop_conv[indx]-avg_prop_conv)/std_prop_conv # 순이 대화 비율로 평가
+# if z2 > 0:
+#     score += 0.5
+#     if z2 > 0.53:
+#         score += 0.25
+#         if z2 > 1.28:
+#             score += 0.25
             
             
-if p_resp_prop[indx] > avg_p_resp: # 특정 키워드 평가
-    score += 0.5
-if p_resp_prop[indx] >= 0.5:
-    score += 0.5
+# if p_resp_prop[indx] > avg_p_resp: # 특정 키워드 평가
+#     score += 0.5
+# if p_resp_prop[indx] >= 0.5:
+#     score += 0.5
     
-print("Your score is " + str(score))
+# #print("Your score is " + str(score))
 
 
 # In[ ]:

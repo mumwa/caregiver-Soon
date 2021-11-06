@@ -1,10 +1,10 @@
 import numpy as np
 import pandas as pd
 from datetime import datetime
-from read_file import read_file
+from util import read_file
 
 def emergency(id):
-    data=read_file(id)
+    data=read_file.read_file(id)
     activity_time= data['Time'].tolist()
     list_act=data['Act'].tolist()
     list_time=[]
@@ -30,7 +30,3 @@ def emergency(id):
                 emergency=True
         count=count+1
     return emergency
-    
-print(emergency(1001))
-print(emergency(1002))
-print(emergency(1003))

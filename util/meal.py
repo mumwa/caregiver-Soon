@@ -10,7 +10,7 @@ import datetime as dt
 from dateutil.parser import parse
 import math
 
-user_data = pd.read_csv("C:/Users/minjae/Desktop/lifelog/user_profile.csv")
+user_data = pd.read_csv("util/user_profile.csv", encoding="cp949")
 IDs = user_data["id"].values.tolist()
 
 list_days = []
@@ -38,9 +38,9 @@ ID_to_index = []
 for ID in IDs:
     ID_to_index.append(ID)
     if(ID > 30063):
-        df = pd.read_csv("C:/Users/minjae/Desktop/lifelog/hs_g73_m08/hs_"+str(ID)+"_m08_0903_1356.csv",encoding="cp949")
+        df = pd.read_csv("../data/hs_"+str(ID)+"_m08_0903_1356.csv",encoding="cp949")
     else:
-        df = pd.read_csv("C:/Users/minjae/Desktop/lifelog/hs_g73_m08/hs_"+str(ID)+"_m08_0903_1355.csv",encoding="cp949")
+        df = pd.read_csv("../data/hs_"+str(ID)+"_m08_0903_1355.csv",encoding="cp949")
     
     df["index"] = range(0,len(df))
     
@@ -125,93 +125,93 @@ for ID in IDs:
     num_total.append(total_num)
     
 # 밑부분은 ID가 주어졌을 때
-user_ID = 496
-indx = ID_to_index.index(user_ID)
-score = 10
+# user_ID = 496
+# indx = ID_to_index.index(user_ID)
+# score = 10
 
-fb_amount_of_meal = False # 식사 양
-fb_num_bf = False # 아침식사 양
-fb_num_lun = False # 점심식사 양
-fb_num_din = False # 저녁식사 양
+# fb_amount_of_meal = False # 식사 양
+# fb_num_bf = False # 아침식사 양
+# fb_num_lun = False # 점심식사 양
+# fb_num_din = False # 저녁식사 양
 
-fb_time = 0 
-fb_time_bf_early = False # 너무 이른 아침식사 피드백
-fb_time_bf_late = False # 너무 늦은 아침식사 피드백 (이하 동일)
-fb_time_lun_early = False
-fb_time_lun_late = False
-fb_time_din_early = False
-fb_time_din_late = False
+# fb_time = 0 
+# fb_time_bf_early = False # 너무 이른 아침식사 피드백
+# fb_time_bf_late = False # 너무 늦은 아침식사 피드백 (이하 동일)
+# fb_time_lun_early = False
+# fb_time_lun_late = False
+# fb_time_din_early = False
+# fb_time_din_late = False
 
-fb_rg_bf = False # 아침식사 규칙성 피드백
-fb_rg_lun = False
-fb_rg_din = False
+# fb_rg_bf = False # 아침식사 규칙성 피드백
+# fb_rg_lun = False
+# fb_rg_din = False
 
-fb_snack = 0 # 간식 빈도 피드백
-fb_n_snack = 0 # 야식 빈도 피드백
-fb_fastfood = 0 # 간편식 피드백
+# fb_snack = 0 # 간식 빈도 피드백
+# fb_n_snack = 0 # 야식 빈도 피드백
+# fb_fastfood = 0 # 간편식 피드백
 
-# 식사 횟수 평가
-if (num_bf[indx] + num_lun[indx] + num_din[indx])/3 < list_days[indx]/2:
-    fb_amount_of_meal = True
-    score -= 1
-if num_bf[indx] < list_days[indx]/3:
-    fb_num_bf = True
-if num_lun[indx] < list_days[indx]/3:
-    fb_num_lun = True
-if num_din[indx] < list_days[indx]/3:
-    fb_num_din = True
-if (fb_num_bf | fb_num_lun | fb_num_din):
-    score -= 1
+# # 식사 횟수 평가
+# if (num_bf[indx] + num_lun[indx] + num_din[indx])/3 < list_days[indx]/2:
+#     fb_amount_of_meal = True
+#     score -= 1
+# if num_bf[indx] < list_days[indx]/3:
+#     fb_num_bf = True
+# if num_lun[indx] < list_days[indx]/3:
+#     fb_num_lun = True
+# if num_din[indx] < list_days[indx]/3:
+#     fb_num_din = True
+# if (fb_num_bf | fb_num_lun | fb_num_din):
+#     score -= 1
 
-# 식사 시각 평가
-if time_bf[indx] < 360:
-    fb_time_bf_early = True
-    fb_time += 1
-elif time_bf[indx] > 480:
-    fb_time_bf_late = True
-    fb_time += 1
+# # 식사 시각 평가
+# if time_bf[indx] < 360:
+#     fb_time_bf_early = True
+#     fb_time += 1
+# elif time_bf[indx] > 480:
+#     fb_time_bf_late = True
+#     fb_time += 1
     
-if time_lun[indx] < 690:
-    fb_time_lun_early = True
-    fb_time += 1
-elif time_lun[indx] > 780:
-    fb_time_lun_late = True    
-    fb_time += 1
+# if time_lun[indx] < 690:
+#     fb_time_lun_early = True
+#     fb_time += 1
+# elif time_lun[indx] > 780:
+#     fb_time_lun_late = True    
+#     fb_time += 1
     
-if time_din[indx] < 930:
-    fb_time_din_early = True
-    fb_time += 1
-elif time_din[indx] > 1170:
-    fb_time_din_late = True    
-    fb_time += 1
+# if time_din[indx] < 930:
+#     fb_time_din_early = True
+#     fb_time += 1
+# elif time_din[indx] > 1170:
+#     fb_time_din_late = True    
+#     fb_time += 1
     
-if fb_time >= 3:
-    score -= 2
-elif fb_time > 0:
-    score -= 1
+# if fb_time >= 3:
+#     score -= 2
+# elif fb_time > 0:
+#     score -= 1
 
-# 식사 규칙성 평가
-if std_bf[indx] > 30:
-    fb_rg_bf = True
-if std_lun[indx] > 30:
-    fb_rg_lun = True
-if std_din[indx] > 30:
-    fb_rg_din = True
-if (fb_rg_bf | fb_rg_lun | fb_rg_din):
-    score -= 1
+# # 식사 규칙성 평가
+# if std_bf[indx] > 30:
+#     fb_rg_bf = True
+# if std_lun[indx] > 30:
+#     fb_rg_lun = True
+# if std_din[indx] > 30:
+#     fb_rg_din = True
+# if (fb_rg_bf | fb_rg_lun | fb_rg_din):
+#     score -= 1
 
-# 간식, 야식 평가
-if num_sn[indx] > list_days[indx]/3*2:
-    fb_snack = num_ns[indx] - list_days[indx]/3*2
-    score -= 1
-if num_nsn[indx] > list_days[indx]/5:
-    fb_n_snack = num_nsn[indx] - list_days[indx]/5
-    score -= 1
+# # 간식, 야식 평가
+# if num_sn[indx] > list_days[indx]/3*2:
+#     fb_snack = num_ns[indx] - list_days[indx]/3*2
+#     score -= 1
+# if num_nsn[indx] > list_days[indx]/5:
+#     fb_n_snack = num_nsn[indx] - list_days[indx]/5
+#     score -= 1
 
-# 간편식 평가
-if num_ff[indx] > list_days[indx]/2:
-    fb_fastfood = num_ff[indx] - list_days[indx]/2
-    score -= 1
+# # 간편식 평가
+# if num_ff[indx] > list_days[indx]/2:
+#     fb_fastfood = num_ff[indx] - list_days[indx]/2
+#     score -= 1
 
     
 

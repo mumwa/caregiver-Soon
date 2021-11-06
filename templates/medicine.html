@@ -114,29 +114,26 @@
                 </div>
             </div>
             <div class="gray margin">
-                <div class="bold">
-                    나의 일일 복용 간격
+                <div class="bold" id="recent_med">
                 </div>
                 <div>
-                    {{template_time}} 시간
                 </div>
             </div>
             <div class="big_margin" style="display: flex; align-items: start; justify-content: center;">
                 <div style="margin: 0 10px;"><img src="static/soon_round.png" width="50px" /></div>
-                <div class="yellow">
-                    {{template_msg}}
+                <div class="yellow" id="say">
                 </div>
             </div>
 
             <div class="title big_margin">
-                나의 복용 현황
+                복용 현황
             </div>
             <div class="gray margin">
                 <div class="bold">
-                    전체 평균
+                    나의 복용 현황
                 </div>
-                <div>
-                    {{template_totalAverage}}
+                <div id="total">
+                    
                 </div>
 
             </div>
@@ -154,69 +151,58 @@
 </div>
 
     <script>
-        function getHello() {
+        function getMedicine() {
             $.ajax({
                 type: "GET",
-                url: "/hello",
-                data: {},
+                url: "/get_medicine",
+                data: { id: id },
                 success: function (response) {
                     if (response['result'] === 'success') {
-                        console.log(response);
-                        const hello = response['hello'];
-                        alert(hello);
-                        $('#box').append(`<h6>${hello}<h6>`);
-                    } else {
-                        alert('프로필을 불러오지 못했습니다');
+                        const grade = response['grade'];
+                        const grade_div = document.getElementById("grade_div");
+                        const recent_med=response['recent_med'];
+                        const medAverage=response['medAverage'];
+
+                        $('#grade').append(`${grade}`);
+                        if (grade == 'A') {
+                            grade_div.style.backgroundColor = "#40D0E3";
+                            $('#say').append("약도 잘 챙겨주시네요! 순이가 박수 드릴게요");
+                        } else if (grade == 'B') {
+                            grade_div.style.backgroundColor = "#FFBC10";
+                            $('#say').append("약을 잘 챙겨드시는 건 좋지만, 복용간격이 너무 가까우면 부작용이 있으니 주의해주세요.");
+                        } else if (grade == 'C') {
+                            grade_div.style.backgroundColor = "#FF4D4D";
+                            $('#say').append("아이코, 깜빡하셨나보네요! 약을 눈에 잘 보이는 곳에 두는 것이 어떨까요?");
+                        } else {
+                            grade_div.style.backgroundColor = "#ffffff";
+                            $('#total').append("약을 규칙적으로 챙겨드시면 좋답니다. 순이와 함께 건강한 생활 시작해보시는 거 어때요?");
+                        }
+
+                        $('#recent_med').append(`${recent_med}시간`);
+
+                        $('#total').append(`
+                            <div style="background-color:#FFBC10; width:${25*medAverage}px; height: 10px; margin:10px 0 0 0">
+                            </div>
+                            <div>
+                                평균 ${medAverage}시간
+                            </div>
+                            <div style="background-color:#40D0E3; width:${25*recent_med}px; height: 10px; margin:10px 0 0 0">
+                            </div>
+                            <div>
+                                오늘 ${recent_med}시간
+                            </div>`);
+                    }
+                else {
+                        alert('정보를 불러오지 못했습니다')
                     }
                 },
                 error: function (request, status, error) {
                     console.log("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
                 }
             })
-            
         }
 
-        function medical_dose(){
-            $.ajax({
-                type: "POST",
-                url: "/medicine",
-                data: {},
-                success: function (response) {
-                    if (response['result'] === 'success') {
-                        console.log(response);
-                        const hello = response['hello'];
-                        alert(hello);
-                        $('#box').append(`<h6>${hello}<h6>`);
-                    } else {
-                        alert('프로필을 불러오지 못했습니다');
-                    }
-                },
-                error: function (request, status, error) {
-                    console.log("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
-                }
-            })
-        }
-
-        function medical_average(){
-            $.ajax({
-                type: "POST",
-                url: "/medicine",
-                data: {},
-                success: function (response) {
-                    if (response['result'] === 'success') {
-                        console.log(response);
-                        const hello = response['hello'];
-                        alert(hello);
-                        $('#box').append(`<h6>${hello}<h6>`);
-                    } else {
-                        alert('프로필을 불러오지 못했습니다');
-                    }
-                },
-                error: function (request, status, error) {
-                    console.log("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
-                }
-            })
-        }
+        window.onload = getMedicine();
     </script>
 </body>
 

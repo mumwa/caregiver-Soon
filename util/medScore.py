@@ -1,5 +1,5 @@
-import medAverage
-import med
+from util import medAverage
+from util import med
 
 #med(id)는 일일 복용 시간 간격을 계산함
 #medAverage 는 일반적인 개인 복용 시간 간격을 계산함

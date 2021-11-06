@@ -1,19 +1,12 @@
 import numpy as np
 import pandas as pd
-import medAverage
-import medScore
-
-def read_file(id):
-    if(id > 30063):
-        file="../data/hs_"+str(id)+"_m08_0903_1356.csv"
-    else:
-        file="../data/hs_"+str(id)+"_m08_0903_1355.csv"
-    data=pd.read_csv(file, encoding="cp949")
-    return data
+from util import medAverage
+from util import medScore
+from util import read_file
 
 #복용 시간 간격 평균 array를 return 
 def med(id):
-    data=read_file(id)
+    data=read_file.read_file(id)
 
     list_calendar = []
     list_med = []
