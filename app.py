@@ -5,6 +5,7 @@ from util import search as find
 from util.med import med
 from util.medAverage import all_med
 from util.medScore import get_med_grade
+from util.socialScore import social_score
 
 
 app = Flask(__name__)
@@ -56,7 +57,9 @@ def wash():
 
 @app.route('/activity')
 def activity():
-    return render_template('activity.html')
+    score = social_score()
+
+    return render_template('activity.html', template_score = score)
 
 @app.route('/categories')
 def hobby():

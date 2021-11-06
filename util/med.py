@@ -11,7 +11,7 @@ def read_file(id):
     data=pd.read_csv(file, encoding="cp949")
     return data
 
-
+#복용 시간 간격 평균 array를 return 
 def med(id):
     data=read_file(id)
 
@@ -71,10 +71,19 @@ def med(id):
     dailyAverage  = []
     avg=0
     for i in daily:
-        for j in daily[i]:
-            avg+=daily[i][j]
+        avg = daily[i][len(daily[i])-1] - daily[0]
+        avg = avg/(len(daily[i])-1)
         dailyAverage.append(avg)
+        # code with error. never mind
+        # for j in daily[i]:
+        #    avg+=daily[i][j]
+        #avg = avg/len(daily[i])
+        #dailyAverage.append(avg)
 
 #dailyaverage = avg of whole day
 
-    return dailyAverage[len(dailyAverage)-1]
+    return dailyAverage
+
+
+def recent_med(id):
+    return med(int(id))[len(med(int(id))-1)]
