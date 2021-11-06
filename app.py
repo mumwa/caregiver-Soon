@@ -4,7 +4,7 @@ from flask import Flask, render_template, jsonify, request
 from util import search as find
 from util.med import med
 from util.medAverage import all_med
-from util.medScore import get_med_grade
+from util.medScore import get_med_grade, print_message
 from util.socialScore import social_score
 
 
@@ -49,7 +49,8 @@ def medicine(id):
     score = get_med_grade(id)
     time = med(id)
     totalAverage = all_med(id)
-    return render_template('medicine.html', template_score = score, template_time = time, template_totalAverage = totalAverage)
+    message = print_message(id)
+    return render_template('medicine.html', template_score = score, template_time = time, template_totalAverage = totalAverage, template_msg = message)
 
 @app.route('/wash')
 def wash():
