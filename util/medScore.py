@@ -1,5 +1,5 @@
-import medAverage
-import med
+from util import medAverage
+from util import med
 
 def get_med_grade(id):
     a=med.med(int(id))-medAverage.all_med(id)

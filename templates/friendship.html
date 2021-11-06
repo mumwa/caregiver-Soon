@@ -80,7 +80,7 @@
     </div>
     <div class="container_wrapper">
         <div class="container">
-            <div class="title center_display" onclick="getHello()">
+            <div class="title center_display" onclick="getFriend()">
                 <span>순이와의 소통지수</span>
             </div>
 
@@ -110,6 +110,26 @@
                 type: "GET",
                 url: "/hello",
                 data: {},
+                success: function (response) {
+                    if (response['result'] === 'success') {
+                        console.log(response);
+                        const hello = response['hello'];
+                        alert(hello);
+                        // $('#box').append(`<h6>${hello}<h6>`);
+                    } else {
+                        alert('프로필을 불러오지 못했습니다');
+                    }
+                },
+                error: function (request, status, error) {
+                    console.log("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
+                }
+            })
+        }
+        function getFriend() {
+            $.ajax({
+                type: "GET",
+                url: "/friends",
+                data: {id:id},
                 success: function (response) {
                     if (response['result'] === 'success') {
                         console.log(response);

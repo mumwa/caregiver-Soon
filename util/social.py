@@ -1,4 +1,4 @@
-import socialAverage
+from util import socialAverage
 import numpy as np
 import pandas as pd
 
