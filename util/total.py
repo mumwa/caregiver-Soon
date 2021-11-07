@@ -419,6 +419,9 @@ class Meal:
     user_ID = 0
     indx = 0
     score_meal = 8
+    avg_time_bf = 0
+    avg_time_lun = 0
+    avg_time_din = 0
     fb_amount_of_meal = False 
     fb_num_bf = False 
     fb_num_lun = False 
@@ -441,6 +444,10 @@ class Meal:
         self.user_ID = user_ID
         self.indx = ID_to_index.index(user_ID)
         indx = self.indx
+
+        self.avg_time_bf = time_bf[indx]
+        self.avg_time_lun = time_lun[indx]
+        self.avg_time_din = time_din[indx]
 
         if (num_bf[indx] + num_lun[indx] + num_din[indx])/3 < list_days[indx]/2:
             self.fb_amount_of_meal = True

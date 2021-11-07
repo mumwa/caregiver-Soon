@@ -107,6 +107,42 @@
                     </div>
                 </div>
                 <div class="title big_margin">
+                    식사 시각
+                </div>
+                <div class="gray margin">
+                    <div class="bold" id="avg_time_bf">
+                    </div>
+                    <div id="fb_time_bf">
+                    </div>
+                    <div>
+                        권장 시각 06시 - 08시
+                    </div>
+                </div>
+                <div class="gray margin">
+                    <div class="bold" id="avg_time_lun">
+                    </div>
+                    <div id="fb_time_lun">
+                    </div>
+                    <div>
+                        권장 시각 11시 - 13시
+                    </div>
+                </div>
+                <div class="gray margin">
+                    <div class="bold" id="avg_time_din">
+                    </div>
+                    <div id="fb_time_din">
+                    </div>
+                    <div>
+                        권장 시각 17시 19시
+                    </div>
+                </div>
+                
+
+
+
+
+
+                <div class="title big_margin">
                     식사 규칙성
                 </div>
                 <div class="big_margin" style="display: flex; align-items: start; justify-content: center;">
@@ -138,6 +174,9 @@
                         // const link = "/meal?id=" + id;
                         // location.href = link;
                         var score_meal = response['score_meal'];
+                        var avg_time_bf = response['avg_time_bf'];
+                        var avg_time_lun = response['avg_time_lun'];
+                        var avg_time_din = response['avg_time_din'];
                         var fb_num_bf = response['fb_num_bf'];
                         var fb_num_lun = response['fb_num_lun'];
                         var fb_num_din = response['fb_num_din'];
@@ -194,10 +233,24 @@
                             $('#fb_num_meal').append(`삼시세끼 모두 건강하게 잘 챙겨드시고 계시는군요, 대단해요! 이 식습관을 유지해보아요!`);
                         }
 
-                        // 식사 시간
+                        // 식사 시각
                         var fb_time_bf = "";
                         var fb_time_lun = "";
                         var fb_time_din = "";
+
+                        var avg_h = parseInt(avg_time_bf/60);
+                        var avg_m = parseInt((avg_time_bf - avg_h*60));
+                        $('#avg_time_bf').append(`${avg_h}시 ${avg_m}분`);
+
+                        avg_h = parseInt(avg_time_lun/60);
+                        avg_m = parseInt((avg_time_lun - avg_h*60));                        
+                        $('#avg_time_lun').append(`${avg_h}시 ${avg_m}분`);
+
+                        avg_h = parseInt(avg_time_din/60);
+                        avg_m = parseInt((avg_time_din - avg_h*60));   
+                        $('#avg_time_din').append(`${avg_h}시 ${avg_m}분`);
+
+
                         if(fb_time_bf_early){
                             fb_time_bf = "이름";
                         }else if(fb_time_bf_late){
@@ -222,6 +275,11 @@
                             fb_time_din = "적절";
                         }                       
 
+                        $('#fb_time_bf').append(`${fb_time_bf}`);
+                        $('#fb_time_lun').append(`${fb_time_lun}`);
+                        $('#fb_time_din').append(`${fb_time_din}`);
+
+
                         // 식사 규칙성
                         if(fb_rg_bf || fb_rg_lun || fb_rg_din){
                             var tmp_str = "";
@@ -242,11 +300,11 @@
                         if(fb_snack > 0 || fb_n_snack > 0 || fb_fastfood > 0){
                             var tmp_str = "";
                             if(fb_snack > 0){
-                                tmp_str += "간식";
+                                tmp_str += "간식,";
                             }else if(fb_n_snack > 0){
-                                tmp_str += "야식";
+                                tmp_str += "야식,";
                             }else if(fb_fastfood > 0){
-                                tmp_str += "간편식";
+                                tmp_str += "간편식,";
                             }
                             tmp_str = tmp_str.slice(0,-1);
                             $('#fb_snack_and_fastfood').append(`최근 너무 많은 ${tmp_str}을 섭취하셨어요!`);
