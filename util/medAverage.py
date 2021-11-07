@@ -1,4 +1,5 @@
 from util import med
+from util import medScore
 import numpy as np
 import pandas as pd
 
