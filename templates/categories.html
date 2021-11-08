@@ -69,8 +69,51 @@
             margin-right: 0%;
             text-align: right;
         }
+        .title {
+            color: #4f2f00;
+            font-weight: bold;
+            font-size: 20px;
+        }
+
+        .gray {
+            width: 100%-40px;
+            border-radius: 10px;
+            background-color: rgba(196, 196, 196, 0.17);
+            display: block;
+            text-align: left;
+            color: #4f2f00;
+            font-size: 20px;
+            padding: 20px;
+
+        }
+
+        .score {
+            width: 100%;
+            border-radius: 10px;
+            display: block;
+            text-align: left;
+            color: #ffffff;
+            font-size: 40px;
+            padding: 20px;
+
+        }
+
+        .big_margin {
+            margin: 20px 0 0 0;
+        }
+
+        .margin {
+            margin: 10px 0 0 0;
+        }
+
+        .bold {
+            font-weight: bold;
+        }
 
     </style>
+
+
+
 </head>
 
 <body>
@@ -85,42 +128,109 @@
     </div>
     <div class="container_wrapper">
         <div class="container">
-            <div class="category" onclick="goSleep()">
-                <h2>취침시간</h2>
-                <div class="button"><a>A</a></div>
+            <div class="gray margin" style="display: flex; align-items: start; justify-content: center;" onclick="goSleep()" id="bg_color">
+                <div class="bold">취침시간</div>
+                <div class="score" id="sleep"></div>
             </div>
-            <div class="category" onclick="goMeal()">
-                <h2>식사시간</h2>
-                <div class="button"><a>A</a></div>
+
+            <div class="gray margin" style="display: flex; align-items: start; justify-content: center;" onclick="goMeal()" id="bg_color">
+                <div class="bold">식사시간</div>
+                <div class="score" id="meal"></div>
             </div>
-            <div class="category" onclick="goMedicine()">
-                <h2>투약시간</h2>
-                <div class="button"><a>A</a></div>
+
+            <div class="gray margin" style="display: flex; align-items: start; justify-content: center;" onclick="goMedicine()" id="bg_color">
+                <div class="bold">투약시간</div>
+                <div class="score" id="sleep"></div>
             </div>
-            <div class="category" onclick="goWash()">
-                <h2>청결도</h2>
-                <div class="button"><a>A</a></div>
+
+            <div class="gray margin" style="display: flex; align-items: start; justify-content: center;" onclick="goWash()" id="bg_color">
+                <div class="bold">청결도</div>
+                <div class="score" id="sleep"></div>
             </div>
-            <div class="category" onclick="goActivity()">
-                <h2>외부활동성</h2>
-                <div class="button"><a>A</a></div>
+
+            <div class="gray margin" style="display: flex; align-items: start; justify-content: center;" onclick="goActivity()" id="bg_color">
+                <div class="bold">외부활동성</div>
+                <div class="score" id="sleep"></div>
             </div>
+
         </div>
     </div>
     <script>
-        function getHello() {
+        function getCategories(){
             $.ajax({
-                type: "GET",
-                url: "/hello",
-                data: {},
-                success: function (response) {
+                type:"GET",
+                url:"/get_categories",
+                data:{},
+                success: function (response){
                     if (response['result'] === 'success') {
-                        console.log(response);
-                        const hello = response['hello'];
-                        alert(hello);
-                        $('#box').append(`<h6>${hello}<h6>`);
+                        const bg_color = document.getElementById("bg_color");
+
+                        const meal = response['meal'];
+                        const sleep = response['sleep'];
+                        const med= response['med'];
+                        const wash = response['wash'];
+                        const activity = response['activity'];
+
+                        $('#sleep').append(`${sleep}`);
+                        $('#meal').append(`${meal}`);
+                        $('#med').append(`${med}`);
+                        $('#wash').append(`${wash}`);
+                        $('#activity').append(`${activity}`);
+
+                        if (meal == 'A') {
+                            bg_color.style.backgroundColor = "#40D0E3";
+                        } else if (meal == 'B') {
+                            bg_color.style.backgroundColor = "#FFBC10";
+                        } else if (meal == 'C') {
+                            bg_color.style.backgroundColor = "#FF4D4D";
+                        } else {
+                            bg_color.style.backgroundColor = "#ffffff";
+                        }
+
+                        if (sleep == 'A') {
+                            bg_color.style.backgroundColor = "#40D0E3";
+                        } else if (sleep == 'B') {
+                            bg_color.style.backgroundColor = "#FFBC10";
+                        } else if (sleep == 'C') {
+                            bg_color.style.backgroundColor = "#FF4D4D";
+                        } else {
+                            bg_color.style.backgroundColor = "#ffffff";
+                        }
+
+                        if (med == 'A') {
+                            bg_color.style.backgroundColor = "#40D0E3";
+                        } else if (med == 'B') {
+                            bg_color.style.backgroundColor = "#FFBC10";
+                        } else if (med == 'C') {
+                            bg_color.style.backgroundColor = "#FF4D4D";
+                        } else {
+                            bg_color.style.backgroundColor = "#ffffff";
+                        }
+
+                        if (wash == 'A') {
+                            bg_color.style.backgroundColor = "#40D0E3";
+                        } else if (wash == 'B') {
+                            bg_color.style.backgroundColor = "#FFBC10";
+                        } else if (wash == 'C') {
+                            bg_color.style.backgroundColor = "#FF4D4D";
+                        } else {
+                            bg_color.style.backgroundColor = "#ffffff";
+                        }
+
+                        if (activity == 'A') {
+                            bg_color.style.backgroundColor = "#40D0E3";
+                        } else if (activity == 'B') {
+                            bg_color.style.backgroundColor = "#FFBC10";
+                        } else if (activity == 'C') {
+                            bg_color.style.backgroundColor = "#FF4D4D";
+                        } else {
+                            bg_color.style.backgroundColor = "#ffffff";
+                        }
+
+
+
                     } else {
-                        alert('프로필을 불러오지 못했습니다');
+                        alert('정보를 불러오지 못했습니다');
                     }
                 },
                 error: function (request, status, error) {
@@ -128,6 +238,7 @@
                 }
             })
         }
+        
     </script>
 </body>
 

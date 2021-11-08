@@ -152,6 +152,16 @@ def get_activity():
 def hobby():
     return render_template('categories.html')
 
+@app.route('/get_categories')
+def get_categories():
+    id=int(request.args["id"])
+    #meal_grade = total.Meal(id)
+    #sleep_grade = total.Sleep(id)
+    med_grade = medScore.get_med_grade(id)
+    wash_grade=cleanScore.get_grade(id)
+    activity_grade = outsideScore.outsideScore(id)
+    return jsonify({'result':'success', 'meal':meal_grade, 'sleep':sleep_grade,'med': med_grade, 'wash':wash_grade, 'activity':activity_grade})
+
 #for commit
 if __name__ == '__main__':
     app.run('0.0.0.0', port=5000, debug=True)
