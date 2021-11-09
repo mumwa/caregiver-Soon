@@ -146,7 +146,7 @@
             $.ajax({
                 type:"GET",
                 url:"/get_categories",
-                data:{},
+                data:{ id : id },
                 success: function (response){
                     if (response['result'] === 'success') {
 

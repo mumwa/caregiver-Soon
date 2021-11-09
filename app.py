@@ -64,8 +64,8 @@ def get_alert():
 def friendship_page():
     return render_template('friendship.html')
 
-#@app.route('/sleep')
-#def sleep():
+@app.route('/sleep')
+def sleep():
     return render_template('sleep.html')
 
 @app.route('/get_sleep', methods=['GET'])
@@ -144,8 +144,8 @@ def hobby():
 @app.route('/get_categories')
 def get_categories():
     id=int(request.args["id"])
-    #meal_grade = total.Meal(id)
-    #sleep_grade = total.Sleep(id)
+    meal_grade = total.Meal(id)
+    sleep_grade = total.Sleep(id)
     med_grade = medScore.get_med_grade(id)
     wash_grade=cleanScore.get_grade(id)
     activity_grade = outsideScore.outsideScore(id)
