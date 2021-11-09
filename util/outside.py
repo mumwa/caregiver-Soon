@@ -46,7 +46,7 @@ def outside(id):
     wasOutside=[]
 
     for i in range(len(list_outside)):
-        timeOutside = list_inside[i] - list_outside[i]
+        timeOutside = abs(list_inside[i] - list_outside[i])
         wasOutside.append(timeOutside)
 
     return wasOutside

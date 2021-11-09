@@ -17,4 +17,4 @@ def all_social():
         count=count+1
     for i in all_social:
         total_average=total_average + i[1]
-    return total_average/len(all_social)
+    return int(total_average/len(all_social))

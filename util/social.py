@@ -29,4 +29,4 @@ def social_me(id):
         return 0
     else:
         average=len(programs) / len(list_social)
-        return average
+        return round(average)
