@@ -114,7 +114,7 @@
         <div class="container">
             <div style="padding:0 20px">
                 <div class="title big_margin">
-                    나의 일일 외출
+                    나의 외출
                 </div>
                 <div class="gray margin">
                     <div class="bold" id="time">
@@ -164,8 +164,8 @@
                 url: "/get_activity",
                 data: { id : id },
                 success: function (response){
-                    
-                    if(response=='success'){
+                    console.log(response);
+                    if(response['result']=='success'){
 
                         const time = response['time'];
                         const grade = response['grade'];
@@ -176,12 +176,14 @@
                         const average = response['average'];
                         const socialGrade = response['socialGrade'];
 
+                        $('#grade').append(`${grade}`);
+
                         $('#time').append(`일주일에 ${time}번`);
                         if (grade == "A") {
                             grade_div.style.backgroundColor = "#40D0E3";
                             $('#say').append(`건강한 생활을 하고 계시네요! 너무 좋아요~`);
                         } else if (grade == "B") {
-                            grade_div.style.backgroundColor = "#FF4D4D";
+                            grade_div.style.backgroundColor = "#FFBC10";
                             $('#say').append(`조금만 더 나가볼까요?`);
                         } else if (grade == "C") {
                             grade_div.style.backgroundColor = "#FF4D4D";
@@ -194,12 +196,12 @@
                         $('#mine').append(`${mine} 회 참여하셨네요!`);
 
                         $('#compare').append(`
-                            <div style="background-color:#FFBC10; width:${3*average}px; height: 10px; margin:10px 0 0 0">
+                            <div style="background-color:#FFBC10; width:${average}px; height: 10px; margin:10px 0 0 0">
                             </div>
                             <div>
                                 전체평균 ${average}회
                             </div>
-                            <div style="background-color:#40D0E3; width:${3*mine}px; height: 10px; margin:10px 0 0 0">
+                            <div style="background-color:#40D0E3; width:${mine}px; height: 10px; margin:10px 0 0 0">
                             </div>
                             <div>
                                 나 ${mine}회
