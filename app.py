@@ -1,6 +1,7 @@
 from flask import Flask, render_template, jsonify, request
 # from bson.objectid import ObjectId
 # 웹으로 작동하기 위한 라이브러리
+
 from util import search as find
 
 from util import clean
@@ -21,6 +22,7 @@ from util import socialScore
 from util import emergency
 
 from util import total
+
 
 app = Flask(__name__)
 
@@ -116,6 +118,16 @@ def get_meal():
 def medicine():
     return render_template('medicine.html')
 
+@app.route('/get_medicine')
+def get_medicine():
+    id = int(request.args["id"])
+
+    recent_med = med.recent_med(id)
+    grade = medScore.get_med_grade(id)
+    average = medAverage.all_med(id)
+    return jsonify({'result': 'success', 'grade': grade, 'recent_med' : recent_med, 'average' : average })
+
+
 @app.route('/wash')
 def wash():
     return render_template('wash.html')
@@ -139,9 +151,30 @@ def get_wash():
 def activity():
     return render_template('activity.html')
 
+@app.route('/get_activity', methods=['GET'])
+def get_activity():
+    id=int(request.args["id"])
+    time = outside.outside_average(id)
+    grade = outsideScore.outsideScore(id)
+    mine = social.social_me(id)
+    average = socialAverage.all_social()
+    socialGrade = socialScore.social_score(id)
+    return jsonify({'result':'success', 'time': time, 'grade' : grade, 'mine': mine, 'average':average, 'socialGrade':socialGrade})
+
 @app.route('/categories')
 def hobby():
     return render_template('categories.html')
+
+@app.route('/get_categories')
+def get_categories():
+    id=int(request.args["id"])
+    meal_result = total.Meal(id)
+    sleep_result = total.Sleep(id)
+    med_grade = medScore.get_med_grade(id)
+    wash_grade=cleanScore.get_grade(id)
+    activity_grade = outsideScore.outsideScore(id)
+    return jsonify({'result':'success', 'meal':meal_result.score_meal, 'sleep':sleep_result.score_sleep,'med': med_grade, 'wash':wash_grade, 'activity':activity_grade})
+
 
 if __name__ == '__main__':
     app.run('0.0.0.0', port=5000, debug=True)
