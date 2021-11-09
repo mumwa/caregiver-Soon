@@ -26,11 +26,11 @@
         if (id == "") {
             location.href = "/";
         }
-        function goMain(){
+        function goMain() {
             const link = "/home?id=" + id;
             location.href = link;
         }
-        function goCategories(){
+        function goCategories() {
             const link = "/categories?id=" + id;
             location.href = link;
         }
@@ -41,17 +41,24 @@
             font-weight: bold;
             font-size: 20px;
         }
+        .semi_title {
+            color: #4f2f00;
+            font-size: 18px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+        }
 
         .gray {
             width: 100%-40px;
             border-radius: 10px;
             background-color: rgba(196, 196, 196, 0.17);
-            display: block;
-            text-align: left;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
             color: #4f2f00;
             font-size: 20px;
             padding: 20px;
-
         }
 
         .yellow {
@@ -77,6 +84,13 @@
         .bold {
             font-weight: bold;
         }
+        .right {
+            font-weight: bold;
+        }
+        .left {
+            font-weight: bold;
+            font-size:30px;
+        }
     </style>
 </head>
 
@@ -91,7 +105,8 @@
         </div>
     </div>
     <div class="center_display"
-        style="width: 100%; background-color: #40D0E3; display: block; text-align: center; padding: 20px 0;" id="grade_div">
+        style="width: 100%; background-color: #40D0E3; display: block; text-align: center; padding: 20px 0;"
+        id="grade_div">
         <div style="color: #4f2f00; font-weight: bold; font-size: 30px;">식사시간</div>
         <div style="color: #ffffff; font-weight: bold; font-size: 100px;" id="grade"></div>
     </div>
@@ -109,39 +124,48 @@
                 <div class="title big_margin">
                     식사 시각
                 </div>
-                <div class="gray margin">
-                    <div class="bold" id="avg_time_bf">
-                    </div>
-                    <div id="fb_time_bf">
-                    </div>
-                    <div>
-                        권장 시각 06시 - 08시
-                    </div>
+                <div class="semi_title big_margin">
+                    <div style="width: 8px; height: 8px; border-radius: 50%; background-color: #FFBC10; margin-right: 5px;"></div>아침
                 </div>
                 <div class="gray margin">
-                    <div class="bold" id="avg_time_lun">
-                    </div>
-                    <div id="fb_time_lun">
-                    </div>
                     <div>
-                        권장 시각 11시 - 13시
+                        <div class="bold" id="avg_time_bf">
+                        </div>
+                        <div>
+                            권장 시각 06시 - 08시
+                        </div>
                     </div>
+                    <div id="fb_time_bf" class="left">
+                    </div>
+                </div>
+                <div class="semi_title big_margin">
+                    <div style="width: 8px; height: 8px; border-radius: 50%; background-color: #FFBC10; margin-right: 5px;"></div>점심
                 </div>
                 <div class="gray margin">
-                    <div class="bold" id="avg_time_din">
-                    </div>
-                    <div id="fb_time_din">
-                    </div>
                     <div>
-                        권장 시각 17시 19시
+                        <div class="bold" id="avg_time_lun">
+                        </div>
+                        <div>
+                            권장 시각 11시 - 13시
+                        </div>
+                    </div>
+                    <div id="fb_time_lun" class="left">
                     </div>
                 </div>
-                
-
-
-
-
-
+                <div class="semi_title big_margin">
+                    <div style="width: 8px; height: 8px; border-radius: 50%; background-color: #FFBC10; margin-right: 5px;"></div>저녁
+                </div>
+                <div class="gray margin">
+                    <div>
+                        <div class="bold" id="avg_time_din">
+                        </div>
+                        <div>
+                            권장 시각 17시 19시
+                        </div>
+                    </div>
+                    <div id="fb_time_din" class="left">
+                    </div>
+                </div>
                 <div class="title big_margin">
                     식사 규칙성
                 </div>
@@ -167,7 +191,7 @@
             $.ajax({
                 type: "GET",
                 url: "/get_meal",
-                data: { id : id },
+                data: { id: id },
                 success: function (response) {
                     console.log(response);
                     if (response['availableID'] == true) {
@@ -192,44 +216,44 @@
                         var fb_snack = response['fb_snack'];
                         var fb_n_snack = response['fb_n_snack'];
                         var fb_fastfood = response['fb_fastfood'];
-                        
+
                         // 등급
                         var alp_grade = "";
-                        if(score_meal <= 2){
+                        if (score_meal <= 2) {
                             alp_grade = "C";
                             grade_div.style.backgroundColor = "#FF4D4D";
-                        }else if(score_meal <= 5){
+                        } else if (score_meal <= 5) {
                             alp_grade = "B";
                             grade_div.style.backgroundColor = "#FFBC10";
-                        }else if(score_meal <= 8){
+                        } else if (score_meal <= 8) {
                             alp_grade = "A";
                             grade_div.style.backgroundColor = "#40D0E3";
-                        }else{
+                        } else {
                             alp_grade = "C";
                             grade_div.style.backgroundColor = "#ffffff";
                         }
                         $('#grade').append(`${alp_grade}`);
 
                         // 식사 횟수
-                        if(fb_num_bf || fb_num_lun || fb_num_din){
+                        if (fb_num_bf || fb_num_lun || fb_num_din) {
                             var tmp_str = "";
-                            if(fb_num_bf){
+                            if (fb_num_bf) {
                                 tmp_str += "아침,";
-                            }else if(fb_num_lun){
+                            } else if (fb_num_lun) {
                                 tmp_str += "점심,";
-                            }else if(fb_num_din){
+                            } else if (fb_num_din) {
                                 tmp_str += "저녁,";
                             }
-                            tmp_str = tmp_str.slice(0,-1);
+                            tmp_str = tmp_str.slice(0, -1);
                             $('#fb_num_meal').append(`${tmp_str} 식사를 잘 거르시는 것 같아요. 식사는 생체 리듬과 건강에 큰 영향을 미친답니다!`);
-                            if(fb_num_bf){
+                            if (fb_num_bf) {
                                 $('#fb_num_meal').append(`아침 식사는 뇌의 능률을 향상시킨다고 해요. 또 아침 식사를 거르면 오히려 체중이 는다고도 해요!`);
-                            }else if(fb_num_lun){
+                            } else if (fb_num_lun) {
                                 $('#fb_num_meal').append(`점심 식사를 거르면 보통 저녁 식사에 과식을 하게 된다고 해요! 과일이나 시리얼 같은 음식이라도 점심에 드시는 건 어떨까요?`);
-                            }else if(fb_num_din){
+                            } else if (fb_num_din) {
                                 $('#fb_num_meal').append(`저녁 식사는 보통 모든 식사 중에서 차지하는 열량이 가장 높답니다!`);
                             }
-                        }else{
+                        } else {
                             $('#fb_num_meal').append(`삼시세끼 모두 건강하게 잘 챙겨드시고 계시는군요, 대단해요! 이 식습관을 유지해보아요!`);
                         }
 
@@ -238,42 +262,55 @@
                         var fb_time_lun = "";
                         var fb_time_din = "";
 
-                        var avg_h = parseInt(avg_time_bf/60);
-                        var avg_m = parseInt((avg_time_bf - avg_h*60));
-                        $('#avg_time_bf').append(`${avg_h}시 ${avg_m}분`);
+                        var avg_h = parseInt(avg_time_bf / 60);
+                        var avg_m = parseInt((avg_time_bf - avg_h * 60));
+                        $('#avg_time_bf').append(`아침 식사 ${avg_h}시 ${avg_m}분`);
 
-                        avg_h = parseInt(avg_time_lun/60);
-                        avg_m = parseInt((avg_time_lun - avg_h*60));                        
-                        $('#avg_time_lun').append(`${avg_h}시 ${avg_m}분`);
+                        avg_h = parseInt(avg_time_lun / 60);
+                        avg_m = parseInt((avg_time_lun - avg_h * 60));
+                        $('#avg_time_lun').append(`점심 식사 ${avg_h}시 ${avg_m}분`);
 
-                        avg_h = parseInt(avg_time_din/60);
-                        avg_m = parseInt((avg_time_din - avg_h*60));   
-                        $('#avg_time_din').append(`${avg_h}시 ${avg_m}분`);
+                        avg_h = parseInt(avg_time_din / 60);
+                        avg_m = parseInt((avg_time_din - avg_h * 60));
+                        $('#avg_time_din').append(`저녁 식사 ${avg_h}시 ${avg_m}분`);
 
-
-                        if(fb_time_bf_early){
+                        const bf = document.getElementById("fb_time_bf");
+                        const lun = document.getElementById("fb_time_lun");
+                        const din = document.getElementById("fb_time_din");
+                        
+                        if (fb_time_bf_early) {
                             fb_time_bf = "이름";
-                        }else if(fb_time_bf_late){
+                            bf.style.color = "#40D0E3";
+
+                        } else if (fb_time_bf_late) {
                             fb_time_bf = "늦음";
-                        }else{
+                            bf.style.color = "#FF4D4D";
+                        } else {
                             fb_time_bf = "적절"
+                            bf.style.color = "#FFBC10";
                         }
 
-                        if(fb_time_lun_early){
+                        if (fb_time_lun_early) {
                             fb_time_lun = "이름";
-                        }else if(fb_time_lun_late){
+                            lun.style.color = "#40D0E3";
+                        } else if (fb_time_lun_late) {
                             fb_time_lun = "늦음";
-                        }else{
+                            lun.style.color = "#FF4D4D";
+                        } else {
                             fb_time_lun = "적절";
+                            lun.style.color = "#FFBC10";
                         }
 
-                        if(fb_time_din_early){
+                        if (fb_time_din_early) {
                             fb_time_din = "이름";
-                        }else if(fb_time_din_late){
+                            din.style.color = "#40D0E3";
+                        } else if (fb_time_din_late) {
                             fb_time_din = "늦음";
-                        }else{
+                            din.style.color = "#FF4D4D";
+                        } else {
                             fb_time_din = "적절";
-                        }                       
+                            din.style.color = "#FFBC10";
+                        }
 
                         $('#fb_time_bf').append(`${fb_time_bf}`);
                         $('#fb_time_lun').append(`${fb_time_lun}`);
@@ -281,41 +318,41 @@
 
 
                         // 식사 규칙성
-                        if(fb_rg_bf || fb_rg_lun || fb_rg_din){
+                        if (fb_rg_bf || fb_rg_lun || fb_rg_din) {
                             var tmp_str = "";
-                            if(fb_rg_bf){
+                            if (fb_rg_bf) {
                                 tmp_str += "아침,";
-                            }else if(fb_rg_lun){
+                            } else if (fb_rg_lun) {
                                 tmp_str += "점심,";
-                            }else if(fb_rg_din){
+                            } else if (fb_rg_din) {
                                 tmp_str += "저녁,";
                             }
-                            tmp_str = tmp_str.slice(0,-1);
+                            tmp_str = tmp_str.slice(0, -1);
                             $('#fb_rg_meal').append(`${tmp_str} 식사를 불규칙적으로 드시고 계셔요. 불규칙적인 식습관은 소화불량 등을 일으킬 수 있다고 해요. 되도록 매일매일 같은 시간에 식사를 해보아요!`);
-                        }else{
+                        } else {
                             $('#fb_rg_meal').append(`삼시세끼 모두 규칙적으로 챙겨드시고 계시는군요, 대단해요! 이 식습관을 유지해보아요!`);
                         }
-                        
+
                         // 간식, 야식, 간편식
-                        if(fb_snack > 0 || fb_n_snack > 0 || fb_fastfood > 0){
+                        if (fb_snack > 0 || fb_n_snack > 0 || fb_fastfood > 0) {
                             var tmp_str = "";
-                            if(fb_snack > 0){
+                            if (fb_snack > 0) {
                                 tmp_str += "간식,";
-                            }else if(fb_n_snack > 0){
+                            } else if (fb_n_snack > 0) {
                                 tmp_str += "야식,";
-                            }else if(fb_fastfood > 0){
+                            } else if (fb_fastfood > 0) {
                                 tmp_str += "간편식,";
                             }
-                            tmp_str = tmp_str.slice(0,-1);
+                            tmp_str = tmp_str.slice(0, -1);
                             $('#fb_snack_and_fastfood').append(`최근 너무 많은 ${tmp_str}을 섭취하셨어요!`);
-                            if(fb_snack > 0){
+                            if (fb_snack > 0) {
                                 $('#fb_snack_and_fastfood').append(`아무리 건강한 간식이라도 과도하게 섭취하면 비만으로 이어질 수 있어요! 비만은 만병의 근원이라고 하니 간식을 조금 줄이는 걸 추천해요!`);
-                            }else if(fb_n_snack > 0){
+                            } else if (fb_n_snack > 0) {
                                 $('#fb_snack_and_fastfood').append(`야식은 건강을 해치는 안 좋은 습관 중 하나랍니다. 비만으로 이어질 수도 있고, 장기의 건강에도 좋지않아요! 야식은 최대한 피하는 것이 좋아요!`);
-                            }else if(fb_fastfood > 0){
+                            } else if (fb_fastfood > 0) {
                                 $('#fb_snack_and_fastfood').append(`간편식은 종류에 따라 다르지만 추천드리지 않아요. 직접 요리한 음식에 비해 건강하지 않기 때문이에요. 조금 귀찮더라도 간단한 음식이라도 직접 요리해보는 건 어떨까요?`);
-                            }                           
-                        }else{
+                            }
+                        } else {
                             $('#fb_snack_and_fastfood').append(`건강한 간식 습관을 실천 중이시군요! 과일과 견과류가 간식으로 정말 좋답니다!`);
 
                         }

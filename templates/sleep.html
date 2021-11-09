@@ -103,7 +103,7 @@
                     수면 양 조절
                 </div>
                 <div class="gray margin" id="div_avg_sleep">
-                    <div class="bold" id="avg_sleep">
+                    <div id="avg_sleep">
                     </div>
                 </div>
                 <div class="big_margin" style="display: flex; align-items: start; justify-content: center;">
@@ -189,12 +189,12 @@
                         const my_time=avg_h*30+avg_m/2;
                         const graph_str = `
                             <div style="background-color:#FFBC10; width:240px; height: 10px; margin:10px 0 0 0"></div>
-                            <div style="font-weight:regular;">
+                            <div style="font-weight:regular; margin-top:5px;">
                                 일일 권장 수면 시간 7-9시간
                             </div>
                             <div style="background-color:#40D0E3; width:${my_time}px; height: 10px; margin:10px 0 0 0" id="color">
                             </div>
-                            <div style="font-weight:regular;">
+                            <div style="font-weight:regular; margin-top:5px;">
                                 나의 평균 수면 시간 ${avg_str}
                             </div>
                             `
