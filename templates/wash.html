@@ -182,7 +182,7 @@
                         $('#count').append(`${count}회`);
 
                         if (cleanGrade == 'Alert') {
-                            $('#clean').append(`권고량 이하의 청소입니다. 일주일에 한 번은 집안을 청소해볼까요?`);
+                            $('#clean').append(`<div style="font-weight:bold; color:#FF4D4D;">경고! 주간 평균 ${clean}회</div><div>권고량 이하의 청소입니다. 일주일에 한 번은 집안을 청소해볼까요?</div>`);
                             const clean_div = document.getElementById("clean_div");
                             clean_div.style.backgroundColor = "#FFADAD";
                         } else {
@@ -200,7 +200,7 @@
                         }
 
                         if (washGrade == 'Alert') {
-                            $('#wash').append(`음식류는 자주 정리하는게 좋아요! 이틀에 한 번은 해주세요!`);
+                            $('#wash').append(`<div style="font-weight:bold; color:#FF4D4D;">경고! 주간 평균 ${wash}회</div><div>음식류는 자주 정리하는게 좋아요! 이틀에 한 번은 해주세요!</div>`);
                             const wash_div = document.getElementById("wash_div");
                             wash_div.style.backgroundColor = "#FFADAD";
                         } else {
@@ -218,7 +218,7 @@
                         }
                         
                         if (freshGrade == 'Alert') {
-                            $('#fresh').append(`오늘 날씨는 맑은가요? 이틀에 한번은 환기해주세요!`);
+                            $('#fresh').append(`<div style="font-weight:bold; color:#FF4D4D;">경고! 주간 평균 ${fresh}회</div><div>오늘 날씨는 맑은가요? 이틀에 한번은 환기해주세요!</div>`);
                             const fresh_div = document.getElementById("fresh_div");
                             fresh_div.style.backgroundColor = "#FFADAD";
                         } else {
