@@ -16,5 +16,5 @@ def all_social():
         all_social.append(line)
         count=count+1
     for i in all_social:
-        total_average=total_average + all_social[i][1]
+        total_average=total_average + i[1]
     return total_average/len(all_social)

@@ -1,11 +1,11 @@
 import numpy as np
 import pandas as pd
-from util import read_file
+from util import read_file as rf
 from util import outsideScore
 
 
 def outside(id):
-    data=read_file(id)
+    data=rf.read_file(id)
 
     list_outside= []
     out_num= []
@@ -41,11 +41,11 @@ def outside(id):
         min=int(time[1])*60
         sec=int(time[2])
         out_time = round((hour+min+sec)/60)
-        list_inside.append(time)
+        list_inside.append(out_time)
 
     wasOutside=[]
 
-    for i in len(out_num):
+    for i in range(len(list_outside)):
         timeOutside = list_inside[i] - list_outside[i]
         wasOutside.append(timeOutside)
 
@@ -54,4 +54,8 @@ def outside(id):
 def recent_outside(id):
     out_time = outside(id)
     out_length = len(out_time)-1
-    return out_time[out_length]
+
+    if(out_length==0):
+        return 0
+    else:
+        return out_time[out_length]

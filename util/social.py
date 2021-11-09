@@ -1,10 +1,10 @@
 from util import socialAverage
 import numpy as np
 import pandas as pd
-from util import read_file
+from util import read_file as rf
 
 def social_me(id):
-    data=read_file(id)
+    data=rf.read_file(id)
 
     list_social= []
     socials= []

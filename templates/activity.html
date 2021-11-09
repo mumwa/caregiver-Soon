@@ -21,16 +21,16 @@
         function getParameterByName(name) {
             name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]"); var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"), results = regex.exec(location.search); return results == null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
         }
-        const id = getParameterByName('id');
+        var id = getParameterByName('id');
         if (id == "") {
             location.href = "/";
         }
         function goMain(){
-            const link = "/home?id=" + id;
+            var link = "/home?id=" + id;
             location.href = link;
         }
         function goCategories(){
-            const link = "/categories?id=" + id;
+            var link = "/categories?id=" + id;
             location.href = link;
         }
     </script>
@@ -159,21 +159,22 @@
 
     <script>
         function getActivity(){
-            $ajax({
+            $.ajax({
                 type:"GET",
                 url: "/get_activity",
                 data: { id : id },
                 success: function (response){
-                    if(response==='success'){
+                    console.log(response);
+                    if(response=='success'){
 
-                        const time = response['time'];
-                        const grade = response['grade'];
-                        const grade_div = document.getElementById("grade_div");
+                        var time = response['time'];
+                        var grade = response['grade'];
+                        var grade_div = document.getElementById("grade_div");
 
                         
-                        const mine = response['mine'];
-                        const average = response['average'];
-                        const socialGrade = response['socialGrade'];
+                        var mine = response['mine'];
+                        var average = response['average'];
+                        var socialGrade = response['socialGrade'];
 
                         $('#time').append(`${time}분`);
                         if (grade == "A") {

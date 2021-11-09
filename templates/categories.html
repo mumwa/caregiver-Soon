@@ -148,7 +148,8 @@
                 url:"/get_categories",
                 data:{ id : id },
                 success: function (response){
-                    if (response['result'] === 'success') {
+                    console.log(response);
+                    if (response['result'] == 'success') {
 
                         const meal = response['meal'];
                         const sleep = response['sleep'];
