@@ -61,25 +61,25 @@
             font-size: 20px;
         }
 
-        .gray {
+        .category {
             width: 100%-40px;
             border-radius: 10px;
-            background-color: rgba(196, 196, 196, 0.17);
+            background-color: rgb(255, 230, 147);
             display: block;
             text-align: left;
             color: #4f2f00;
-            font-size: 20px;
+            font-size: 18px;
             padding: 20px;
 
         }
 
         .score {
             width: 100%;
-            border-radius: 10px;
+            
             display: block;
             text-align: left;
             color: #ffffff;
-            font-size: 40px;
+            font-size: 36px;
             padding: 20px;
 
         }
@@ -114,29 +114,29 @@
     </div>
     <div class="container_wrapper">
         <div class="container">
-            <div class="gray margin" style="display: flex; align-items: start; justify-content: center;" onclick="goSleep()" id="bg_color">
+            <div class="category margin" style="display: flex; align-items: start; justify-content: center;" onclick="goSleep()" id="category">
                 <div class="bold">취침시간</div>
-                <div class="score" id="sleep"></div>
+                <div class="score" id="sleepGrade"></div>
             </div>
 
-            <div class="gray margin" style="display: flex; align-items: start; justify-content: center;" onclick="goMeal()" id="bg_color">
+            <div class="category margin" style="display: flex; align-items: start; justify-content: center;" onclick="goMeal()" id="category">
                 <div class="bold">식사시간</div>
-                <div class="score" id="meal"></div>
+                <div class="score" id="mealGrade"></div>
             </div>
 
-            <div class="gray margin" style="display: flex; align-items: start; justify-content: center;" onclick="goMedicine()" id="bg_color">
+            <div class="category margin" style="display: flex; align-items: start; justify-content: center;" onclick="goMedicine()" id="category">
                 <div class="bold">투약시간</div>
-                <div class="score" id="sleep"></div>
+                <div class="score" id="medGrade"></div>
             </div>
 
-            <div class="gray margin" style="display: flex; align-items: start; justify-content: center;" onclick="goWash()" id="bg_color">
+            <div class="category margin" style="display: flex; align-items: start; justify-content: center;" onclick="goWash()" id="category">
                 <div class="bold">청결도</div>
-                <div class="score" id="sleep"></div>
+                <div class="score" id="washGrade"></div>
             </div>
 
-            <div class="gray margin" style="display: flex; align-items: start; justify-content: center;" onclick="goActivity()" id="bg_color">
+            <div class="category margin" style="display: flex; align-items: start; justify-content: center;" onclick="goActivity()" id="category">
                 <div class="bold">외부활동성</div>
-                <div class="score" id="sleep"></div>
+                <div class="score" id="actGrade"></div>
             </div>
 
         </div>
@@ -149,7 +149,6 @@
                 data:{},
                 success: function (response){
                     if (response['result'] === 'success') {
-                        const bg_color = document.getElementById("bg_color");
 
                         const meal = response['meal'];
                         const sleep = response['sleep'];
@@ -157,61 +156,61 @@
                         const wash = response['wash'];
                         const activity = response['activity'];
 
-                        $('#sleep').append(`${sleep}`);
-                        $('#meal').append(`${meal}`);
-                        $('#med').append(`${med}`);
-                        $('#wash').append(`${wash}`);
-                        $('#activity').append(`${activity}`);
+                        $('#sleepGrade').append(`${sleep}`);
+                        $('#mealGrade').append(`${meal}`);
+                        $('#medGrade').append(`${med}`);
+                        $('#washGrade').append(`${wash}`);
+                        $('#actGrade').append(`${activity}`);
 
                         
                         if (sleep == 'A') {
-                            bg_color.style.backgroundColor = "#40D0E3";
+                            category.style.backgroundColor = "#40D0E3";
                         } else if (sleep == 'B') {
-                            bg_color.style.backgroundColor = "#FFBC10";
+                            category.style.backgroundColor = "#FFBC10";
                         } else if (sleep == 'C') {
-                            bg_color.style.backgroundColor = "#FF4D4D";
+                            category.style.backgroundColor = "#FF4D4D";
                         } else {
-                            bg_color.style.backgroundColor = "#ffffff";
+                            category.style.backgroundColor = "#ffffff";
                         }
 
                         if (meal == 'A') {
-                            bg_color.style.backgroundColor = "#40D0E3";
+                            category.style.backgroundColor = "#40D0E3";
                         } else if (meal == 'B') {
-                            bg_color.style.backgroundColor = "#FFBC10";
+                            category.style.backgroundColor = "#FFBC10";
                         } else if (meal == 'C') {
-                            bg_color.style.backgroundColor = "#FF4D4D";
+                            category.style.backgroundColor = "#FF4D4D";
                         } else {
-                            bg_color.style.backgroundColor = "#ffffff";
+                            category.style.backgroundColor = "#ffffff";
                         }
 
                         if (med == 'A') {
-                            bg_color.style.backgroundColor = "#40D0E3";
+                            category.style.backgroundColor = "#40D0E3";
                         } else if (med == 'B') {
-                            bg_color.style.backgroundColor = "#FFBC10";
+                            category.style.backgroundColor = "#FFBC10";
                         } else if (med == 'C') {
-                            bg_color.style.backgroundColor = "#FF4D4D";
+                            category.style.backgroundColor = "#FF4D4D";
                         } else {
-                            bg_color.style.backgroundColor = "#ffffff";
+                            category.style.backgroundColor = "#ffffff";
                         }
 
                         if (wash == 'A') {
-                            bg_color.style.backgroundColor = "#40D0E3";
+                            category.style.backgroundColor = "#40D0E3";
                         } else if (wash == 'B') {
-                            bg_color.style.backgroundColor = "#FFBC10";
+                            category.style.backgroundColor = "#FFBC10";
                         } else if (wash == 'C') {
-                            bg_color.style.backgroundColor = "#FF4D4D";
+                            category.style.backgroundColor = "#FF4D4D";
                         } else {
-                            bg_color.style.backgroundColor = "#ffffff";
+                            category.style.backgroundColor = "#ffffff";
                         }
 
                         if (activity == 'A') {
-                            bg_color.style.backgroundColor = "#40D0E3";
+                            category.style.backgroundColor = "#40D0E3";
                         } else if (activity == 'B') {
-                            bg_color.style.backgroundColor = "#FFBC10";
+                            category.style.backgroundColor = "#FFBC10";
                         } else if (activity == 'C') {
-                            bg_color.style.backgroundColor = "#FF4D4D";
+                            category.style.backgroundColor = "#FF4D4D";
                         } else {
-                            bg_color.style.backgroundColor = "#ffffff";
+                            category.style.backgroundColor = "#ffffff";
                         }
 
 
@@ -226,6 +225,7 @@
             })
         }
         
+        window.onload = getCategories();
     </script>
 </body>
 
