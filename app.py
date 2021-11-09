@@ -130,7 +130,7 @@ def activity():
 @app.route('/get_activity', methods=['GET'])
 def get_activity():
     id=int(request.args["id"])
-    time = outside.recent_outside(id)
+    time = outside.outside_average(id)
     grade = outsideScore.outsideScore(id)
     mine = social.social_me(id)
     average = socialAverage.all_social()

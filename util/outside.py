@@ -18,44 +18,29 @@ def outside(id):
         count=count+1
     for i in out_num:
         mass=data.iloc[i]['Time'].split(' ')
-        time=mass[1].split(':')
-        hour=int(time[0])*60*60
-        min=int(time[1])*60
-        sec=int(time[2])
-        out_time = round((hour+min+sec)/60)
-        list_outside.append(out_time)
+        date=mass[0].split('-')
+        year=date[0]
+        date[0]=int(year[1:5])
+        date[1]=int(date[1])
+        date[2]=int(date[2])
+        if date not in list_outside:
+            list_outside.append(date)
 
-    list_inside= []
-    in_num= []
+    week_outside=[0, 0, 0, 0]
+    for i in list_outside:
+        if 2<=i[2]<=8:
+            week_outside[0]=week_outside[0]+1
+        elif 9<=i[2]<=15:
+            week_outside[1]=week_outside[1]+1
+        elif 16<=i[2]<=22:
+            week_outside[2]=week_outside[2]+1
+        elif 23<=i[2]<=29:
+            week_outside[3]=week_outside[3]+1
+ 
+    return week_outside
 
-    inside= data['Act'].str.contains("귀가").tolist()
-    count=0
-    for ins in inside:
-        if ins==True:
-            in_num.append(int(count))
-        count=count+1
-    for i in in_num:
-        mass=data.iloc[i]['Time'].split(' ')
-        time=mass[1].split(':')
-        hour=int(time[0])*60*60
-        min=int(time[1])*60
-        sec=int(time[2])
-        out_time = round((hour+min+sec)/60)
-        list_inside.append(out_time)
+def outside_average(id):
+    weekly = outside(id)
+    average=(weekly[0]+weekly[1]+weekly[2]+weekly[3])/4
 
-    wasOutside=[]
-
-    for i in range(len(list_outside)):
-        timeOutside = abs(list_inside[i] - list_outside[i])
-        wasOutside.append(timeOutside)
-
-    return wasOutside
-
-def recent_outside(id):
-    out_time = outside(id)
-    out_length = len(out_time)-1
-
-    if(out_length==0):
-        return 0
-    else:
-        return out_time[out_length]
+    return average

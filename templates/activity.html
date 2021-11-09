@@ -164,7 +164,7 @@
                 url: "/get_activity",
                 data: { id : id },
                 success: function (response){
-                    console.log(response);
+                    
                     if(response=='success'){
 
                         const time = response['time'];
@@ -176,14 +176,18 @@
                         const average = response['average'];
                         const socialGrade = response['socialGrade'];
 
-                        $('#time').append(`${time}분`);
+                        $('#time').append(`일주일에 ${time}번`);
                         if (grade == "A") {
                             grade_div.style.backgroundColor = "#40D0E3";
                             $('#say').append(`건강한 생활을 하고 계시네요! 너무 좋아요~`);
                         } else if (grade == "B") {
                             grade_div.style.backgroundColor = "#FF4D4D";
+                            $('#say').append(`조금만 더 나가볼까요?`);
+                        } else if (grade == "C") {
+                            grade_div.style.backgroundColor = "#FF4D4D";
                             $('#say').append(`1일 1회 이상의 외출이 좋대요! 순이랑 같이 나가볼래요?`);
-                        }else {
+                        }
+                        else {
                             grade_div.style.backgroundColor = "#7E6B65";
                         }
 
@@ -201,12 +205,11 @@
                                 나 ${mine}회
                             </div>`);
 
-                        
-                        if (socialGrade == 'A') {
+                        if (socialGrade == "A") {
                             $('#together').append(`당신이야말로 인간 관계 마스터! 멋져요!`);
-                        } else if (socialGrade == 'B') {
+                        } else if (socialGrade == "B") {
                             $('#together').append(`친구랑 좀 더 자주 만나면 어떨까요?`);
-                        } else if (socialGrade == 'C') {
+                        } else if (socialGrade == "C") {
                             $('#together').append(`순이랑만 지내는 것도 좋지만, 밖에서 친구와 함께 시간을 보내는 것은 어떨까요?`);
                         } else {
                             $('#together').append(`순이랑만 지내는 것도 좋지만, 밖에서 친구와 함께 시간을 보내는 것은 어떨까요?`);
