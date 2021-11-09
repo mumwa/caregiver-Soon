@@ -42,12 +42,6 @@ def default():
     hello="hello"
     return jsonify({'result': 'success', 'hello': hello})
 
-@app.route('/friends', methods=['GET'])
-def get_friend():
-    #id=int(request.args["id"])
-    hello="허허"
-    return jsonify({'result': 'success', 'hello': hello})
-
 @app.route('/home')
 def home():
     return render_template('main.html')
@@ -61,6 +55,27 @@ def get_alert():
 @app.route('/friendship')
 def friendship_page():
     return render_template('friendship.html')
+
+@app.route('/friends', methods=['GET'])
+def get_friend():
+    id=int(request.args["id"])
+    friend_result = total.Friendship(id)
+    # user_ID = 0
+    # indx = 0
+    # score_friendship 최종 점수 (friendship) 12점 만점에 df 점!ㅇ
+    # fb_freq_resp 응답 빈도 00 / 15ㅇ
+    # fb_len_resp 응답 길이 00 / 15ㅇ
+    # fb_program = 0  ‘순이 대화’ 참여도 00 / 15
+    # fb_keyword = False  특정 키워드 반응 
+
+    # freq_resp1 = 0 첫번째 메시지는 00%로 답해주셨어요
+    # freq_resp2 = 0 두번째 메시지는 00%로 답해주셨어요
+    # freq_resp3 = 0 세번째 메시지는 00%로 답해주셨어요
+    # len_resp = 0 총 몇자 답해주셨어요! 고마워요!
+    # program = 0 00 회
+    # prop_program = 0 nn%
+
+    return jsonify({'result': 'success', 'score_sleep': friend_result.score_friendship, 'fb_freq_resp': friend_result.fb_freq_resp, 'fb_len_resp': friend_result.fb_len_resp, 'fb_program':friend_result.fb_program, 'fb_keyword':friend_result.fb_keyword, 'freq_resp1':friend_result.freq_resp1, 'freq_resp2':friend_result.freq_resp2, 'freq_resp3':friend_result.freq_resp3, 'len_resp':friend_result.len_resp, 'program':friend_result.program, 'prop_program':friend_result.prop_program,})
 
 @app.route('/sleep')
 def sleep():
@@ -119,6 +134,5 @@ def activity():
 def hobby():
     return render_template('categories.html')
 
-#for commit
 if __name__ == '__main__':
     app.run('0.0.0.0', port=5000, debug=True)

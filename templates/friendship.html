@@ -18,7 +18,6 @@
         crossorigin="anonymous"></script>
 
     <title>Friendship</title>
-    <link rel="stylesheet" href="static/Friendship.css">
     <script>
         function getParameterByName(name) {
             name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]"); var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"), results = regex.exec(location.search); return results == null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
@@ -27,7 +26,7 @@
         if (id == "") {
             location.href = "/";
         }
-        function goMain(){
+        function goMain() {
             const link = "/home?id=" + id;
             location.href = link;
         }
@@ -36,37 +35,50 @@
 
 <body>
     <style>
-        img {
-            margin-right: 0%;
-            margin-bottom: 0%;
-            display: inline;
-            object-fit: scale-down;
-        }
-
-        h2 {
-            font-family: NanumGothic;
-            font-size: 18px;
+        .title {
+            color: #4f2f00;
             font-weight: bold;
-            text-align: left;
-            margin-top: 15px;
-            margin-bottom: 0;
-            margin-right: 0%;
+            font-size: 20px;
         }
 
-        p {
-            font-family: NanumGothic;
-            font-size: 50px;
-            font-weight: normal;
-            letter-spacing: -5px;
-            text-align: right;
-            color: var(--grapefruit);
-            margin: 0px;
-            margin-right: 5px;
+        .gray {
+            width: 100% - 40px;
+            border-radius: 10px;
+            background-color: #F4E5CD;
+            display: block;
+            text-align: center;
+            color: #4f2f00;
+            font-size: 18px;
+            padding: 20px;
+            border-top: 1px solid #4f2f00;
         }
 
-        span {
-            display: inline;
-            margin: 0%;
+        .white {
+            width: 100% - 40px;
+            border-radius: 10px;
+            background-color: #ffffff;
+            display: block;
+            text-align: center;
+            color: #4f2f00;
+            font-size: 20px;
+            padding: 20px;
+        }
+
+        .score {
+            font-size: 40px;
+            font-weight: bold;
+        }
+
+        .big_margin {
+            margin: 20px 0 0 0;
+        }
+
+        .margin {
+            margin: 10px 0 0 0;
+        }
+
+        .bold {
+            font-weight: bold;
         }
     </style>
     <div class="header_wrapper">
@@ -78,64 +90,143 @@
             <img width="40"></img>
         </div>
     </div>
-    <div class="container_wrapper">
+    <div class="center_display"
+        style="width: 100%; display: block; text-align: center; padding: 20px 0; background-color: #FFF4D9;">
+        <div style="color: #4f2f00; font-weight: bold; font-size: 30px;">순이와의 소통지수</div>
+        <div id="grade_div"></div>
+        <div style="color: #4f2f00; font-weight: bold; font-size: 20px;" id="score"></div>
+    </div>
+    <div class="container_wrapper" style="background-color: white;">
         <div class="container">
-            <div class="title center_display" onclick="getFriend()">
-                <span>순이와의 소통지수</span>
-            </div>
+            <div style="padding:0 20px">
+                <div class="title big_margin" onclick="getWash()">
+                    응답 빈도
+                </div>
+                <div class="white margin center_display">
+                    <div class="score" id="score1"></div>
+                    <div id="detail_score1">
 
-            <div class="total clearfix">
-                <img src="../static/soon_1.png" alt="순이얼굴" justify-content="center_display" display="center_display" width="90%">
-            </div>
+                    </div>
+                </div>
+                <div class="gray margin" id="ment_score1">
 
-            <div class="totalCategories">
-                <h2 style="color: #4f2f00;"><span>응답빈도</span></h2>
-                <p style="color: #ff4d4d;"><strong>10 </strong><span style="color: #4f2f00;"> / 15</span></p>
-            </div>
+                </div>
+                <div class="title big_margin" onclick="getWash()">
+                    응답 길이
+                </div>
+                <div class="white margin">
+                    <div class="score" id="score2"></div>
+                    <div id="detail_score2"></div>
+                </div>
+                <div class="gray margin" id="ment_score2">
 
-            <div class="totalCategories">
-                <h2 style="color: #4f2f00;">응답길이</h2>
-                <p style="color: #ff4d4d;"><strong>12 </strong><span style="color: #4f2f00;"> / 15</span></p>
-            </div>
-
-            <div class="totalCategories">
-                <h2 style="color: #4f2f00;">대화참여도</h2>
-                <p style="color: #ff4d4d;"><strong>5 </strong><span style="color: #4f2f00;"> / 8</span></p>
+                </div>
+                <div class="title big_margin" onclick="getWash()">
+                    대화참여도
+                </div>
+                <div class="white margin">
+                    <div class="score" id="score3"></div>
+                    <div id="detail_score3"></div>
+                </div>
+                <div class="gray margin">
+                    <div style="text-align: left; display: flex;">
+                        <div>
+                            <div class="bold">프로그램 참여</div>
+                            <div class="bold">순이 대화 비중</div>
+                        </div>
+                        <div style="margin-left: 20px;">
+                            <div id="count_program"></div>
+                            <div id="percent_program"></div>
+                        </div>
+                    </div>
+                    <div style="margin-top:30px;">전체 프로그램 참여</div>
+                    <div style="display: flex; justify-content: center; align-items: center; margin:20px 0" id="round_graph">
+                        
+                    </div>
+                </div>
             </div>
         </div>
     </div>
+    </div>
     <script>
-        function getHello() {
-            $.ajax({
-                type: "GET",
-                url: "/hello",
-                data: {},
-                success: function (response) {
-                    if (response['result'] === 'success') {
-                        console.log(response);
-                        const hello = response['hello'];
-                        alert(hello);
-                        // $('#box').append(`<h6>${hello}<h6>`);
-                    } else {
-                        alert('프로필을 불러오지 못했습니다');
-                    }
-                },
-                error: function (request, status, error) {
-                    console.log("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
-                }
-            })
-        }
         function getFriend() {
             $.ajax({
                 type: "GET",
                 url: "/friends",
-                data: {id:id},
+                data: { id: id },
                 success: function (response) {
                     if (response['result'] === 'success') {
+                        const score = response['score_sleep'];
+                        const len = response['fb_len_resp'];
+                        const freq = response['fb_freq_resp'];
+                        const program = response['fb_program'];
+                        const len_resp = response['len_resp'];
+
+                        const freq_resp1 = response['freq_resp1'];
+                        const freq_resp2 = response['freq_resp2'];
+                        const freq_resp3 = response['freq_resp3'];
+
+                        const count_program = response['program']
+                        const percent_program = response['prop_program']
+
+                        $('#detail_score1').append(`${freq} / 15`);
+                        $('#detail_score2').append(`${len} / 15`);
+                        $('#detail_score3').append(`${program} / 8`);
+
+                        $('#ment_score1').append(`<div>첫번째 메시지는 ${freq_resp1}%로 답해주셨어요</div>`);
+                        $('#ment_score1').append(`<div style="margin-top:10px;">두번째 메시지는 ${freq_resp2}%로 답해주셨어요</div>`);
+                        $('#ment_score1').append(`<div style="margin-top:10px;">세번째 메시지는 ${freq_resp3}%로 답해주셨어요</div>`);
+
+                        $('#ment_score2').append(`총 ${len_resp}자 답해주셨어요! 고마워요!`);
+
+                        $('#count_program').append(`${count_program}회`);
+                        $('#percent_program').append(`${percent_program}%`);
+
+                        $('#round_graph').append(`<div style="width: 170px; height: 170px; border-radius: 50%; background: conic-gradient(#FFBC10 0% ${percent_program}%, #4FE49D ${percent_program}% 100%);"></div>`);
+
+                        if (freq >= 11) {
+                            $('#score1').append(`A`);
+                            score1.style.color = "#40D0E3";
+
+                        } else if (11 > freq >= 6) {
+                            $('#score1').append(`B`);
+                            score1.style.color = "#FFBC10";
+                        } else {
+                            $('#score1').append(`C`);
+                            score1.style.color = "#FF4D4D";
+                        }
+
+                        if (len >= 11) {
+                            $('#score2').append(`A`);
+                            score2.style.color = "#40D0E3";
+                        } else if (11 > len >= 6) {
+                            $('#score2').append(`B`);
+                            score2.style.color = "#FFBC10";
+                        } else {
+                            $('#score2').append(`C`);
+                            score2.style.color = "#FF4D4D";
+                        }
+
+                        if (program >= 6) {
+                            $('#score3').append(`A`);
+                            score3.style.color = "#40D0E3";
+                        } else if (6 > program >= 3) {
+                            $('#score3').append(`B`);
+                            score3.style.color = "#FFBC10";
+                        } else {
+                            $('#score3').append(`C`);
+                            score3.style.color = "#FF4D4D";
+                        }
+
+                        if (score >= 7) {
+                            $('#grade_div').append(`<img src="../static/A.png" alt="순이얼굴" style="width:180px;">`);
+                        } else if (7 > score >= 3) {
+                            $('#grade_div').append(`<img src="../static/B.png" alt="순이얼굴" style="width:180px;">`);
+                        } else {
+                            $('#grade_div').append(`<img src="../static/C.png" alt="순이얼굴" style="width:180px;">`);
+                        }
+                        $('#score').append(`12점 만점에 ${score}점`);
                         console.log(response);
-                        const hello = response['hello'];
-                        alert(hello);
-                        // $('#box').append(`<h6>${hello}<h6>`);
                     } else {
                         alert('프로필을 불러오지 못했습니다');
                     }
@@ -145,6 +236,7 @@
                 }
             })
         }
+        window.onload = getFriend();
     </script>
 </body>
 
