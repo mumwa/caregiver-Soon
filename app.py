@@ -107,12 +107,12 @@ def medicine():
 
 @app.route('/get_medicine')
 def get_medicine():
-    id = int(request.ards["id"])
+    id = int(request.args["id"])
 
     recent_med = med.recent_med(id)
     grade = medScore.get_med_grade(id)
-    medAverage = medAverage.all_med(id)
-    return jsonify({'result': 'success', 'grade': grade, 'recent_med' : recent_med, 'medAverage' : medAverage })
+    average = medAverage.all_med(id)
+    return jsonify({'result': 'success', 'grade': grade, 'recent_med' : recent_med, 'average' : average })
 
 
 @app.route('/wash')
@@ -141,12 +141,12 @@ def activity():
 @app.route('/get_activity', methods=['GET'])
 def get_activity():
     id=int(request.args["id"])
-    time = outside.outside(id)
+    time = outside.recent_outside(id)
     grade = outsideScore.outsideScore(id)
-    social = social.social_me
-    socialAverage = socialAverage.all_social()
-    socialGrade = socialScore.social_score()
-    return jsonify({'result':'success', 'time': time, 'grade' : grade, 'social': social, 'socialAverage':socialAverage, 'socialGrade':socialGrade})
+    mine = social.social_me(id)
+    average = socialAverage.all_social()
+    socialGrade = socialScore.social_score(id)
+    return jsonify({'result':'success', 'time': time, 'grade' : grade, 'mine': mine, 'average':average, 'socialGrade':socialGrade})
 
 @app.route('/categories')
 def hobby():

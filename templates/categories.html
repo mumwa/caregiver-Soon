@@ -53,22 +53,8 @@
             location.href = link;
         }
     </script>
-    <link rel="stylesheet" href="static/categories.css">
+ 
     <style>
-        h2 {
-            font-family: Noto-Sans;
-            display: inline-block;
-            font-size: 105%;
-            text-align: left;
-            margin-top: 0%;
-            color: rgb(44, 12, 0);
-        }
-
-        a {
-            margin-left: 50%;
-            margin-right: 0%;
-            text-align: right;
-        }
         .title {
             color: #4f2f00;
             font-weight: bold;
@@ -177,21 +163,22 @@
                         $('#wash').append(`${wash}`);
                         $('#activity').append(`${activity}`);
 
-                        if (meal == 'A') {
-                            bg_color.style.backgroundColor = "#40D0E3";
-                        } else if (meal == 'B') {
-                            bg_color.style.backgroundColor = "#FFBC10";
-                        } else if (meal == 'C') {
-                            bg_color.style.backgroundColor = "#FF4D4D";
-                        } else {
-                            bg_color.style.backgroundColor = "#ffffff";
-                        }
-
+                        
                         if (sleep == 'A') {
                             bg_color.style.backgroundColor = "#40D0E3";
                         } else if (sleep == 'B') {
                             bg_color.style.backgroundColor = "#FFBC10";
                         } else if (sleep == 'C') {
+                            bg_color.style.backgroundColor = "#FF4D4D";
+                        } else {
+                            bg_color.style.backgroundColor = "#ffffff";
+                        }
+
+                        if (meal == 'A') {
+                            bg_color.style.backgroundColor = "#40D0E3";
+                        } else if (meal == 'B') {
+                            bg_color.style.backgroundColor = "#FFBC10";
+                        } else if (meal == 'C') {
                             bg_color.style.backgroundColor = "#FF4D4D";
                         } else {
                             bg_color.style.backgroundColor = "#ffffff";

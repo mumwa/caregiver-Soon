@@ -9,7 +9,7 @@ def get_med_grade(id):
     normal = medAverage.all_med(int(id))
 
     if(normal==0):
-        return "No Data"
+        return "X"
 #if same, great
 #if more, need to be tightened
 #if less, need to be less

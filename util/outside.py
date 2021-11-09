@@ -1,14 +1,7 @@
 import numpy as np
 import pandas as pd
+from util import read_file
 from util import outsideScore
-
-def read_file(id):
-    if(id > 30063):
-        file="../data/hs_"+str(id)+"_m08_0903_1356.csv"
-    else:
-        file="../data/hs_"+str(id)+"_m08_0903_1355.csv"
-    data=pd.read_csv(file, encoding="cp949")
-    return data
 
 
 def outside(id):
@@ -25,12 +18,12 @@ def outside(id):
         count=count+1
     for i in out_num:
         mass=data.iloc[i]['Time'].split(' ')
-        time=mass[0].split(':')
+        time=mass[1].split(':')
         hour=int(time[0])*60*60
         min=int(time[1])*60
         sec=int(time[2])
-        out_time = hour+min+sec
-        list_outside.append(time)
+        out_time = round((hour+min+sec)/60)
+        list_outside.append(out_time)
 
     list_inside= []
     in_num= []
@@ -43,17 +36,22 @@ def outside(id):
         count=count+1
     for i in in_num:
         mass=data.iloc[i]['Time'].split(' ')
-        time=mass[0].split(':')
+        time=mass[1].split(':')
         hour=int(time[0])*60*60
         min=int(time[1])*60
         sec=int(time[2])
-        out_time = hour+min+sec
+        out_time = round((hour+min+sec)/60)
         list_inside.append(time)
 
     wasOutside=[]
 
     for i in len(out_num):
-        timeOutside = list_outside[i] - list_inside[i]
+        timeOutside = list_inside[i] - list_outside[i]
         wasOutside.append(timeOutside)
 
     return wasOutside
+
+def recent_outside(id):
+    out_time = outside(id)
+    out_length = len(out_time)-1
+    return out_time[out_length]

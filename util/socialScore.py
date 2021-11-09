@@ -2,7 +2,7 @@ from util import social
 from util import socialAverage
 
 
-def social_score():
+def social_score(id):
     if social.social_me(int(id))<=(socialAverage.all_social()*0.30):
         return "C"
     elif (socialAverage.all_social()*0.30)<=social.social_me(int(id))<=(socialAverage.all_social()*1.30):

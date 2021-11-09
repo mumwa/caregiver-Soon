@@ -135,10 +135,7 @@
                 <div id="total">
                     
                 </div>
-
-            </div>
-            <div class="gray margin">
-
+                
             </div>
             <div class="big_margin" style="display: flex; align-items: start; justify-content: center;">
                 <div style="margin: 0 10px;"><img src="static/soon_round.png" width="50px" /></div>
@@ -161,7 +158,7 @@
                         const grade = response['grade'];
                         const grade_div = document.getElementById("grade_div");
                         const recent_med=response['recent_med'];
-                        const medAverage=response['medAverage'];
+                        const average=response['average'];
 
                         $('#grade').append(`${grade}`);
                         if (grade == 'A') {
@@ -174,17 +171,17 @@
                             grade_div.style.backgroundColor = "#FF4D4D";
                             $('#say').append("아이코, 깜빡하셨나보네요! 약을 눈에 잘 보이는 곳에 두는 것이 어떨까요?");
                         } else {
-                            grade_div.style.backgroundColor = "#ffffff";
-                            $('#total').append("약을 규칙적으로 챙겨드시면 좋답니다. 순이와 함께 건강한 생활 시작해보시는 거 어때요?");
+                            grade_div.style.backgroundColor = "#FF4D4D";
+                            $('#say').append("약을 규칙적으로 챙겨드시면 좋답니다. 순이와 함께 건강한 생활 시작해보시는 거 어때요?");
                         }
 
                         $('#recent_med').append(`${recent_med}시간`);
 
                         $('#total').append(`
-                            <div style="background-color:#FFBC10; width:${25*medAverage}px; height: 10px; margin:10px 0 0 0">
+                            <div style="background-color:#FFBC10; width:${25*average}px; height: 10px; margin:10px 0 0 0">
                             </div>
                             <div>
-                                평균 ${medAverage}시간
+                                평균 ${average}시간
                             </div>
                             <div style="background-color:#40D0E3; width:${25*recent_med}px; height: 10px; margin:10px 0 0 0">
                             </div>

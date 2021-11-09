@@ -1,7 +1,8 @@
 from util import outside
 
-def outsideScore():
-    if (outside(int(id))[len(outside(int(id)))-1] >= 900):
+def outsideScore(id):
+    time = outside.recent_outside(id)
+    if (time >= 15):
         return "A"
     else:
         return "B"

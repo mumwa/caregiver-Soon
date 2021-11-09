@@ -109,47 +109,45 @@
         id="grade_div">
         <div style="color: #4f2f00; font-weight: bold; font-size: 30px;">외부활동성</div>
         <div style="color: #ffffff; font-weight: bold; font-size: 100px;" id="grade"></div>
-</div>
-<div class="container_wrapper" style="background-color: white;">
-    <div class="container">
-        <div style="padding:0 20px">
-            <div class="title big_margin">
-                나의 일일 외출
-            </div>
-            <div class="gray margin">
-                <div class="bold" id="time">
+    </div>
+    <div class="container_wrapper" style="background-color: white;">
+        <div class="container">
+            <div style="padding:0 20px">
+                <div class="title big_margin">
+                    나의 일일 외출
                 </div>
-                <div>
-                    잘 하고 있어요
+                <div class="gray margin">
+                    <div class="bold" id="time">
+    
+                    </div>
                 </div>
-            </div>
-            <div class="big_margin" style="display: flex; align-items: start; justify-content: center;">
-                <div style="margin: 0 10px;"><img src="static/soon_round.png" width="50px" /></div>
-                <div class="yellow" id="say">
+                <div class="big_margin" style="display: flex; align-items: start; justify-content: center;">
+                    <div style="margin: 0 10px;"><img src="static/soon_round.png" width="50px" /></div>
+                    <div class="yellow" id="say">
+                    </div>
                 </div>
-            </div>
-            <div class="title big_margin">
-                나의 프로그램 참여율
-            </div>
-            <div class="gray margin" id="social">
-            </div>
-
-
-            <div class="title big_margin">
-                프로그램 참여현황
-            </div>
-            <div class="gray margin" id="compare">
-            </div>
-            <div class="big_margin" style="display: flex; align-items: start; justify-content: center;">
-                <div style="margin: 0 10px;"><img src="static/soon_round.png" width="50px" /></div>
-                <div class="yellow" id="together">
-                    친구들과 함께 하시는 일상을 위해 순이가 잠시 나와드릴게요~그래도 순이 잊지 말기!
+                <div class="title big_margin">
+                    나의 프로그램 참여율
                 </div>
+                <div class="gray margin" id="mine">
+                </div>
+    
+    
+                <div class="title big_margin">
+                    프로그램 참여현황
+                </div>
+                <div class="gray margin" id="compare">
+                </div>
+                <div class="big_margin" style="display: flex; align-items: start; justify-content: center;">
+                    <div style="margin: 0 10px;"><img src="static/soon_round.png" width="50px" /></div>
+                    <div class="yellow" id="together">
+                    </div>
+                </div>
+    
             </div>
-
         </div>
     </div>
-</div>
+
     <script>
         function getActivity(){
             $ajax({
@@ -164,8 +162,8 @@
                         const grade_div = document.getElementById("grade_div");
 
                         
-                        const social = response['social'];
-                        const socialAverage = response['socialAverage'];
+                        const mine = response['mine'];
+                        const average = response['average'];
                         const socialGrade = response['socialGrade'];
 
                         $('#time').append(`${time}분`);
@@ -176,35 +174,32 @@
                             grade_div.style.backgroundColor = "#FF4D4D";
                             $('#say').append(`1일 1회 이상의 외출이 좋대요! 순이랑 같이 나가볼래요?`);
                         }else {
-                            grade_div.style.backgroundColor = "#ffffff";
+                            grade_div.style.backgroundColor = "#7E6B65";
                         }
 
-                        $('#social').append(`${social} 회 참여하셨네요!`);
+                        $('#mine').append(`${mine} 회 참여하셨네요!`);
 
                         $('#compare').append(`
-                            <div style="background-color:#FFBC10; width:${25*washAverage}px; height: 10px; margin:10px 0 0 0">
+                            <div style="background-color:#FFBC10; width:${25*average}px; height: 10px; margin:10px 0 0 0">
                             </div>
                             <div>
-                                전체평균 ${socialAverage}회
+                                전체평균 ${average}회
                             </div>
-                            <div style="background-color:#40D0E3; width:${25*wash}px; height: 10px; margin:10px 0 0 0">
+                            <div style="background-color:#40D0E3; width:${25*mine}px; height: 10px; margin:10px 0 0 0">
                             </div>
                             <div>
-                                나 ${social}회
+                                나 ${mine}회
                             </div>`);
 
-                        $('#together').append(`${socialGrade}`);
+                        $('#compare').append(`${socialGrade}`);
                         if (socialGrade == 'A') {
-                            grade_div.style.backgroundColor = "#40D0E3";
-                            $('#say').append(`당신이야말로 인간 관계 마스터! 멋져요!`);
+                            $('#together').append(`당신이야말로 인간 관계 마스터! 멋져요!`);
                         } else if (socialGrade == 'B') {
-                            grade_div.style.backgroundColor = "#FFBC10";
-                            $('#say').append(`친구랑 좀 더 자주 만나면 어떨까요?`);
+                            $('#together').append(`친구랑 좀 더 자주 만나면 어떨까요?`);
                         } else if (socialGrade == 'C') {
-                            grade_div.style.backgroundColor = "#FF4D4D";
-                            $('#say').append(`순이랑만 지내는 것도 좋지만, 밖에서 친구와 함께 시간을 보내는 것은 어떨까요?`);
+                            $('#together').append(`순이랑만 지내는 것도 좋지만, 밖에서 친구와 함께 시간을 보내는 것은 어떨까요?`);
                         } else {
-                            grade_div.style.backgroundColor = "#ffffff";
+                            $('#together').append(`순이랑만 지내는 것도 좋지만, 밖에서 친구와 함께 시간을 보내는 것은 어떨까요?`);
                         }
                         
                     }

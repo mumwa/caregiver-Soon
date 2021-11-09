@@ -13,7 +13,7 @@ def med(id):
     time_med = []
     meds = []
 
-    meds_boolean= data['State'].str.contains("기상 약 복용" | "복약" | "식후 약 복용").tolist()
+    meds_boolean= data['State'].str.contains("기상 약 복용|복약|식후 약 복용").tolist()
     count=0
     for med_bool in meds_boolean:
         if med_bool==True:
@@ -46,26 +46,29 @@ def med(id):
     #for calculating time span
     for i in meds:
         mass=data.iloc[i]['Time'].split(' ')
-        time=mass[0].split(':')
+        time=mass[1].split(':')
         hour=int(time[0])*60*60
         min=int(time[1])*60
         sec=int(time[2])
-        med_time = hour+min+sec
+        med_time = round((hour+min+sec)/3600)
         time_med.append(med_time)
     
     daily = []
 
-    for i in len(list_med):
+    for i in range(len(list_med)):
         daily.append([])
-        for j in list_med[i].count():
+        for j in range(list_med.count(list_med[i])):
             daily[i].append(time_med[i+j])
 
     #calculate daily AVERAGE
     dailyAverage  = []
     avg=0
-    for i in daily:
-        avg = daily[i][len(daily[i])-1] - daily[0]
-        avg = avg/(len(daily[i])-1)
+    for i in range(len(daily)):
+        avg = daily[i][len(daily[i])-1] - daily[i][0]
+        if(len(daily[i])==0):
+            avg=0
+        else:
+            avg = avg/len(daily[i])
         dailyAverage.append(avg)
         # code with error. never mind
         # for j in daily[i]:
@@ -79,4 +82,10 @@ def med(id):
 
 
 def recent_med(id):
-    return med(int(id))[len(med(int(id))-1)]
+    list = med(int(id))
+    length = len(list)
+
+    if(length>1):
+        return list[length-1]
+    else:
+        return 0
