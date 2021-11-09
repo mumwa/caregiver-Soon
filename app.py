@@ -22,7 +22,6 @@ from util import emergency
 
 from util import total
 
-
 app = Flask(__name__)
 
 @app.route('/')
@@ -74,10 +73,7 @@ def get_sleep():
     availableID = False
     if(find.search(id)):
         availableID = True
-    return jsonify({'result': 'success', 'availableID': availableID, 'score_sleep': sleep_result.score_sleep, 'avg_sleep': sleep_result.avg_sleep,
-    'fb_amount_of_sleep':sleep_result.fb_amount_of_sleep, 'fb_nap':sleep_result.fb_nap, 'fb_day':sleep_result.fb_day,
-    'fb_wakeup':sleep_result.fb_wakeup, 'fb_gotobed':sleep_result.fb_gotobed
-    })
+    return jsonify({'result': 'success', 'availableID': availableID, 'score_sleep': sleep_result.score_sleep, 'avg_sleep': sleep_result.avg_sleep, 'avg_gotobed': sleep_result.avg_gotobed,'fb_amount_of_sleep':sleep_result.fb_amount_of_sleep, 'fb_nap':sleep_result.fb_nap, 'fb_day':sleep_result.fb_day,'fb_wakeup':sleep_result.fb_wakeup, 'fb_gotobed':sleep_result.fb_gotobed})
 
 @app.route('/meal')
 def meal():
@@ -90,14 +86,7 @@ def get_meal():
     availableID = False
     if(find.search(id)):
         availableID = True
-    return jsonify({'result': 'success', 'availableID': availableID, 'score_meal': meal_result.score_meal,
-    'fb_amount_of_meal':meal_result.fb_amount_of_meal, 'fb_num_bf':meal_result.fb_num_bf, 'fb_num_lun':meal_result.fb_num_lun,
-    'fb_num_din':meal_result.fb_num_din, 'fb_time':meal_result.fb_time, 'fb_time_bf_early':meal_result.fb_time_bf_early,
-    'fb_time_bf_late':meal_result.fb_time_bf_late, 'fb_time_lun_early':meal_result.fb_time_lun_early, 'fb_time_lun_late':meal_result.fb_time_lun_late,
-    'fb_time_din_early':meal_result.fb_time_din_early, 'fb_time_din_late':meal_result.fb_time_din_late, 'fb_rg_bf':meal_result.fb_rg_bf,
-    'fb_rg_lun':meal_result.fb_rg_lun, 'fb_rg_din':meal_result.fb_rg_din, 'fb_snack':meal_result.fb_snack, 'fb_n_snack':meal_result.fb_n_snack,
-    'fb_fastfood':meal_result.fb_fastfood
-    })
+    return jsonify({'result': 'success', 'availableID': availableID, 'score_meal': meal_result.score_meal, 'avg_time_bf': meal_result.avg_time_bf, 'avg_time_lun': meal_result.avg_time_lun, 'avg_time_din': meal_result.avg_time_din, 'fb_amount_of_meal':meal_result.fb_amount_of_meal, 'fb_num_bf':meal_result.fb_num_bf, 'fb_num_lun':meal_result.fb_num_lun,'fb_num_din':meal_result.fb_num_din, 'fb_time':meal_result.fb_time, 'fb_time_bf_early':meal_result.fb_time_bf_early,'fb_time_bf_late':meal_result.fb_time_bf_late, 'fb_time_lun_early':meal_result.fb_time_lun_early, 'fb_time_lun_late':meal_result.fb_time_lun_late,'fb_time_din_early':meal_result.fb_time_din_early, 'fb_time_din_late':meal_result.fb_time_din_late, 'fb_rg_bf':meal_result.fb_rg_bf,'fb_rg_lun':meal_result.fb_rg_lun, 'fb_rg_din':meal_result.fb_rg_din, 'fb_snack':meal_result.fb_snack, 'fb_n_snack':meal_result.fb_n_snack,'fb_fastfood':meal_result.fb_fastfood})
 
 @app.route('/medicine')
 def medicine():
