@@ -1,8 +1,10 @@
 from util import outside
 
-def outsideScore():
-    if (outside(id)[len(wasOutside)-1] >= 900):
-        return "Very Good"
+def outsideScore(id):
+    average = outside.outside_average(id)
+    if (average >= 7):
+        return "A"
+    elif(0<=average<=7):
+        return "B"
     else:
-        return "Shall we go outside?"
-    
+        return "C"

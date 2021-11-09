@@ -1,18 +1,11 @@
 import numpy as np
 import pandas as pd
+from util import read_file as rf
 from util import outsideScore
-
-def read_file(id):
-    if(id > 30063):
-        file="../data/hs_"+str(id)+"_m08_0903_1356.csv"
-    else:
-        file="../data/hs_"+str(id)+"_m08_0903_1355.csv"
-    data=pd.read_csv(file, encoding="cp949")
-    return data
 
 
 def outside(id):
-    data=read_file(id)
+    data=rf.read_file(id)
 
     list_outside= []
     out_num= []
@@ -25,35 +18,29 @@ def outside(id):
         count=count+1
     for i in out_num:
         mass=data.iloc[i]['Time'].split(' ')
-        time=mass[0].split(':')
-        hour=int(time[0])*60*60
-        min=int(time[1])*60
-        sec=int(time[2])
-        out_time = hour+min+sec
-        list_outside.append(time)
+        date=mass[0].split('-')
+        year=date[0]
+        date[0]=int(year[1:5])
+        date[1]=int(date[1])
+        date[2]=int(date[2])
+        if date not in list_outside:
+            list_outside.append(date)
 
-    list_inside= []
-    in_num= []
+    week_outside=[0, 0, 0, 0]
+    for i in list_outside:
+        if 2<=i[2]<=8:
+            week_outside[0]=week_outside[0]+1
+        elif 9<=i[2]<=15:
+            week_outside[1]=week_outside[1]+1
+        elif 16<=i[2]<=22:
+            week_outside[2]=week_outside[2]+1
+        elif 23<=i[2]<=29:
+            week_outside[3]=week_outside[3]+1
+ 
+    return week_outside
 
-    inside= data['Act'].str.contains("귀가").tolist()
-    count=0
-    for ins in inside:
-        if ins==True:
-            in_num.append(int(count))
-        count=count+1
-    for i in in_num:
-        mass=data.iloc[i]['Time'].split(' ')
-        time=mass[0].split(':')
-        hour=int(time[0])*60*60
-        min=int(time[1])*60
-        sec=int(time[2])
-        out_time = hour+min+sec
-        list_inside.append(time)
+def outside_average(id):
+    weekly = outside(id)
+    average=(weekly[0]+weekly[1]+weekly[2]+weekly[3])/4
 
-    wasOutside=[]
-
-    for i in len(out_num):
-        timeOutside = list_outside[i] - list_inside[i]
-        wasOutside.append(timeOutside)
-
-    return wasOutside
+    return average

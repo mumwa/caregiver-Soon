@@ -18,7 +18,7 @@
         crossorigin="anonymous"></script>
 
     <title>Categories</title>
-    <link rel="stylesheet" href="static/categories.css">
+    
     <script>
         function getParameterByName(name) {
             name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]"); var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"), results = regex.exec(location.search); return results == null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
@@ -53,28 +53,58 @@
             location.href = link;
         }
     </script>
+ 
     <style>
-        h2 {
-            font-family: NanumGothic;
-            display: inline-block;
-            font-size: 25%;
+        .title {
+            color: #4f2f00;
             font-weight: bold;
+            font-size: 20px;
+        }
+
+        .category {
+            width: 100%-40px;
+            border-radius: 10px;
+            background-color: rgb(255, 230, 147);
+            display: block;
+            
+            padding: 20px;
+
+        }
+
+        .title{
+            width: 30%;
+            display: block;
             text-align: left;
-            color: rgb(44, 12, 0);
-            margin-right: 0%;
+            color: #4f2f00;
+            font-size: 18px;
         }
 
-        a {
-            margin-left: 50%;
+        .score {
+            width: 100%;
+            display: block;
             text-align: right;
+            color: #ffffff;
+            font-size: 52px;
+            padding: 0px;
+
         }
 
-        span {
-            height:30%;
-            display: inline;
-            margin-right: 0%;
+        .big_margin {
+            margin: 20px 0 0 0;
         }
+
+        .margin {
+            margin: 10px 10px 0 10px;
+        }
+
+        .bold {
+            font-weight: bold;
+        }
+
     </style>
+
+
+
 </head>
 
 <body>
@@ -89,42 +119,124 @@
     </div>
     <div class="container_wrapper">
         <div class="container">
-            <div class="category button" onclick="goSleep()">
-                <h2><span>취침시간</span></h2>
-                <a><span>A</span></a>
+            <div class="category margin" style="display: flex; align-items: start; justify-content: center;" onclick="goSleep()" id="grade1">
+                <div class="bold title">취침시간</div>
+                <div class="bold score" id="sleepGrade"></div>
             </div>
-            <div class="category button" onclick="goMeal()">
-                <h2><span>식사시간</span></h2>
-                <a><span>A</span></a>
+
+            <div class="category margin" style="display: flex; align-items: start; justify-content: center;" onclick="goMeal()" id="grade2">
+                <div class="bold title">식사시간</div>
+                <div class="bold score" id="mealGrade"></div>
             </div>
-            <div class="category button" onclick="goMedicine()">
-                <h2><span>투약시간</span></h2>
-                <a><span>A</span></a>
+
+            <div class="category margin" style="display: flex; align-items: start; justify-content: center;" onclick="goMedicine()" id="grade3">
+                <div class="bold title">투약시간</div>
+                <div class="bold score" id="medGrade"></div>
             </div>
-            <div class="category button" onclick="goWash()">
-                <h2><span>청결도</span></h2>
-                <a><span>A</span></a>
+
+            <div class="category margin" style="display: flex; align-items: start; justify-content: center;" onclick="goWash()" id="grade4">
+                <div class="bold title">청결도</div>
+                <div class="bold score" id="washGrade"></div>
             </div>
-            <div class="category button" onclick="goActivity()">
-                <h2><span>외부활동성</span></h2>
-                <a><span>A</span></a>
+
+            <div class="category margin" style="display: flex; align-items: start; justify-content: center;" onclick="goActivity()" id="grade5">
+                <div class="bold title">외부활동성</div>
+                <div class="bold score" id="actGrade"></div>
             </div>
+
         </div>
     </div>
     <script>
-        function getHello() {
+        function getCategories(){
             $.ajax({
-                type: "GET",
-                url: "/hello",
-                data: {},
-                success: function (response) {
-                    if (response['result'] === 'success') {
-                        console.log(response);
-                        const hello = response['hello'];
-                        alert(hello);
-                        $('#box').append(`<h6>${hello}<h6>`);
+                type:"GET",
+                url:"/get_categories",
+                data:{ id : id },
+                success: function (response){
+                    console.log(response);
+                    if (response['result'] == 'success') {
+
+                        const meal = response['meal'];
+                        const sleep = response['sleep'];
+                        const med= response['med'];
+                        const wash = response['wash'];
+                        const activity = response['activity'];
+                        
+                        $('#medGrade').append(`${med}`);
+                        $('#washGrade').append(`${wash}`);
+                        $('#actGrade').append(`${activity}`);
+
+                        var sleep_grade = "";
+                        if(sleep <= 1){
+                            sleep_grade = "C";
+                            grade1.style.backgroundColor = "#FF4D4D";
+                        }else if(sleep <= 3){
+                            sleep_grade = "B";
+                            grade1.style.backgroundColor = "#FFBC10";
+                        }else if(sleep <= 5){
+                            sleep_grade = "A";
+                            grade1.style.backgroundColor = "#40D0E3";
+                        }else{
+                            sleep_grade = "C";
+                            grade1.style.backgroundColor = "#ffffff";
+                        }
+                        $('#sleepGrade').append(`${sleep_grade}`);
+                        
+                        var meal_grade = "";
+                        if(meal <= 2){
+                            meal_grade = "C";
+                            grade2.style.backgroundColor = "#FF4D4D";
+                        }else if(meal <= 5){
+                            meal_grade = "B";
+                            grade2.style.backgroundColor = "#FFBC10";
+                        }else if(meal <= 8){
+                            meal_grade = "A";
+                            grade2.style.backgroundColor = "#40D0E3";
+                        }else{
+                            meal_grade = "C";
+                            grade2.style.backgroundColor = "#ffffff";
+                        }
+                        $('#mealGrade').append(`${meal_grade}`);
+
+
+                        const grade3 = document.getElementById("grade3");
+
+                        if (med == 'A') {
+                            grade3.style.backgroundColor = "#40D0E3";
+                        } else if (med == 'B') {
+                            grade3.style.backgroundColor = "#FFBC10";
+                        } else if (med == 'C') {
+                            grade3.style.backgroundColor = "#FF4D4D";
+                        } else {
+                            grade3.style.backgroundColor = "#FF4D4D";
+                        }
+
+                        const grade4 = document.getElementById("grade4");
+
+                        if (wash == 'A') {
+                            grade4.style.backgroundColor = "#40D0E3";
+                        } else if (wash == 'B') {
+                            grade4.style.backgroundColor = "#FFBC10";
+                        } else if (wash == 'C') {
+                            grade4.style.backgroundColor = "#FF4D4D";
+                        } else {
+                            grade4.style.backgroundColor = "#ffffff";
+                        }
+                        const grade5 = document.getElementById("grade5");
+                        if (activity == 'A') {
+                            grade5.style.backgroundColor = "#40D0E3";
+                        } else if (activity == 'B') {
+                            grade5.style.backgroundColor = "#FFBC10";
+                        } else if (activity == 'C') {
+                            grade5.style.backgroundColor = "#FF4D4D";
+                        } else {
+                            grade5.style.backgroundColor = "#ffffff";
+                        }
+
+
+
                     } else {
-                        alert('프로필을 불러오지 못했습니다');
+                        alert('정보를 불러오지 못했습니다');
                     }
                 },
                 error: function (request, status, error) {
@@ -132,6 +244,8 @@
                 }
             })
         }
+        
+        window.onload = getCategories();
     </script>
 </body>
 

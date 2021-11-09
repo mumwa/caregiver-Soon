@@ -19,7 +19,7 @@
     <title>Activity</title>
     <script>
         function getParameterByName(name) {
-            name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]"); var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"), results = regex.exec(location.search); return results == null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+            name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]"); const regex = new RegExp("[\\?&]" + name + "=([^&#]*)"), results = regex.exec(location.search); return results == null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
         }
         const id = getParameterByName('id');
         if (id == "") {
@@ -50,6 +50,48 @@
             border-radius: 1.5em;
             border: 1.5px solid #dddddd;
         }
+
+        .title {
+            color: #4f2f00;
+            font-weight: bold;
+            font-size: 20px;
+        }
+
+        .gray {
+            width: 100%-40px;
+            border-radius: 10px;
+            background-color: rgba(196, 196, 196, 0.17);
+            display: block;
+            text-align: left;
+            color: #4f2f00;
+            font-size: 20px;
+            padding: 20px;
+
+        }
+
+        .yellow {
+            width: 100%;
+            border-radius: 10px;
+            background-color: rgba(255, 188, 16, 0.2);
+            display: block;
+            text-align: left;
+            color: #4f2f00;
+            font-size: 20px;
+            padding: 20px;
+
+        }
+
+        .big_margin {
+            margin: 20px 0 0 0;
+        }
+
+        .margin {
+            margin: 10px 0 0 0;
+        }
+
+        .bold {
+            font-weight: bold;
+        }
     </style>
 </head>
 
@@ -63,25 +105,120 @@
             <img width="40"></img>
         </div>
     </div>
-    <div class="container_wrapper">
+    <div class="center_display" style="width: 100%; display: block; text-align: center; padding: 20px 0;"
+        id="grade_div">
+        <div style="color: #4f2f00; font-weight: bold; font-size: 30px;">외부활동성</div>
+        <div style="color: #ffffff; font-weight: bold; font-size: 100px;" id="grade"></div>
+    </div>
+    <div class="container_wrapper" style="background-color: white;">
         <div class="container">
+            <div style="padding:0 20px">
+                <div class="title big_margin">
+                    나의 외출
+                </div>
+                <div class="gray margin">
+                    <div class="bold" id="time">
+                    </div>
+                    <div>
+                    </div>
+                </div>
+                <div class="big_margin" style="display: flex; align-items: start; justify-content: center;">
+                    <div style="margin: 0 10px;"><img src="static/soon_round.png" width="50px" /></div>
+                    <div class="yellow" id="say">
+                    </div>
+                </div>
 
+                <div class="title big_margin">
+                    나의 프로그램 참여율
+                </div>
+                <div class="gray margin">
+                    <div id="mine">
+
+                    </div>
+                </div>
+    
+    
+                <div class="title big_margin">
+                    프로그램 참여현황
+                </div>
+                <div class="gray margin" >
+                    <div id="compare">
+
+                    </div>
+                </div>
+
+                <div class="big_margin" style="display: flex; align-items: start; justify-content: center;">
+                    <div style="margin: 0 10px;"><img src="static/soon_round.png" width="50px" /></div>
+                    <div class="yellow" id="together">
+                    </div>
+                </div>
+    
+            </div>
         </div>
     </div>
+
     <script>
-        function getHello() {
+        function getActivity(){
             $.ajax({
-                type: "GET",
-                url: "/hello",
-                data: {},
-                success: function (response) {
-                    if (response['result'] === 'success') {
-                        console.log(response);
-                        const hello = response['hello'];
-                        alert(hello);
-                        $('#box').append(`<h6>${hello}<h6>`);
+                type:"GET",
+                url: "/get_activity",
+                data: { id : id },
+                success: function (response){
+                    console.log(response);
+                    if(response['result']=='success'){
+
+                        const time = response['time'];
+                        const grade = response['grade'];
+                        const grade_div = document.getElementById("grade_div");
+
+                        
+                        const mine = response['mine'];
+                        const average = response['average'];
+                        const socialGrade = response['socialGrade'];
+
+                        $('#grade').append(`${grade}`);
+
+                        $('#time').append(`일주일에 ${time}번`);
+                        if (grade == "A") {
+                            grade_div.style.backgroundColor = "#40D0E3";
+                            $('#say').append(`건강한 생활을 하고 계시네요! 너무 좋아요~`);
+                        } else if (grade == "B") {
+                            grade_div.style.backgroundColor = "#FFBC10";
+                            $('#say').append(`조금만 더 나가볼까요?`);
+                        } else if (grade == "C") {
+                            grade_div.style.backgroundColor = "#FF4D4D";
+                            $('#say').append(`1일 1회 이상의 외출이 좋대요! 순이랑 같이 나가볼래요?`);
+                        }
+                        else {
+                            grade_div.style.backgroundColor = "#7E6B65";
+                        }
+
+                        $('#mine').append(`${mine} 회 참여하셨네요!`);
+
+                        $('#compare').append(`
+                            <div style="background-color:#FFBC10; width:${average}px; height: 10px; margin:10px 0 0 0">
+                            </div>
+                            <div>
+                                전체평균 ${average}회
+                            </div>
+                            <div style="background-color:#40D0E3; width:${mine}px; height: 10px; margin:10px 0 0 0">
+                            </div>
+                            <div>
+                                나 ${mine}회
+                            </div>`);
+
+                        if (socialGrade == "A") {
+                            $('#together').append(`당신이야말로 인간 관계 마스터! 멋져요!`);
+                        } else if (socialGrade == "B") {
+                            $('#together').append(`친구랑 좀 더 자주 만나면 어떨까요?`);
+                        } else if (socialGrade == "C") {
+                            $('#together').append(`순이랑만 지내는 것도 좋지만, 밖에서 친구와 함께 시간을 보내는 것은 어떨까요?`);
+                        } else {
+                            $('#together').append(`순이랑만 지내는 것도 좋지만, 밖에서 친구와 함께 시간을 보내는 것은 어떨까요?`);
+                        }
+                
                     } else {
-                        alert('프로필을 불러오지 못했습니다');
+                        alert('정보를 불러오지 못했습니다');
                     }
                 },
                 error: function (request, status, error) {
@@ -89,6 +226,8 @@
                 }
             })
         }
+
+        window.onload = getActivity();
     </script>
 </body>
 
