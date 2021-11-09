@@ -112,13 +112,13 @@
                 </div>
             </div>
             <div style="width: 95%; margin:0 2.5%; height:500px; border-radius:10px; background-color: #ffbc10; display:block; text-align: center; padding: 30px 0;"
-                onclick="goStatus()">
+                onclick="goStatus()" id="div_total_score">
                 <div style="color: #4f2f00; font-size: 30px; margin: 10px 0 0 0;" id="name">
                 </div>
                 <div style="color: #ffffff; font-weight: bold; font-size: 40px; margin: 10px 0 0 0;">잘하고<br />있어요!</div>
                 <img src="static/soon_round.png" width="200" height="200" />
                 <div class="center_display" style="margin: 10px 0 0 0;">
-                    <div style="color: #4f2f00; font-weight: bold; font-size: 60px;">56</div>
+                    <div style="color: #4f2f00; font-weight: bold; font-size: 60px;" id="total_score"></div>
                     <div style="color: #ffffff; font-weight: bold; font-size: 50px;">점</div>
                 </div>
             </div>
@@ -145,6 +145,7 @@
     </div>
     <script>
         window.onload = getEmergency();
+        window.onload = getTotalScore();
         function getEmergency() {
             $.ajax({
                 type: "GET",
@@ -154,6 +155,39 @@
                     if (response['result'] === 'success') {
                         if(response['emergency']==true){
                             emergencyOn();
+                        }
+                    } else {
+                        alert('프로필을 불러오지 못했습니다');
+                    }
+                },
+                error: function (request, status, error) {
+                    console.log("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
+                }
+            })
+        }
+
+        function getTotalScore() {
+            $.ajax({
+                type: "GET",
+                url: "/total_score",
+                data: { id: id },
+                success: function (response) {
+                    if (response['result'] === 'success') {
+                        console.log(response)
+                        var total_score = response['total_score'];
+                        var avg_score = response['avg_score'];
+                        var std_score = response['std_score'];
+
+                        var tmp = (total_score - avg_score)/std_score;
+
+                        $('#total_score').append(`${total_score}`);
+
+                        if(tmp<0){
+                            div_total_score.style.color = "#FF4D4D";
+                        }else if(tmp >= 0 && tmp < 0.53){
+                            div_total_score.style.color = "#FFBC10";
+                        }else{
+                            div_total_score.style.color = "#40D0E3";
                         }
                     } else {
                         alert('프로필을 불러오지 못했습니다');
