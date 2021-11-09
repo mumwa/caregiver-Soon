@@ -46,6 +46,15 @@ def default():
 def home():
     return render_template('main.html')
 
+@app.route('/total_score')
+def total_score():
+    id=int(request.args["id"])
+    sleep_score = total.Sleep(id)
+    meal_score = total.Meal(id)
+    wash_grade = cleanScore.get_grade(id)
+
+    return jsonify()
+
 @app.route('/alert')
 def get_alert():
     id=int(request.args["id"])
