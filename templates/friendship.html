@@ -167,8 +167,8 @@
                         const freq_resp2 = parseInt(response['freq_resp2']*100);
                         const freq_resp3 = parseInt(response['freq_resp3']*100);
 
-                        const count_program = response['program']
-                        const percent_program = response['prop_program']
+                        const count_program = response['program'];
+                        const percent_program = parseInt(response['prop_program']);
                         
                         $('#detail_score1').append(`${freq} / 100`);
                         $('#detail_score2').append(`${len} / 100`);
