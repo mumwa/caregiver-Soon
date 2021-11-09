@@ -75,7 +75,7 @@ def get_friend():
     # program = 0 00 회
     # prop_program = 0 nn%
 
-    return jsonify({'result': 'success', 'score_sleep': friend_result.score_friendship, 'fb_freq_resp': friend_result.fb_freq_resp, 'fb_len_resp': friend_result.fb_len_resp, 'fb_program':friend_result.fb_program, 'fb_keyword':friend_result.fb_keyword, 'freq_resp1':friend_result.freq_resp1, 'freq_resp2':friend_result.freq_resp2, 'freq_resp3':friend_result.freq_resp3, 'len_resp':friend_result.len_resp, 'program':friend_result.program, 'prop_program':friend_result.prop_program,})
+    return jsonify({'num_msg1': friend_result.num_msg1, 'num_msg2': friend_result.num_msg2, 'num_msg3': friend_result.num_msg3, 'num_msg1_resp': friend_result.num_msg1_resp, 'num_msg2_resp': friend_result.num_msg2_resp, 'num_msg3_resp': friend_result.num_msg3_resp,  'result': 'success', 'score_sleep': friend_result.score_friendship, 'fb_freq_resp': friend_result.fb_freq_resp, 'fb_len_resp': friend_result.fb_len_resp, 'fb_program':friend_result.fb_program, 'fb_keyword':friend_result.fb_keyword, 'freq_resp1':friend_result.freq_resp1, 'freq_resp2':friend_result.freq_resp2, 'freq_resp3':friend_result.freq_resp3, 'len_resp':friend_result.len_resp, 'program':friend_result.program, 'prop_program':friend_result.prop_program,})
 
 @app.route('/sleep')
 def sleep():

@@ -46,6 +46,10 @@ num_msg1 = []
 num_msg2 = []
 num_msg3 = []
 
+num_msg1_resp = []
+num_msg2_resp = []
+num_msg3_resp = []
+
 fre_resp1 = [] 
 len_resp1 = [] 
 
@@ -106,9 +110,10 @@ for ID in IDs:
                     wake = parse(df[(df['index'] == tmp+1)].iloc[0]['Time'])
                     result = wake - sleep
                     flag = True
+                    if result.seconds >= 1000:
+                        sleep_time.append(result.seconds)
                 else:
                     flag = True
-                    continue
             else:
                 num_wakeup += 1
                 if flag:
@@ -122,15 +127,13 @@ for ID in IDs:
                     result = wake - sleep
 
                 flag = False
-
-            if result.seconds < 1000:
-                continue
-            sleep_time.append(result.seconds)
+                if result.seconds >= 1000:
+                    sleep_time.append(result.seconds)
 
         if len(sleep_time) == 0:
             list_avg_sleep.append(0)
-            continue
-        list_avg_sleep.append(np.mean(sleep_time))
+        else:
+            list_avg_sleep.append(np.mean(sleep_time))
         
     list_num_sleep.append(num_sleep) 
     list_num_wakeup.append(num_wakeup) 
@@ -174,6 +177,8 @@ for ID in IDs:
                     wake = parse(df[(df['index'] == tmp+1)].iloc[0]['Time'])
                     result = wake - sleep
                     flag = True
+                    if result.seconds >= 1000:
+                        nap_time.append(result.seconds)
                 else:
                     flag = True
                     continue
@@ -191,15 +196,15 @@ for ID in IDs:
 
                 flag = False
 
-            if result.seconds < 1000:
-                continue
-            nap_time.append(result.seconds)
+            if result.seconds >= 1000:
+                nap_time.append(result.seconds)
 
         if len(nap_time) == 0:
             list_avg_nap.append(0)
-            continue
-        list_avg_nap.append(np.mean(nap_time))
+        else:
+            list_avg_nap.append(np.mean(nap_time))
     
+
     # 식사
     b_df = df[(df['Act'].str.contains("아침식사"))] 
     l_df = df[(df['Act'].str.contains("점심식사"))] 
@@ -265,24 +270,33 @@ for ID in IDs:
     num_ff.append(ff_num) 
     num_total.append(total_num)
 
+    
+
     # friendship
     msg1 = df[(df['Message_1'].notnull())]
+    msg2 = df[(df['Message_2'].notnull())]
+    msg3 = df[(df['Message_3'].notnull())]
+    msg1_resp = df[(df['STT_1'].notnull())]
+    msg2_resp = df[(df['STT_2'].notnull())]
+    msg3_resp = df[(df['STT_3'].notnull())]
     msg1 = msg1.drop(msg1[msg1['Message_1'] == '프로그램 메시지'].index)
-    
-    msg2 = msg1[msg1['Message_2'].notnull()]
-    msg3 = msg2[msg2['Message_3'].notnull()]
-    num_msg1.append(len(msg1))
-    num_msg2.append(len(msg2))
-    num_msg3.append(len(msg3))
 
-    
+
+    num_msg1.append(len(msg1['Message_1']))
+    num_msg2.append(len(msg2['Message_2']))
+    num_msg3.append(len(msg3['Message_3']))
+    num_msg1_resp.append(len(msg1_resp['STT_1']))
+    num_msg2_resp.append(len(msg2_resp['STT_2']))
+    num_msg3_resp.append(len(msg3_resp['STT_3']))
+
+
     if len(msg1) != 0:
-        fre_resp1.append(len(msg2)/len(msg1)) 
+        fre_resp1.append(len(msg1_resp)/len(msg1)*100) 
         sum_resp1 = 0
-        for i in range(0,len(msg2)):
-            sum_resp1 += len(msg2.iloc[i]['STT_1'])
-        if len(msg2) != 0:
-            sum_resp1 /= len(msg2)
+        for i in range(0,len(msg1_resp)):
+            sum_resp1 += len(msg1_resp.iloc[i]['STT_1'])
+        if len(msg1_resp) != 0:
+            sum_resp1 /= len(msg1_resp)
         len_resp1.append(sum_resp1)
     else:
         fre_resp1.append(0)
@@ -290,12 +304,12 @@ for ID in IDs:
 
     
     if len(msg2) != 0:
-        fre_resp2.append(len(msg3)/len(msg2))   
+        fre_resp2.append(len(msg2_resp)/len(msg2)*100)   
         sum_resp2 = 0
-        for i in range(0,len(msg3)):
-            sum_resp2 += len(msg3.iloc[i]['STT_2'])
-        if len(msg3) != 0:
-            sum_resp2 /= len(msg3)
+        for i in range(0,len(msg2_resp)):
+            sum_resp2 += len(msg2_resp.iloc[i]['STT_2'])
+        if len(msg2_resp) != 0:
+            sum_resp2 /= len(msg2_resp)
         len_resp2.append(sum_resp2)
     else:
         fre_resp2.append(0)
@@ -303,13 +317,12 @@ for ID in IDs:
     
     
     if len(msg3) != 0:
-        tmp = msg3[msg3['STT_3'].notnull()] 
-        fre_resp3.append(len(tmp)/len(msg3))
+        fre_resp3.append(len(msg3_resp)/len(msg3)*100)
         sum_resp3 = 0
-        for i in range(0,len(tmp)):
-            sum_resp3 += len(tmp.iloc[i]['STT_3'])
-        if len(tmp) != 0:
-            sum_resp3 /= len(tmp)
+        for i in range(0,len(msg3_resp)):
+            sum_resp3 += len(msg3_resp.iloc[i]['STT_3'])
+        if len(msg3_resp) != 0:
+            sum_resp3 /= len(msg3_resp)
         len_resp3.append(sum_resp3)
     else:
         fre_resp3.append(0)
@@ -376,6 +389,8 @@ avg_prop_conv = np.mean(prop_conv) # 순이 대화 횟수 평균
 std_prop_conv = np.std(prop_conv) # 순이 대화 횟수 표준편차
 
 avg_p_resp = np.mean(p_resp_prop) # 특정 키워드 평균
+
+
 
 class Sleep:
     user_ID = 0
@@ -527,19 +542,47 @@ class Friendship:
     program = 0
     prop_program = 0
 
+    num_msg1 = 0
+    num_msg2 = 0
+    num_msg3 = 0
+
+    num_msg1_resp = 0
+    num_msg2_resp = 0
+    num_msg3_resp = 0
+
     def __init__(self, user_ID):
         self.user_ID = user_ID
         self.indx = ID_to_index.index(user_ID)
         indx = self.indx
 
-        freq_resp1 = fre_resp1[indx]
-        freq_resp2 = fre_resp2[indx]
-        freq_resp3 = fre_resp3[indx]
         
-        len_resp = (len_resp1[indx] + len_resp2[indx] + len_resp3[indx])/3
+        self.num_msg1 = num_msg1[indx]
+        self.num_msg2 = num_msg2[indx]
+        self.num_msg3 = num_msg3[indx]
 
-        program = num_conv[indx]
-        prop_program = prop_conv[indx]
+        self.num_msg1_resp = num_msg1_resp[indx]
+        self.num_msg2_resp = num_msg2_resp[indx]
+        self.num_msg3_resp = num_msg3_resp[indx]
+
+        self.len_resp = (len_resp1[indx] + len_resp2[indx] + len_resp3[indx])/3
+
+        self.program = num_conv[indx]
+        self.prop_program = prop_conv[indx]
+
+        if num_msg1_resp[indx] != 0:
+            self.freq_resp1 = num_msg1_resp[indx]/num_msg1[indx]
+        else:
+            self.freq_resp1 = 0
+
+        if num_msg2_resp[indx] != 0:  
+            self.freq_resp2 = num_msg2_resp[indx]/num_msg2[indx]
+        else:
+            self.freq_resp2 = 0
+
+        if num_msg3_resp[indx] != 0:
+            self.freq_resp3 = num_msg3_resp[indx]/num_msg3[indx]
+        else:
+            self.freq_resp3 = 0
 
         if fre_resp1[indx] != 0:
             tmp_z1 = (fre_resp1[indx]-avg_fre_resp1)/std_fre_resp1

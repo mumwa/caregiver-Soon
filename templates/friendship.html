@@ -156,28 +156,29 @@
                 data: { id: id },
                 success: function (response) {
                     if (response['result'] === 'success') {
-                        const score = response['score_sleep'];
-                        const len = response['fb_len_resp'];
-                        const freq = response['fb_freq_resp'];
-                        const program = response['fb_program'];
-                        const len_resp = response['len_resp'];
+                        console.log(response);
+                        const score = parseInt(response['score_sleep']/12*100);
+                        const len = parseInt(response['fb_len_resp']/30*100);
+                        const freq = parseInt(response['fb_freq_resp']/30*100);
+                        const program = parseInt(response['fb_program']/8*100);
+                        const len_resp = parseInt(response['len_resp']);
 
-                        const freq_resp1 = response['freq_resp1'];
-                        const freq_resp2 = response['freq_resp2'];
-                        const freq_resp3 = response['freq_resp3'];
+                        const freq_resp1 = parseInt(response['freq_resp1']*100);
+                        const freq_resp2 = parseInt(response['freq_resp2']*100);
+                        const freq_resp3 = parseInt(response['freq_resp3']*100);
 
                         const count_program = response['program']
                         const percent_program = response['prop_program']
-
-                        $('#detail_score1').append(`${freq} / 15`);
-                        $('#detail_score2').append(`${len} / 15`);
-                        $('#detail_score3').append(`${program} / 8`);
+                        
+                        $('#detail_score1').append(`${freq} / 100`);
+                        $('#detail_score2').append(`${len} / 100`);
+                        $('#detail_score3').append(`${program} / 100`);
 
                         $('#ment_score1').append(`<div>첫번째 메시지는 ${freq_resp1}%로 답해주셨어요</div>`);
                         $('#ment_score1').append(`<div style="margin-top:10px;">두번째 메시지는 ${freq_resp2}%로 답해주셨어요</div>`);
                         $('#ment_score1').append(`<div style="margin-top:10px;">세번째 메시지는 ${freq_resp3}%로 답해주셨어요</div>`);
 
-                        $('#ment_score2').append(`총 ${len_resp}자 답해주셨어요! 고마워요!`);
+                        $('#ment_score2').append(`평균 총 ${len_resp}자로 답해주셨어요! 고마워요!`);
 
                         $('#count_program').append(`${count_program}회`);
                         $('#percent_program').append(`${percent_program}%`);
@@ -225,7 +226,7 @@
                         } else {
                             $('#grade_div').append(`<img src="../static/C.png" alt="순이얼굴" style="width:180px;">`);
                         }
-                        $('#score').append(`12점 만점에 ${score}점`);
+                        $('#score').append(`100점 만점에 ${score}점`);
                         console.log(response);
                     } else {
                         alert('프로필을 불러오지 못했습니다');
