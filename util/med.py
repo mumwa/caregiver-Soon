@@ -50,14 +50,15 @@ def med(id):
         hour=int(time[0])*60*60
         min=int(time[1])*60
         sec=int(time[2])
-        med_time = round((hour+min+sec)/3600)
+        med_time = round((hour+min+sec)/60)
         time_med.append(med_time)
     
     daily = []
 
-    for i in range(len(list_med)):
+    for i in range(len(list_calendar)):
         daily.append([])
-        for j in range(list_med.count(list_med[i])):
+        per_day = list_med.count(list_calendar[i])
+        for j in range(per_day):
             daily[i].append(time_med[i+j])
 
     #calculate daily AVERAGE
@@ -86,6 +87,6 @@ def recent_med(id):
     length = len(list)
 
     if(length>1):
-        return list[length-1]
+        return int(list[length-1])
     else:
         return 0
