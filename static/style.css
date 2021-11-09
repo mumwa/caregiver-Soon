@@ -56,3 +56,44 @@ img {
 .button{
     cursor: pointer;
 }
+.title {
+    color: #4f2f00;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.gray {
+    width: 100%-40px;
+    border-radius: 10px;
+    background-color: rgba(196, 196, 196, 0.17);
+    display: block;
+    text-align: left;
+    color: #4f2f00;
+    font-size: 20px;
+    padding: 20px;
+
+}
+
+.yellow {
+    width: 100%;
+    border-radius: 10px;
+    background-color: rgba(255, 188, 16, 0.2);
+    display: block;
+    text-align: left;
+    color: #4f2f00;
+    font-size: 20px;
+    padding: 20px;
+
+}
+
+.big_margin {
+    margin: 20px 0 0 0;
+}
+
+.margin {
+    margin: 10px 0 0 0;
+}
+
+.bold {
+    font-weight: bold;
+}
