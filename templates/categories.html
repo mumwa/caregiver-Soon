@@ -66,21 +66,26 @@
             border-radius: 10px;
             background-color: rgb(255, 230, 147);
             display: block;
-            text-align: left;
-            color: #4f2f00;
-            font-size: 18px;
+            
             padding: 20px;
 
         }
 
-        .score {
-            width: 100%;
-            
+        .title{
+            width: 30%;
             display: block;
             text-align: left;
+            color: #4f2f00;
+            font-size: 18px;
+        }
+
+        .score {
+            width: 100%;
+            display: block;
+            text-align: right;
             color: #ffffff;
-            font-size: 36px;
-            padding: 20px;
+            font-size: 52px;
+            padding: 0px;
 
         }
 
@@ -89,7 +94,7 @@
         }
 
         .margin {
-            margin: 10px 0 0 0;
+            margin: 10px 10px 0 10px;
         }
 
         .bold {
@@ -114,29 +119,29 @@
     </div>
     <div class="container_wrapper">
         <div class="container">
-            <div class="category margin" style="display: flex; align-items: start; justify-content: center;" onclick="goSleep()" id="category">
-                <div class="bold">취침시간</div>
-                <div class="score" id="sleepGrade"></div>
+            <div class="category margin" style="display: flex; align-items: start; justify-content: center;" onclick="goSleep()" id="grade1">
+                <div class="bold title">취침시간</div>
+                <div class="bold score" id="sleepGrade"></div>
             </div>
 
-            <div class="category margin" style="display: flex; align-items: start; justify-content: center;" onclick="goMeal()" id="category">
-                <div class="bold">식사시간</div>
-                <div class="score" id="mealGrade"></div>
+            <div class="category margin" style="display: flex; align-items: start; justify-content: center;" onclick="goMeal()" id="grade2">
+                <div class="bold title">식사시간</div>
+                <div class="bold score" id="mealGrade"></div>
             </div>
 
-            <div class="category margin" style="display: flex; align-items: start; justify-content: center;" onclick="goMedicine()" id="category">
-                <div class="bold">투약시간</div>
-                <div class="score" id="medGrade"></div>
+            <div class="category margin" style="display: flex; align-items: start; justify-content: center;" onclick="goMedicine()" id="grade3">
+                <div class="bold title">투약시간</div>
+                <div class="bold score" id="medGrade"></div>
             </div>
 
-            <div class="category margin" style="display: flex; align-items: start; justify-content: center;" onclick="goWash()" id="category">
-                <div class="bold">청결도</div>
-                <div class="score" id="washGrade"></div>
+            <div class="category margin" style="display: flex; align-items: start; justify-content: center;" onclick="goWash()" id="grade4">
+                <div class="bold title">청결도</div>
+                <div class="bold score" id="washGrade"></div>
             </div>
 
-            <div class="category margin" style="display: flex; align-items: start; justify-content: center;" onclick="goActivity()" id="category">
-                <div class="bold">외부활동성</div>
-                <div class="score" id="actGrade"></div>
+            <div class="category margin" style="display: flex; align-items: start; justify-content: center;" onclick="goActivity()" id="grade5">
+                <div class="bold title">외부활동성</div>
+                <div class="bold score" id="actGrade"></div>
             </div>
 
         </div>
@@ -156,62 +161,76 @@
                         const med= response['med'];
                         const wash = response['wash'];
                         const activity = response['activity'];
-
-                        $('#sleepGrade').append(`${sleep}`);
-                        $('#mealGrade').append(`${meal}`);
+                        
                         $('#medGrade').append(`${med}`);
                         $('#washGrade').append(`${wash}`);
                         $('#actGrade').append(`${activity}`);
 
+                        var sleep_grade = "";
+                        if(sleep <= 1){
+                            sleep_grade = "C";
+                            grade1.style.backgroundColor = "#FF4D4D";
+                        }else if(sleep <= 3){
+                            sleep_grade = "B";
+                            grade1.style.backgroundColor = "#FFBC10";
+                        }else if(sleep <= 5){
+                            sleep_grade = "A";
+                            grade1.style.backgroundColor = "#40D0E3";
+                        }else{
+                            sleep_grade = "C";
+                            grade1.style.backgroundColor = "#ffffff";
+                        }
+                        $('#sleepGrade').append(`${sleep_grade}`);
                         
-                        if (sleep == 'A') {
-                            category.style.backgroundColor = "#40D0E3";
-                        } else if (sleep == 'B') {
-                            category.style.backgroundColor = "#FFBC10";
-                        } else if (sleep == 'C') {
-                            category.style.backgroundColor = "#FF4D4D";
-                        } else {
-                            category.style.backgroundColor = "#ffffff";
+                        var meal_grade = "";
+                        if(meal <= 2){
+                            meal_grade = "C";
+                            grade2.style.backgroundColor = "#FF4D4D";
+                        }else if(meal <= 5){
+                            meal_grade = "B";
+                            grade2.style.backgroundColor = "#FFBC10";
+                        }else if(meal <= 8){
+                            meal_grade = "A";
+                            grade2.style.backgroundColor = "#40D0E3";
+                        }else{
+                            meal_grade = "C";
+                            grade2.style.backgroundColor = "#ffffff";
                         }
+                        $('#mealGrade').append(`${meal_grade}`);
 
-                        if (meal == 'A') {
-                            category.style.backgroundColor = "#40D0E3";
-                        } else if (meal == 'B') {
-                            category.style.backgroundColor = "#FFBC10";
-                        } else if (meal == 'C') {
-                            category.style.backgroundColor = "#FF4D4D";
-                        } else {
-                            category.style.backgroundColor = "#ffffff";
-                        }
+
+                        const grade3 = document.getElementById("grade3");
 
                         if (med == 'A') {
-                            category.style.backgroundColor = "#40D0E3";
+                            grade3.style.backgroundColor = "#40D0E3";
                         } else if (med == 'B') {
-                            category.style.backgroundColor = "#FFBC10";
+                            grade3.style.backgroundColor = "#FFBC10";
                         } else if (med == 'C') {
-                            category.style.backgroundColor = "#FF4D4D";
+                            grade3.style.backgroundColor = "#FF4D4D";
                         } else {
-                            category.style.backgroundColor = "#ffffff";
+                            grade3.style.backgroundColor = "#FF4D4D";
                         }
+
+                        const grade4 = document.getElementById("grade4");
 
                         if (wash == 'A') {
-                            category.style.backgroundColor = "#40D0E3";
+                            grade4.style.backgroundColor = "#40D0E3";
                         } else if (wash == 'B') {
-                            category.style.backgroundColor = "#FFBC10";
+                            grade4.style.backgroundColor = "#FFBC10";
                         } else if (wash == 'C') {
-                            category.style.backgroundColor = "#FF4D4D";
+                            grade4.style.backgroundColor = "#FF4D4D";
                         } else {
-                            category.style.backgroundColor = "#ffffff";
+                            grade4.style.backgroundColor = "#ffffff";
                         }
-
+                        const grade5 = document.getElementById("grade5");
                         if (activity == 'A') {
-                            category.style.backgroundColor = "#40D0E3";
+                            grade5.style.backgroundColor = "#40D0E3";
                         } else if (activity == 'B') {
-                            category.style.backgroundColor = "#FFBC10";
+                            grade5.style.backgroundColor = "#FFBC10";
                         } else if (activity == 'C') {
-                            category.style.backgroundColor = "#FF4D4D";
+                            grade5.style.backgroundColor = "#FF4D4D";
                         } else {
-                            category.style.backgroundColor = "#ffffff";
+                            grade5.style.backgroundColor = "#ffffff";
                         }
 
 

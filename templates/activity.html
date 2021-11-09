@@ -19,18 +19,18 @@
     <title>Activity</title>
     <script>
         function getParameterByName(name) {
-            name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]"); var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"), results = regex.exec(location.search); return results == null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+            name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]"); const regex = new RegExp("[\\?&]" + name + "=([^&#]*)"), results = regex.exec(location.search); return results == null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
         }
-        var id = getParameterByName('id');
+        const id = getParameterByName('id');
         if (id == "") {
             location.href = "/";
         }
         function goMain(){
-            var link = "/home?id=" + id;
+            const link = "/home?id=" + id;
             location.href = link;
         }
         function goCategories(){
-            var link = "/categories?id=" + id;
+            const link = "/categories?id=" + id;
             location.href = link;
         }
     </script>
@@ -167,19 +167,19 @@
                     console.log(response);
                     if(response=='success'){
 
-                        var time = response['time'];
-                        var grade = response['grade'];
-                        var grade_div = document.getElementById("grade_div");
+                        const time = response['time'];
+                        const grade = response['grade'];
+                        const grade_div = document.getElementById("grade_div");
 
                         
-                        var mine = response['mine'];
-                        var average = response['average'];
-                        var socialGrade = response['socialGrade'];
+                        const mine = response['mine'];
+                        const average = response['average'];
+                        const socialGrade = response['socialGrade'];
 
                         $('#time').append(`${time}분`);
                         if (grade == "A") {
                             grade_div.style.backgroundColor = "#40D0E3";
-                            $('#say').append(`건강한 생활을 하고 계시네요! 너무 좋아아아~`);
+                            $('#say').append(`건강한 생활을 하고 계시네요! 너무 좋아요~`);
                         } else if (grade == "B") {
                             grade_div.style.backgroundColor = "#FF4D4D";
                             $('#say').append(`1일 1회 이상의 외출이 좋대요! 순이랑 같이 나가볼래요?`);
@@ -190,18 +190,18 @@
                         $('#mine').append(`${mine} 회 참여하셨네요!`);
 
                         $('#compare').append(`
-                            <div style="background-color:#FFBC10; width:${25*average}px; height: 10px; margin:10px 0 0 0">
+                            <div style="background-color:#FFBC10; width:${3*average}px; height: 10px; margin:10px 0 0 0">
                             </div>
                             <div>
                                 전체평균 ${average}회
                             </div>
-                            <div style="background-color:#40D0E3; width:${25*mine}px; height: 10px; margin:10px 0 0 0">
+                            <div style="background-color:#40D0E3; width:${3*mine}px; height: 10px; margin:10px 0 0 0">
                             </div>
                             <div>
                                 나 ${mine}회
                             </div>`);
 
-                        $('#compare').append(`${socialGrade}`);
+                        
                         if (socialGrade == 'A') {
                             $('#together').append(`당신이야말로 인간 관계 마스터! 멋져요!`);
                         } else if (socialGrade == 'B') {
