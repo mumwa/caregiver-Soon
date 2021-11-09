@@ -138,6 +138,7 @@
                 <div class="title big_margin">
                     수면 장애
                 </div>
+                <div class="center_display" id="bad_wake"></div>
                 <div class="big_margin" style="display: flex; align-items: start; justify-content: center;">
                     <div style="margin: 0 10px;"><img src="static/soon_round.png" width="50px" /></div>
                     <div class="yellow" id="fb_wakeup">
@@ -186,7 +187,7 @@
                         var avg_h = parseInt(avg_sleep / 3600);
                         var avg_m = parseInt((avg_sleep % 3600) / 600) * 10;
                         var avg_str = String(avg_h) + "시간 " + String(avg_m) + "분";
-                        const my_time=avg_h*30+avg_m/2;
+                        const my_time = avg_h * 30 + avg_m / 2;
                         const graph_str = `
                             <div style="background-color:#FFBC10; width:240px; height: 10px; margin:10px 0 0 0"></div>
                             <div style="font-weight:regular; margin-top:5px;">
@@ -260,10 +261,20 @@
                         // 수면장애
                         if (fb_wakeup > 0) {
                             $('#fb_wakeup').append(`최근 ${fb_wakeup}번의 수면장애를 겪으셨어요. 자기 전에는 되도록 음식 섭취를 피하고 간단한 스트레칭을 통해 깊은 잠을 잘 수 있어요!`);
+                            $('#bad_wake').append(`
+                            
+                                <div class="center_display bold" style="width: 100%; height: 60px; border-radius: 10px; background-color: #FF4D4D; color: white; font-size:30px; margin: 10px 0">
+                                ${fb_wakeup}회
+                                </div>
+                            `);
                         } else {
                             $('#fb_wakeup').append(`깔끔한 수면을 하고계시군요! 수면은 깨지않고 연속적으로 자는게 좋다고해요!`);
+                            $('#bad_wake').append(`
+                                <div class="center_display bold" style="width: 100%; height: 60px; border-radius: 10px; background-color: #40D0E3; color: white; font-size:30px; margin: 10px 0">
+                                    없음
+                                </div>
+                            `);
                         }
-
                     } else {
                         alert('프로필을 불러오지 못했습니다');
                     }
