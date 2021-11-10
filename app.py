@@ -4,9 +4,7 @@ from flask import Flask, render_template, jsonify, request
 
 from util import search as find
 
-from util import clean
-from util import cleanAverage
-from util import cleanScore
+from util import clean_total
 
 from util import med
 from util import medAverage
@@ -26,6 +24,8 @@ from util import score
 
 
 app = Flask(__name__)
+
+clean_result = clean_total.Clean()
 
 @app.route('/')
 def search():
@@ -121,17 +121,7 @@ def wash():
 @app.route('/get_wash', methods=['GET'])
 def get_wash():
     id=int(request.args["id"])
-
-    get_clean_average=round(cleanAverage.all_clean(),2)
-    get_wash_average=round(cleanAverage.all_wash(),2)
-    get_fresh_average=round(cleanAverage.all_fresh(),2)
-
-    grade=cleanScore.get_grade(id)
-
-    get_clean_score=cleanScore.get_clean_grade(id)
-    get_wash_score=cleanScore.get_wash_grade(id)
-    get_fresh_score=cleanScore.get_fresh_grade(id)
-    return jsonify({'result': 'success', 'clean': round(clean.clean(id),2), 'wash':round(clean.wash(id),2), 'fresh':round(clean.fresh(id),2), 'cleanAverage':get_clean_average, 'washAverage':get_wash_average, 'freshAverage':get_fresh_average, 'grade':grade, 'cleanGrade':get_clean_score, 'washGrade':get_wash_score,'freshGrade':get_fresh_score})
+    return jsonify({'result': 'success', 'clean': round(clean_result.clean(id),2), 'wash':round(clean_result.wash(id),2), 'fresh':round(clean_result.fresh(id),2), 'cleanAverage':round(clean_result.avg_clean_count,2), 'washAverage':round(clean_result.avg_wash_count,2), 'freshAverage':round(clean_result.avg_fresh_count,2), 'grade':clean_result.get_grade(id), 'cleanGrade':clean_result.get_clean_grade(id), 'washGrade':clean_result.get_wash_grade(id),'freshGrade':clean_result.get_fresh_grade(id)})
 
 @app.route('/activity')
 def activity():
