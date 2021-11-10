@@ -22,6 +22,7 @@ from util import socialScore
 from util import emergency
 
 from util import total
+from util import score
 
 
 app = Flask(__name__)
@@ -47,6 +48,15 @@ def default():
 @app.route('/home')
 def home():
     return render_template('main.html')
+
+@app.route('/total_score')
+def total_score():
+    id = int(request.args["id"])
+    total_score = score.returnScore(id)
+    avg_score = score.avg_score
+    std_score = score.std_score
+
+    return jsonify({'result': 'success', 'total_score': total_score, 'avg_score': avg_score, 'std_score': std_score})
 
 @app.route('/alert')
 def get_alert():
@@ -77,7 +87,7 @@ def get_friend():
     # program = 0 00 회
     # prop_program = 0 nn%
 
-    return jsonify({'num_msg1': friend_result.num_msg1, 'num_msg2': friend_result.num_msg2, 'num_msg3': friend_result.num_msg3, 'num_msg1_resp': friend_result.num_msg1_resp, 'num_msg2_resp': friend_result.num_msg2_resp, 'num_msg3_resp': friend_result.num_msg3_resp,  'result': 'success', 'score_sleep': friend_result.score_friendship, 'fb_freq_resp': friend_result.fb_freq_resp, 'fb_len_resp': friend_result.fb_len_resp, 'fb_program':friend_result.fb_program, 'fb_keyword':friend_result.fb_keyword, 'freq_resp1':friend_result.freq_resp1, 'freq_resp2':friend_result.freq_resp2, 'freq_resp3':friend_result.freq_resp3, 'len_resp':friend_result.len_resp, 'program':friend_result.program, 'prop_program':friend_result.prop_program,})
+    return jsonify({'num_msg1': friend_result.num_msg1, 'num_msg2': friend_result.num_msg2, 'num_msg3': friend_result.num_msg3, 'num_msg1_resp': friend_result.num_msg1_resp, 'num_msg2_resp': friend_result.num_msg2_resp, 'num_msg3_resp': friend_result.num_msg3_resp,  'result': 'success', 'score_friendship': friend_result.score_friendship, 'fb_freq_resp': friend_result.fb_freq_resp, 'fb_len_resp': friend_result.fb_len_resp, 'fb_program':friend_result.fb_program, 'fb_keyword':friend_result.fb_keyword, 'freq_resp1':friend_result.freq_resp1, 'freq_resp2':friend_result.freq_resp2, 'freq_resp3':friend_result.freq_resp3, 'len_resp':friend_result.len_resp, 'program':friend_result.program, 'prop_program':friend_result.prop_program,})
 
 @app.route('/sleep')
 def sleep():
@@ -161,7 +171,7 @@ def get_categories():
     meal_result = total.Meal(id)
     sleep_result = total.Sleep(id)
     med_grade = medScore.get_med_grade(id)
-    wash_grade=cleanScore.get_grade(id)
+    wash_grade = cleanScore.get_grade(id)
     activity_grade = outsideScore.outsideScore(id)
     return jsonify({'result':'success', 'meal':meal_result.score_meal, 'sleep':sleep_result.score_sleep,'med': med_grade, 'wash':wash_grade, 'activity':activity_grade})
 
