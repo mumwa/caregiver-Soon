@@ -22,7 +22,7 @@ from util import socialScore
 from util import emergency
 
 from util import total
-#from util import score
+from util import score
 
 
 app = Flask(__name__)
@@ -53,14 +53,14 @@ def default():
 def home():
     return render_template('main.html')
 
-#@app.route('/total_score', methods=['GET'])
-#def total_score():
-#    id = int(request.args["id"])
-#    total_score = score.returnScore(id)
-#    avg_score = score.avg_score
-#    std_score = score.std_score
+@app.route('/total_score', methods=['GET'])
+def total_score():
+    id = int(request.args["id"])
+    total_score = score.returnScore(id)
+    avg_score = score.avg_score
+    std_score = score.std_score
 
-#    return jsonify({'result': 'success', 'total_score': total_score, 'avg_score': avg_score, 'std_score': std_score})
+    return jsonify({'result': 'success', 'total_score': total_score, 'avg_score': avg_score, 'std_score': std_score})
 
 @app.route('/alert')
 def get_alert():

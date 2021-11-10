@@ -1,6 +1,6 @@
-#from util import med
-##from util import medAverage
-#from util import medScore
+from util import med
+from util import medAverage
+from util import medScore
 
 from util import read_file as rf
 
