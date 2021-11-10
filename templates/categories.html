@@ -16,9 +16,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
         integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
         crossorigin="anonymous"></script>
-
     <title>Categories</title>
-    
     <script>
         function getParameterByName(name) {
             name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]"); var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"), results = regex.exec(location.search); return results == null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
@@ -72,7 +70,6 @@
         }
         window.onload=search(id);
     </script>
- 
     <style>
         .title {
             color: #4f2f00;
@@ -136,7 +133,7 @@
             <img width="40"></img>
         </div>
     </div>
-    <div class="container_wrapper">
+    <div class="container_wrapper" style="background-color: #ffffff;">
         <div class="container">
             <div class="category margin" style="display: flex; align-items: start; justify-content: center;" onclick="goSleep()" id="grade1">
                 <div class="bold title">취침시간</div>
@@ -147,7 +144,6 @@
                 <div class="bold title">식사시간</div>
                 <div class="bold score" id="mealGrade"></div>
             </div>
-
             <div class="category margin" style="display: flex; align-items: start; justify-content: center;" onclick="goMedicine()" id="grade3">
                 <div class="bold title">투약시간</div>
                 <div class="bold score" id="medGrade"></div>
@@ -180,10 +176,6 @@
                         const med= response['med'];
                         const wash = response['wash'];
                         const activity = response['activity'];
-                        
-                        $('#medGrade').append(`${med}`);
-                        $('#washGrade').append(`${wash}`);
-                        $('#actGrade').append(`${activity}`);
 
                         var sleep_grade = "";
                         if(sleep <= 1){
@@ -217,7 +209,6 @@
                         }
                         $('#mealGrade').append(`${meal_grade}`);
 
-
                         const grade3 = document.getElementById("grade3");
 
                         if (med == 'A') {
@@ -227,7 +218,7 @@
                         } else if (med == 'C') {
                             grade3.style.backgroundColor = "#FF4D4D";
                         } else {
-                            grade3.style.backgroundColor = "#FF4D4D";
+                            grade3.style.display = "none";
                         }
 
                         const grade4 = document.getElementById("grade4");
@@ -251,9 +242,9 @@
                         } else {
                             grade5.style.backgroundColor = "#ffffff";
                         }
-
-
-
+                        $('#washGrade').append(`${wash}`);
+                        $('#actGrade').append(`${activity}`);
+                        $('#medGrade').append(`${med}`);
                     } else {
                         alert('정보를 불러오지 못했습니다');
                     }

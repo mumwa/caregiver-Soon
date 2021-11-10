@@ -1,9 +1,3 @@
-from util import outside
-from util import outsideScore
-from util import social
-from util import socialAverage
-from util import socialScore
-
 from util import read_file as rf
 
 import numpy as np

@@ -1,23 +1,10 @@
 from flask import Flask, render_template, jsonify, request
-# from bson.objectid import ObjectId
-# 웹으로 작동하기 위한 라이브러리
 
 from util import search as find
 
 from util import med_total
 from util import clean_total
 from util import act_total
-
-from util import med
-from util import medAverage
-from util import medScore
-
-from util import outside
-from util import outsideScore
-
-from util import social
-from util import socialAverage
-from util import socialScore
 
 from util import emergency
 
@@ -30,6 +17,7 @@ app = Flask(__name__)
 med_result = med_total.Medicine()
 clean_result = clean_total.Clean()
 act_result = act_total.Activity()
+score_result = score.Score()
 
 @app.route('/')
 def search():
@@ -56,9 +44,9 @@ def home():
 @app.route('/total_score', methods=['GET'])
 def total_score():
     id = int(request.args["id"])
-    total_score = score.returnScore(id)
-    avg_score = score.avg_score
-    std_score = score.std_score
+    total_score = score_result.returnScore(id)
+    avg_score = score_result.avg_score
+    std_score = score_result.std_score
 
     return jsonify({'result': 'success', 'total_score': total_score, 'avg_score': avg_score, 'std_score': std_score})
 
@@ -149,9 +137,9 @@ def get_categories():
     id=int(request.args["id"])
     meal_result = total.Meal(id)
     sleep_result = total.Sleep(id)
-    med_grade = med_total.get_med_grade(id)
-    wash_grade = clean_total.get_grade(id)
-    activity_grade = act_total.outsideScore(id)
+    med_grade = med_result.get_med_grade(id)
+    wash_grade = clean_result.get_grade(id)
+    activity_grade = act_result.outsideScore(id)
     return jsonify({'result':'success', 'meal':meal_result.score_meal, 'sleep':sleep_result.score_sleep,'med': med_grade, 'wash':wash_grade, 'activity':activity_grade})
 
 

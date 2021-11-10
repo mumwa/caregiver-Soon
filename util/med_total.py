@@ -1,9 +1,4 @@
-from util import med
-from util import medAverage
-from util import medScore
-
 from util import read_file as rf
-
 import numpy as np
 import pandas as pd
 

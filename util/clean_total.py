@@ -1,6 +1,4 @@
-#from util import cleanAverage
 from util import read_file as rf
-#import read_file as rf
 import numpy as np
 import pandas as pd
 
