@@ -22,6 +22,7 @@ from util import socialScore
 from util import emergency
 
 from util import total
+from util import score
 
 
 app = Flask(__name__)
@@ -47,6 +48,15 @@ def default():
 @app.route('/home')
 def home():
     return render_template('main.html')
+
+@app.route('/total_score')
+def total_score():
+    id = int(request.args["id"])
+    total_score = score.returnScore(id)
+    avg_score = score.avg_score
+    std_score = score.std_score
+
+    return jsonify({'result': 'success', 'total_score': total_score, 'avg_score': avg_score, 'std_score': std_score})
 
 @app.route('/alert')
 def get_alert():
@@ -118,8 +128,7 @@ def get_wash():
 
     grade=cleanScore.get_grade(id)
 
-    get_clean_score=cleanScore.get_clean_grade(id)
-    get_wash_score=cleanScore.get_wash_grade(id)
+    get_clean_score=cleanScore.get_clee(id)
     get_fresh_score=cleanScore.get_fresh_grade(id)
     return jsonify({'result': 'success', 'clean': round(clean.clean(id),2), 'wash':round(clean.wash(id),2), 'fresh':round(clean.fresh(id),2), 'cleanAverage':get_clean_average, 'washAverage':get_wash_average, 'freshAverage':get_fresh_average, 'grade':grade, 'cleanGrade':get_clean_score, 'washGrade':get_wash_score,'freshGrade':get_fresh_score})
 
@@ -147,7 +156,7 @@ def get_categories():
     meal_result = total.Meal(id)
     sleep_result = total.Sleep(id)
     med_grade = medScore.get_med_grade(id)
-    wash_grade=cleanScore.get_grade(id)
+    wash_grade = cleanScore.get_grade(id)
     activity_grade = outsideScore.outsideScore(id)
     return jsonify({'result':'success', 'meal':meal_result.score_meal, 'sleep':sleep_result.score_sleep,'med': med_grade, 'wash':wash_grade, 'activity':activity_grade})
 

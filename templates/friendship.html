@@ -157,7 +157,7 @@
                 success: function (response) {
                     if (response['result'] === 'success') {
                         console.log(response);
-                        const score = parseInt(response['score_sleep']/12*100);
+                        const score = parseInt(response['score_friendship']/12*100);
                         const len = parseInt(response['fb_len_resp']/30*100);
                         const freq = parseInt(response['fb_freq_resp']/30*100);
                         const program = parseInt(response['fb_program']/8*100);
