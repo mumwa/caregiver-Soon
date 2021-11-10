@@ -204,11 +204,11 @@
 
                         $('#round_graph').append(`<div style="width: 170px; height: 170px; border-radius: 50%; background: conic-gradient(#FFBC10 0% ${percent_program}%, #4FE49D ${percent_program}% 100%);"></div>`);
 
-                        if (freq >= 11) {
+                        if (freq >= 11/30*100) {
                             $('#score1').append(`A`);
                             score1.style.color = "#40D0E3";
 
-                        } else if (11 > freq >= 6) {
+                        } else if (11/30*100 > freq >= 6/30*100) {
                             $('#score1').append(`B`);
                             score1.style.color = "#FFBC10";
                         } else {
@@ -216,10 +216,10 @@
                             score1.style.color = "#FF4D4D";
                         }
 
-                        if (len >= 11) {
+                        if (len >= 11/30*100) {
                             $('#score2').append(`A`);
                             score2.style.color = "#40D0E3";
-                        } else if (11 > len >= 6) {
+                        } else if (11/30*100 > len >= 6/30*100) {
                             $('#score2').append(`B`);
                             score2.style.color = "#FFBC10";
                         } else {
@@ -227,10 +227,10 @@
                             score2.style.color = "#FF4D4D";
                         }
 
-                        if (program >= 6) {
+                        if (program >= 6/8*100) {
                             $('#score3').append(`A`);
                             score3.style.color = "#40D0E3";
-                        } else if (6 > program >= 3) {
+                        } else if (6/8*100 > program >= 3/8*100) {
                             $('#score3').append(`B`);
                             score3.style.color = "#FFBC10";
                         } else {
@@ -238,9 +238,9 @@
                             score3.style.color = "#FF4D4D";
                         }
 
-                        if (score >= 7) {
+                        if (score >= 7/12*100) {
                             $('#grade_div').append(`<img src="../static/A.png" alt="순이얼굴" style="width:180px;">`);
-                        } else if (7 > score >= 3) {
+                        } else if (7/12*100 > score >= 3/12*100) {
                             $('#grade_div').append(`<img src="../static/B.png" alt="순이얼굴" style="width:180px;">`);
                         } else {
                             $('#grade_div').append(`<img src="../static/C.png" alt="순이얼굴" style="width:180px;">`);

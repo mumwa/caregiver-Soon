@@ -76,7 +76,7 @@ def friendship_page():
 def get_friend():
     id=int(request.args["id"])
     friend_result = total.Friendship(id)
-    return jsonify({'result': 'success', 'score_sleep': friend_result.score_friendship, 'fb_freq_resp': friend_result.fb_freq_resp, 'fb_len_resp': friend_result.fb_len_resp, 'fb_program':friend_result.fb_program, 'fb_keyword':friend_result.fb_keyword, 'freq_resp1':friend_result.freq_resp1, 'freq_resp2':friend_result.freq_resp2, 'freq_resp3':friend_result.freq_resp3, 'len_resp':friend_result.len_resp, 'program':friend_result.program, 'prop_program':friend_result.prop_program,})
+    return jsonify({'result': 'success', 'score_friendship': friend_result.score_friendship, 'fb_freq_resp': friend_result.fb_freq_resp, 'fb_len_resp': friend_result.fb_len_resp, 'fb_program':friend_result.fb_program, 'fb_keyword':friend_result.fb_keyword, 'freq_resp1':friend_result.freq_resp1, 'freq_resp2':friend_result.freq_resp2, 'freq_resp3':friend_result.freq_resp3, 'len_resp':friend_result.len_resp, 'program':friend_result.program, 'prop_program':friend_result.prop_program,})
 
 @app.route('/sleep')
 def sleep():

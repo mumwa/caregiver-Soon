@@ -15,9 +15,13 @@ for ID in total.IDs:
     sleep_score = total.Sleep(ID).score_sleep
     meal_score = total.Meal(ID).score_meal
     friendship_score = total.Friendship(ID).score_friendship
-    wash_grade = cleanScore.get_grade(ID)
-    medicine_grade = medScore.get_med_grade(ID)
-    activity_grade = outsideScore.outsideScore(ID)
+    # wash_grade = cleanScore.get_grade(ID)
+    # medicine_grade = medScore.get_med_grade(ID)
+    # activity_grade = outsideScore.outsideScore(ID)
+
+    wash_grade = "A"
+    medicine_grade = "A"
+    activity_grade = "A"
 
     if medicine_grade == "X":
         if sleep_score <= 1:
@@ -122,8 +126,5 @@ for ID in total.IDs:
 avg_score = np.mean(list_score)
 std_score = np.std(list_score)
 
-print(list_score)
-print(len(list_score))
-
 def returnScore(ID):
-    return list_score[total.ID_to_index(ID)]
+    return list_score[total.ID_to_index.index(ID)]

@@ -135,7 +135,8 @@
                 onclick="goStatus()" id="div_total_score">
                 <div style="color: #4f2f00; font-size: 30px; margin: 10px 0 0 0;" id="name">
                 </div>
-                <div style="color: #ffffff; font-weight: bold; font-size: 40px; margin: 10px 0 0 0;">잘하고<br />있어요!</div>
+                <div style="color: #ffffff; font-weight: bold; font-size: 40px; margin: 10px 0 0 0; " id="comment"></div>
+                <!-- <div id="soon_face"></div> -->
                 <img src="static/soon_round.png" width="200" height="200" />
                 <div class="center_display" style="margin: 10px 0 0 0;">
                     <div style="color: #4f2f00; font-weight: bold; font-size: 60px;" id="total_score"></div>
@@ -203,11 +204,17 @@
                         $('#total_score').append(`${total_score}`);
 
                         if(tmp<0){
-                            div_total_score.style.color = "#FF4D4D";
+                            $('#comment').append(`관리에<br>힘써주세요!`);
+                            // $('#soon_face').append(`<img src="../static/C.png" style="width:200;">`);
+                            // div_total_score.style.backgroundColor = "#FF4D4D";
                         }else if(tmp >= 0 && tmp < 0.53){
-                            div_total_score.style.color = "#FFBC10";
+                            $('#comment').append(`조금만 더<br>노력해볼까요?`);
+                            // $('#soon_face').append(`<img src="../static/B.png"style="width:200;">`);
+                            // div_total_score.style.backgroundColor = "#FFBC10";
                         }else{
-                            div_total_score.style.color = "#40D0E3";
+                            $('#comment').append(`잘하고<br>있어요!`);
+                            // $('#soon_face').append(`<img src="../static/A.png" style="width:200;">`);
+                            // div_total_score.style.backgroundColor = "#40D0E3";
                         }
                     } else {
                         alert('프로필을 불러오지 못했습니다');
