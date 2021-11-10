@@ -5,10 +5,10 @@ from util import search as find
 from util import med_total
 from util import clean_total
 from util import act_total
+from util import total
 
 from util import emergency
 
-from util import total
 from util import score
 
 
