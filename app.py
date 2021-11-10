@@ -4,7 +4,9 @@ from flask import Flask, render_template, jsonify, request
 
 from util import search as find
 
+from util import med_total
 from util import clean_total
+from util import act_total
 
 from util import med
 from util import medAverage
@@ -25,7 +27,9 @@ from util import score
 
 app = Flask(__name__)
 
+med_result = med_total.Medicine()
 clean_result = clean_total.Clean()
+act_result = act_total.Activity()
 
 @app.route('/')
 def search():
@@ -107,10 +111,9 @@ def medicine():
 @app.route('/get_medicine')
 def get_medicine():
     id = int(request.args["id"])
-
-    recent_med = med.recent_med(id)
-    grade = medScore.get_med_grade(id)
-    average = medAverage.all_med(id)
+    recent_med = med_result.recent_med(id)
+    grade = med_result.get_med_grade(id)
+    average = med_result.all_med(id)
     return jsonify({'result': 'success', 'grade': grade, 'recent_med' : recent_med, 'average' : average })
 
 
@@ -130,11 +133,11 @@ def activity():
 @app.route('/get_activity', methods=['GET'])
 def get_activity():
     id=int(request.args["id"])
-    time = outside.outside_average(id)
-    grade = outsideScore.outsideScore(id)
-    mine = social.social_me(id)
-    average = socialAverage.all_social()
-    socialGrade = socialScore.social_score(id)
+    time = act_result.outside_average(id)
+    grade = act_result.outsideScore(id)
+    mine = act_result.social_me(id)
+    average = act_result.avg_social_count
+    socialGrade = act_result.social_score(id)
     return jsonify({'result':'success', 'time': time, 'grade' : grade, 'mine': mine, 'average':average, 'socialGrade':socialGrade})
 
 @app.route('/categories')
@@ -146,9 +149,9 @@ def get_categories():
     id=int(request.args["id"])
     meal_result = total.Meal(id)
     sleep_result = total.Sleep(id)
-    med_grade = medScore.get_med_grade(id)
-    wash_grade = cleanScore.get_grade(id)
-    activity_grade = outsideScore.outsideScore(id)
+    med_grade = med_total.get_med_grade(id)
+    wash_grade = clean_total.get_grade(id)
+    activity_grade = act_total.outsideScore(id)
     return jsonify({'result':'success', 'meal':meal_result.score_meal, 'sleep':sleep_result.score_sleep,'med': med_grade, 'wash':wash_grade, 'activity':activity_grade})
 
 
