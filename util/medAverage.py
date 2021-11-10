@@ -14,6 +14,6 @@ def all_med(id):
         return 0
     else:
         for i in range(len(my_list)):
-            avg_div += my_list[i]
-        avg = avg_div/len(my_list)
+            avg_div = avg_div + my_list[i]
+        avg = round(avg_div/len(my_list))
         return avg

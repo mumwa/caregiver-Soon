@@ -133,8 +133,7 @@ def get_wash():
 
     grade=cleanScore.get_grade(id)
 
-    get_clean_score=cleanScore.get_clean_grade(id)
-    get_wash_score=cleanScore.get_wash_grade(id)
+    get_clean_score=cleanScore.get_clee(id)
     get_fresh_score=cleanScore.get_fresh_grade(id)
     return jsonify({'result': 'success', 'clean': round(clean.clean(id),2), 'wash':round(clean.wash(id),2), 'fresh':round(clean.fresh(id),2), 'cleanAverage':get_clean_average, 'washAverage':get_wash_average, 'freshAverage':get_fresh_average, 'grade':grade, 'cleanGrade':get_clean_score, 'washGrade':get_wash_score,'freshGrade':get_fresh_score})
 

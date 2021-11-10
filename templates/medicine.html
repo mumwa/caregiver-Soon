@@ -175,18 +175,18 @@
                             $('#say').append("약을 규칙적으로 챙겨드시면 좋답니다. 순이와 함께 건강한 생활 시작해보시는 거 어때요?");
                         }
 
-                        $('#recent_med').append(`${recent_med}시간`);
+                        $('#recent_med').append(`${recent_med}분`);
 
                         $('#total').append(`
-                            <div style="background-color:#FFBC10; width:${25*average}px; height: 10px; margin:10px 0 0 0">
+                            <div style="background-color:#FFBC10; width:${average}px; height: 10px; margin:10px 0 0 0">
                             </div>
                             <div>
-                                평균 ${average}시간
+                                평균 ${average}분
                             </div>
-                            <div style="background-color:#40D0E3; width:${25*recent_med}px; height: 10px; margin:10px 0 0 0">
+                            <div style="background-color:#40D0E3; width:${recent_med}px; height: 10px; margin:10px 0 0 0">
                             </div>
                             <div>
-                                오늘 ${recent_med}시간
+                                오늘 ${recent_med}분
                             </div>`);
                     }
                 else {
