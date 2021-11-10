@@ -55,6 +55,26 @@
             location.href = "/";
         }
 
+        function search(id) {
+                $.ajax({
+                    type: "GET",
+                    url: "/find",
+                    data: { id: id },
+                    success: function (response) {
+                        if (response['ids'] == true) {
+                            console.log('okay');
+                        } else {
+                            alert('존재하지 않는 아이디입니다.');
+                            location.href = "/";
+                        }
+                    },
+                    error: function (request, status, error) {
+                        console.log("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
+                    }
+                })
+        }
+        window.onload=search(id);
+
         window.onload = () => $('#name').append(`${id}님`);
 
         function goFriendship() {
@@ -189,27 +209,6 @@
                         }else{
                             div_total_score.style.color = "#40D0E3";
                         }
-                    } else {
-                        alert('프로필을 불러오지 못했습니다');
-                    }
-                },
-                error: function (request, status, error) {
-                    console.log("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
-                }
-            })
-        }
-
-        function getHello() {
-            $.ajax({
-                type: "GET",
-                url: "/hello",
-                data: {},
-                success: function (response) {
-                    if (response['result'] === 'success') {
-                        console.log(response);
-                        const hello = response['hello'];
-                        alert(hello);
-                        $('#box').append(`<h6>${hello}<h6>`);
                     } else {
                         alert('프로필을 불러오지 못했습니다');
                     }

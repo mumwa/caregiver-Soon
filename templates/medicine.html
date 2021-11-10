@@ -36,6 +36,25 @@
             const link = "/categories?id=" + id;
             location.href = link;
         }
+        function search(id) {
+                $.ajax({
+                    type: "GET",
+                    url: "/find",
+                    data: { id: id },
+                    success: function (response) {
+                        if (response['ids'] == true) {
+                            console.log('okay');
+                        } else {
+                            alert('존재하지 않는 아이디입니다.');
+                            location.href = "/";
+                        }
+                    },
+                    error: function (request, status, error) {
+                        console.log("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
+                    }
+                })
+        }
+        window.onload=search(id);
     </script>
     <style>
         .title {
