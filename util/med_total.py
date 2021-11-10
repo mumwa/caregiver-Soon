@@ -1,6 +1,6 @@
-from util import med
-from util import medAverage
-from util import medScore
+#from util import med
+##from util import medAverage
+#from util import medScore
 
 from util import read_file as rf
 
@@ -14,7 +14,7 @@ class Medicine:
     data = 0
     user_data = 0
     IDs = 0
-    
+
     def med(self, id):
         data=rf.read_file(id)
 
@@ -98,7 +98,7 @@ class Medicine:
     #My All Medicine Lists
     def all_med(self, id):
         avg_div = 0
-        my_list = self.med.med(int(id))
+        my_list = self.med(int(id))
         if(len(my_list)==0):
             return 0
         else:
@@ -113,8 +113,8 @@ class Medicine:
 
     #calculate your grade
     def get_med_grade(self, id):
-        today = self.med.recent_med(int(id))
-        normal = self. medAverage.all_med(int(id))
+        today = self.recent_med(int(id))
+        normal = self.all_med(int(id))
 
         if(normal==0):
             return "X"

@@ -1,8 +1,8 @@
-from util import outside
-from util import outsideScore
-from util import social
-from util import socialAverage
-from util import socialScore
+#from util import outside
+#from util import outsideScore
+#from util import social
+#from util import socialAverage
+#from util import socialScore
 
 from util import read_file as rf
 
@@ -65,7 +65,7 @@ class Activity:
 
 
     def outsideScore(self, id):
-        average = self.outside.outside_average(id)
+        average = self.outside_average(id)
         if (average >= 7):
             return "A"
         elif(0<=average<=7):
@@ -110,7 +110,7 @@ class Activity:
         count=0
         total_average=0
         for id in IDs:
-            value=self.social.social_me(int(id))
+            value=self.social_me(int(id))
             line=[id, value]
             all_social.append(line)
             count=count+1
@@ -125,7 +125,7 @@ class Activity:
 
 
     def social_score(self, id):
-        my_score = self.social.social_me(int(id))
+        my_score = self.social_me(int(id))
         if my_score<=(self.avg_social_count*0.30):
             return "C"
         elif (self.avg_social_count*0.30)<=my_score<=(self.avg_social_count*1.30):
