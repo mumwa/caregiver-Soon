@@ -8,6 +8,13 @@ import numpy as np
 import pandas as pd
 
 class Medicine:
+    user_ID = 0
+    indx = 0
+
+    data = 0
+    user_data = 0
+    IDs = 0
+    
     def med(self, id):
         data=rf.read_file(id)
 
